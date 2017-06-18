@@ -10,19 +10,19 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
 use DB;
 use Illuminate\Support\Facades\Auth;
-use SISCOR\Organismos;
+use SISCOR\Cargos;
 
-
-class organismosController extends Controller
+class cargosController extends Controller
 {
 
-	public function index()
+    
+public function index()
     {
       $searchText = Input::get('searchText'); 
 
-      $data= Organismos::buscar($searchText);
+      $data= Cargos::buscar($searchText);
       if ($data){
-         return view("organismos.listOrganismos",["data"=>$data,'searchText'=>$searchText]);
+         return view("cargos.listCargos",["data"=>$data,'searchText'=>$searchText]);
       }else{
          return view("layouts.nodata");
       }
@@ -30,9 +30,8 @@ class organismosController extends Controller
 
     public function create()
     {
-      $hola="HOLA MUNDO";
-      return view("organismos.create", ['erik' => $hola]);
-      ///return view("organismos.create");
+     // return view("cargos.create", ['erik' => $hola]);
+     return view("cargos.create");
 
     }
 
@@ -43,7 +42,7 @@ class organismosController extends Controller
 
                     );
          
-        $guardar=Organismos::guardar($data);
+        $guardar=Cargos::guardar($data);
 
         if ($guardar) {
           return response()->json(['respuesta' => 'success','mensaje' => 'Guardado exitosamente']);
@@ -54,8 +53,8 @@ class organismosController extends Controller
 
     public function edit($id)
     {
-      $organismo=Organismos::findOrFail($id);
-      return view("organismos.update",['data'=>$organismo]);
+      $cargo=Cargos::findOrFail($id);
+      return view("cargos.update",['data'=>$cargo]);
     }
 
     public function update($id)
@@ -64,25 +63,25 @@ class organismosController extends Controller
              'descripcion'=>Input::get('descripcion')
               );
 
-       $actualizar=Organismos::actualizar($id,$data);
+       $actualizar=Cargos::actualizar($id,$data);
         if ($actualizar) {
           return response()->json(['respuesta' => 'success','mensaje' => 'Actualizado exitosamente']);
         }else{
           return response()->json(['respuesta' => 'fail','mensaje' => 'Error al actualizar verifique']);
         }
+        }
+    
 
-    }
-
-    public function organismoModal($id)
+    public function cargoModal($id)
     {
-      $organismo=Organismos::findOrFail($id);
-      return view("organismos.organismo-modal",['organismo'=>$organismo]);
+      $cargo=Cargos::findOrFail($id);
+      return view("cargos.cargos-modal",['cargo'=>$cargo]);
     }
 
 
     public function destroy($id)
     {
-       $eliminar=Organismos::eliminar($id); 
+       $eliminar=Cargos::eliminar($id); 
         if ($eliminar) {
           return response()->json(['respuesta' => 'success','mensaje' => 'Eliminado exitosamente']);
         }else{
@@ -90,4 +89,10 @@ class organismosController extends Controller
         }
 
     }
+
+
+
+
+
+    //
 }

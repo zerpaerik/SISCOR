@@ -4,10 +4,10 @@
 			<div class="card">
 				<div class="card-action">
 				<div class="col s6">
-					<b>Lista de Organismos</b>
+					<b>Lista de Cargos</b>
 				</div>			
 				<div class="input-field col s6">
-                  @include('organismos.search')
+                  @include('cargos.search')
 				</div>
 				</div>
 				<table class="table">
@@ -16,20 +16,20 @@
 						<th>Descripción</th>
 				</thead>
 				<tbody>
-					@foreach($data as $organismo)
+					@foreach($data as $cargo)
 						<tr>
-							<td>{{$organismo->id}}</td>
-							<td>{{$organismo->descripcion}}</td>
+							<td>{{$cargo->id}}</td>
+							<td>{{$cargo->descripcion}}</td>
 							<td>
 								<input type="button" 
 							           class=" waves-effect waves-light btn actualizar" 
-							           href="{{asset('organismos/edit')}}/{{$organismo->id}}" 
+							           href="{{asset('cargos/edit')}}/{{$cargo->id}}" 
 							           value="Actualizar"/>
 							</td>
 							<td>
 								<input type="button" 
 							           class="btn btn-danger eliminar" 
-							           href="{{asset('organismos/organismomodal')}}/{{$organismo->id}}" 
+							           href="{{asset('cargos/cargos-modal')}}/{{$cargo->id}}" 
 							           value="Eliminar"/>
 							</td>
 						</tr>

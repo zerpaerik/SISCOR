@@ -58,7 +58,7 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::put('/organismos/destroy/{id}','organismosController@destroy');
 });
 
-//**********************Rutas para Dependencias********************************
+//**********************Rutas para cargos********************************
 
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
     //Rutas externas módulo de usuarios regulares
@@ -70,4 +70,17 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::put('/dependencias/update/{id}','dependenciasController@update');
     Route::get('/dependencias/dependenciamodal/{id}','dependenciasController@dependenciaModal');
 	Route::put('/dependencias/destroy/{id}','dependenciasController@destroy');
+});
+
+//**********************Rutas para Cargos********************************
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	Route::get('/cargos', function () {return view('cargos.create');});
+	Route::get('/cargos/create','cargosController@create');
+	Route::post('/cargos/store','cargosController@store');
+	Route::get('/cargos/listCargos','cargosController@index');
+	Route::get('/cargos/edit/{id}','cargosController@edit');
+	Route::put('/cargos/update/{id}','cargosController@update');
+    Route::get('/cargos/cargos-modal/{id}','cargosController@cargoModal');
+	Route::put('/cargos/destroy/{id}','cargosController@destroy');
 });

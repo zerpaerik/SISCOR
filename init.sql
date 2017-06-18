@@ -58,3 +58,17 @@ WITH (
 );
 ALTER TABLE public.tblcargos
   OWNER TO postgres;
+
+  CREATE TABLE public.tblcargo
+(
+  id bigint NOT NULL DEFAULT nextval('tblcargos_id_seq'::regclass),
+  descripcion character(50),
+  estatus integer NOT NULL DEFAULT 1,
+  CONSTRAINT tblcargos_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblcargo
+  OWNER TO postgres;
+

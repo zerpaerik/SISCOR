@@ -225,7 +225,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="active-menu waves-effect waves-dark" href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a>
+                        <a class="active-menu waves-effect waves-dark" href="index.html"><i class="fa fa-dashboard"></i>Menú Principal</a>
                     </li>
                     <li>
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>Organismos<span class="fa arrow"></span></a>
@@ -239,7 +239,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-user "></i>Dependencias<span class="fa arrow"></span></a>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-home "></i>Dependencias<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a class="redireccion" href="{{asset('/dependencias/create')}}">Crear</a>
@@ -249,8 +249,16 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="tab-panel.html" class="waves-effect waves-dark"><i class="fa fa-newspaper"></i>Cargos</a>
+                     <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-tags "></i>Cargos<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="redireccion" href="{{asset('/cargos/create')}}">Crear</a>
+                            </li>
+                            <li>
+                                <a class="redireccion" href="{{asset('/cargos/listCargos')}}">Listar</a>
+                            </li>
+                        </ul>
                     </li>
                     
                     <li>

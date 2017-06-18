@@ -5,11 +5,11 @@
         			<b>¿Desea Eliminar?</b>
     			</div>
     			<div class="card-content">
-				<form role="form" action="{{asset('dependencias/destroy')}}/{{$dependencia->id}}" id="destroy">
+				<form role="form" action="{{asset('cargos/destroy')}}/{{$cargo->id}}" id="destroy">
 	  			<div class="form-group">
-    			<label for="descripcion">Nombre de la Dependencia</label>
+    			<label for="descripcion">Nombre del Cargo</label>
     			<input type="text" readonly class="form-control" 
-        	           value="{{$dependencia->descripcion}}" >
+        	           value="{{$cargo->descripcion}}" >
   				</div>
   				<button type="submit" class=" waves-effect waves-light btn">Eliminar</button>
   				<button type="buton"  class=" btn-info btn cancelar">Cancelar</button>
@@ -20,7 +20,6 @@
     </div>
     <!-- Recursos javascript-ajax --> 
     <script src="{{asset('assets/js/recursos.js')}}"></script> 
-
     <script type="text/javascript">
       
 
@@ -28,7 +27,7 @@
             	 $('#paginacion').empty();
             	 $.ajax({
                  	type: "get",
-                	url: "{{ asset('/dependencias/listDependencias') }}",
+                	url: "{{ asset('/cargos/listCargos') }}",
                  	success: function(a) {
                     	$('#paginacion').html(a);
                  	}

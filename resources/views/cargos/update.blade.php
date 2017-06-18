@@ -2,13 +2,13 @@
 	    <div class="col-md-12 col-sm-12 col-xs-12">
     		<div class="card">
     			<div class="card-action">
-        			<b>Actualizar Organismos</b>
+        			<b>Actualizar Cargos</b>
     			</div>
     			<div class="card-content">
-<form role="form" action="{{asset('organismos/update')}}/{{$data->id}}" id="update">
+<form role="form" action="{{asset('cargos/update')}}/{{$data->id}}" id="update">
 
   <div class="form-group">
-    <label for="descripcion">Nombre del Organismo</label>
+    <label for="descripcion">Nombre del Cargo</label>
     <input type="text" class="form-control" id="descripcion" name="descripcion"
            placeholder="Introduce tu nombre" required="" value="{{$data->descripcion}}" required autocomplete="off">
   </div>
@@ -32,7 +32,7 @@
                 //verifica la longitud de la descripcion
                 if (formData['descripcion'].length <= 7 || formData['descripcion'].length >=51){
                   valido   = 0;
-                  mensaje = "Verifique la longitud del nombre del organismo";
+                  mensaje = "Verifique la longitud del nombre del cargo";
                   alert(mensaje);  
                 }
 
@@ -68,7 +68,7 @@
             	 $('#paginacion').empty();
             	 $.ajax({
                  	type: "get",
-                	url: "{{ asset('/organismos/listOrganismos') }}",
+                	url: "{{ asset('/cargos/listCargos') }}",
                  	success: function(a) {
                     	$('#paginacion').html(a);
                  	}
