@@ -4,32 +4,38 @@
 			<div class="card">
 				<div class="card-action">
 				<div class="col s6">
-					<b>Lista de Cargos</b>
+					<b>Lista de Imagenes</b>
 				</div>			
 				<div class="input-field col s6">
-                  @include('cargos.search')
+                  @include('imagenes.search')
 				</div>
 				</div>
 				<table class="table">
 					<thead>
 						<th>Id</th>
 						<th>Descripción</th>
+						<th>Pie</th>
+						<th>Encabezado</th>
+
 				</thead>
 				<tbody>
-					@foreach($data as $cargo)
+					@foreach($data as $imagenes)
 						<tr>
-							<td>{{$cargo->id}}</td>
-							<td>{{$cargo->descripcion}}</td>
+							<td>{{$imagenes->id}}</td>
+							<td>{{$imagenes->descripcion}}</td>
+							<td>{{$imagenes->pie}}</td>
+							<td>{{$imagenes->encabezado}}</td>
+
 							<td>
 								<input type="button" 
 							           class=" waves-effect waves-light btn actualizar" 
-							           href="{{asset('cargos/edit')}}/{{$cargo->id}}" 
+							           href="{{asset('imagenes/edit')}}/{{$imagenes->id}}" 
 							           value="Actualizar"/>
 							</td>
 							<td>
 								<input type="button" 
 							           class="btn btn-danger eliminar" 
-							           href="{{asset('cargos/cargos-modal')}}/{{$cargo->id}}" 
+							           href="{{asset('imagenes/dependenciamodal')}}/{{$imagenes->id}}" 
 							           value="Eliminar"/>
 							</td>
 						</tr>
@@ -37,6 +43,7 @@
 
 				</tbody>
 				</table>
+
 				{{ $data->appends(array('searchText' => $searchText))->links() }}
 
 			</div>
@@ -49,4 +56,3 @@
 </div>
 
 <!-- Recursos javascript-ajax -->
-<script src="{{asset('assets/js/recursos.js')}}"></script> 

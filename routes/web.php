@@ -84,3 +84,17 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
     Route::get('/cargos/cargos-modal/{id}','cargosController@cargoModal');
 	Route::put('/cargos/destroy/{id}','cargosController@destroy');
 });
+
+
+//**********************Rutas para Pie y Encabezados********************************
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	Route::get('/imagenes', function () {return view('imagenes.create');});
+	Route::get('/imagenes/create','imagenesController@create');
+	Route::post('/imagenes/store','imagenesController@store');
+	Route::get('/imagenes/listImagenes','imagenesController@index');
+	Route::get('/imagenes/edit/{id}','imagenesController@edit');
+	Route::put('/imagenes/update/{id}','imagenesController@update');
+    Route::get('/imagenes/imagenes-modal/{id}','imagenesController@cargoModal');
+	Route::put('/imagenes/destroy/{id}','imagenesController@destroy');
+});
