@@ -42,7 +42,7 @@ class imagenesController extends Controller
                   'pie'=>Input::get('pie'),
                   'encabezado'=>Input::get('encabezado'),
                   'estatus'=>Input::get('estatus'),
-                  'fecha_creacion'=>Input::get('fecha_creacion'),
+                  //'fecha_creacion'=>Input::get('fecha_creacion'),
                   'id_org'=>Input::get('id_org')
                 );
 

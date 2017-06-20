@@ -19,8 +19,24 @@ class Dependencias extends Model
         'id',
         'descripcion',
         'id_org',
-        'estatus'
+        'estatus',
+        'id_org'
         ];
+
+    
+
+    public static function dependencias($id){
+
+         return Dependencias::where('id_org''='$id) 
+         ->get();
+
+
+
+    }
+
+
+
+
 
 
     public static function lista(){

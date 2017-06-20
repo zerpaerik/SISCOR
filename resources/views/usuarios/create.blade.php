@@ -2,40 +2,73 @@
       <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="card">
           <div class="card-action">
-              <b>Crear Pie/Encabezados</b>
+              <b>Crear Usuarios</b>
           </div>
           <div class="card-content">
           <!-- Aqui es donde va el form-->
             <form role="form" id="create" method="POST">
+                 
+                <div class="form-group">
+                  <label for="cedula">Cédula de Identidad</label>
+                  <input type="text" class="form-control" id="cedula" name="cedula"
+                    placeholder="Introduzca la Cédula de Identidad" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                  <label for="nombres">Nombres</label>
+                  <input type="text" class="form-control" id="nombres" name="nombres"
+                    placeholder="Introduzca el nombre" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                  <label for="apellidos">Apellidos</label>
+                  <input type="text" class="form-control" id="apellidos" name="apellidos"
+                    placeholder="Introduzca el apellido" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                  <label for="iniciales">Iniciales</label>
+                  <input type="text" class="form-control" id="iniciales" name="iniciales"
+                    placeholder="Introduzca las iniciales" required autocomplete="off">
+                </div>
 
                 <div class="form-group">
-                  <label for="nombre">Nombre de Organismo</label>
-                  <select name="id_org" id="id_org" class="form-control" placeholder="Introduzca organismo">
+                  <label for="id_org">Nombre de Organismo</label>
+                  <select name="id_org" id="id_org" class="form-control" placeholder="Seleccione el  organismo">
                     <option value="00">Seleccione</option>
                     @foreach ($organismo as $org)
                       <option value="{{$org->id}}">{{$org->descripcion}}</option>
                     @endforeach
                   </select>
                 </div>
+
                 <div class="form-group">
-                  <label for="nombre">Nombre</label>
-                  <input type="text" class="form-control" id="descripcion" name="descripcion"
-                    placeholder="Introduzca el nombre" required autocomplete="off">
+                  <label for="id_dep">Nombre de Dependencia</label>
+                  <select name="id_dep" id="id_dep" class="form-control" placeholder="Seleccione la Dependencia">
+                    <option value="00">Seleccione</option>
+                    @foreach ($dependencia as $dep)
+                      <option value="{{$dep->id}}">{{$dep->descripcion}}</option>
+                    @endforeach
+                  </select>
                 </div>
-                <div class="control-group">
-                                          <label class="control-label" for="píe">Adjuntar Pie</label>
-                                          <div class="controls">
-                                            <input class="input-file uniform_on" id="píe" type="file" name="pie">
-                                          </div>
-                                        </div>
 
-                <div class="control-group">
-                                          <label class="control-label" for="encabezado">Adjuntar Encabezado</label>
-                                          <div class="controls">
-                                            <input class="input-file uniform_on" id="encabezado" type="file" name="encabezado">
-                                          </div>
-                                        </div>
+                <div class="form-group">
+                  <label for="id_cargo">Nombre de Cargo</label>
+                  <select name="id_cargo" id="id_cargo" class="form-control" placeholder="Seleccione el Cargo">
+                    <option value="00">Seleccione</option>
+                    @foreach ($dependencia as $dep)
+                      <option value="{{$dep->id}}">{{$dep->descripcion}}</option>
+                    @endforeach
+                  </select>
+                </div>
 
+                <div class="form-group">
+                  <label for="perfil">Perfíl</label>
+                  <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
+                    <option value="0">Seleccione</option>
+                    <option value="1">Usuario</option>
+                    <option value="2">Admin</option>
+                    
+                  </select>
+                </div>
+ 
                 <button type="submit" class="waves-effect waves-light btn">Guardar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar"> 
             </form>
@@ -53,8 +86,6 @@
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'id_org'                  : $('select[name=id_org]').val(),
                     'descripcion'             : $('input[name=descripcion]').val(),
-                    'pie'                  : $('file[name=pie]').val(),
-                    'encabezado'             : $('file[name=encabezado]').val(),
                 };
 
                 //validaciones 
@@ -68,7 +99,7 @@
                 //si la longitud de la descripcion tiene menos de 7 o mas de 50 caracteres
                 }else if (formData['descripcion'].length <= 7 || formData['descripcion'].length >=51){
                   valido   = 0;
-                  mensaje = "Verifique la longitud del nombre de la Imagen";
+                  mensaje = "Verifique la longitud del nombre de dependencia";
                   alert(mensaje);  
                 }
                 //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
@@ -76,7 +107,7 @@
                 // procesamiento del  form
                 $.ajax({
                     type        : 'POST',                               //metodo
-                    url         : '<?= asset('imagenes/store') ?>', //controlador
+                    url         : '<?= asset('dependencias/store') ?>', //controlador
                     data        : formData,                             //array con nombres de campos
                     dataType    : 'json',                               //tipo de salida
                     encode      : true                                  //decodificacion

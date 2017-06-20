@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Cache;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use SISCOR\Organismos;
+use SISCOR\Dependencias;
 
 
 class organismosController extends Controller
@@ -28,10 +29,20 @@ class organismosController extends Controller
       }
     }
 
+
+    public function getDependencias(Request $request,$id){
+        if($request->ajax()){
+           $dependencias= Dependencias::dependencias($id);
+           return response()->json($dependencias)
+
+        } 
+
+    }
+
     public function create()
     {
-      $hola="HOLA MUNDO";
-      return view("organismos.create", ['erik' => $hola]);
+      //$hola="HOLA MUNDO";
+      return view("organismos.create");
       ///return view("organismos.create");
 
     }

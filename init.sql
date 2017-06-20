@@ -71,4 +71,40 @@ WITH (
 );
 ALTER TABLE public.tblcargo
   OWNER TO postgres;
+  CREATE TABLE public.tblusuarios
+(
+  id bigint NOT NULL DEFAULT nextval('usuarios_id_seq'::regclass),
+  cedula character varying NOT NULL,
+  nombres character varying NOT NULL,
+  apellidos character varying NOT NULL,
+  usuario character varying NOT NULL,
+  contrasena character varying NOT NULL,
+  iniciales character varying NOT NULL,
+  id_org integer,
+  id_dep integer NOT NULL,
+  id_cargo integer NOT NULL,
+  estatus integer NOT NULL DEFAULT 1,
+  fecha_creacion timestamp without time zone NOT NULL DEFAULT now(),
+  perfil integer, -- Perfiles:...
+  CONSTRAINT usuarios_pkey PRIMARY KEY (id),
+  CONSTRAINT usuarios_id_fkey FOREIGN KEY (id)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT usuarios_id_fkey1 FOREIGN KEY (id)
+      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT usuarios_id_fkey2 FOREIGN KEY (id)
+      REFERENCES public.tblcargos (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblusuarios
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tblusuarios.perfil IS 'Perfiles:
+1: Usuario Regular
+2: Usuario Admin';
+
+
 
