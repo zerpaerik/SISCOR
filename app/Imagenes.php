@@ -62,8 +62,7 @@ class Imagenes extends Model
         $imagenes->descripcion=$data['descripcion'];
         $imagenes->pie=$data['pie'];
         $imagenes->encabezado=$data['encabezado'];
-        $imagenes->estatus=$data['estatus'];
-        $imagenes->fecha_creacion=$data['fecha_creacion'];
+        $imagenes->estatus=1;
         $imagenes->id_org=$data['id_org'];
 
         $imagenes->save();

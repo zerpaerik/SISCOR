@@ -35,25 +35,27 @@ class imagenesController extends Controller
       return view("imagenes.create",['organismo'=>$organismos]);
     }
 
-    public function store (ImagenesFormRequest $request)
+    public function store ()
     {
     $data= array(
-                  'descripcion'     =>Input::get('descripcion'), 
-                  'pie'=>Input::get('pie'),
-                  'encabezado'=>Input::get('encabezado'),
-                  'estatus'=>Input::get('estatus'),
-                  'fecha_creacion'=>Input::get('fecha_creacion'),
-                  'id_org'=>Input::get('id_org')
+                  'descripcion' =>Input::get('descripcion'), 
+                  'estatus'     =>Input::get('estatus'),
+                  'id_org'      =>Input::get('id_org')
                 );
 
-        if(Input::hasFile('imagenes')){
-            $file=Input::file('imagenes');
-            $file->move(public_path().'/imagenes',$file->getClientOriginalName());
-            $imagenes->pie=$file->getClientOriginalName();
-            $imagenes->encabezado=$file->getClientOriginalName();
+        if(Input::hasFile('pie')){
+            $file=Input::file('pie');
+            $file->move(public_path().'/imagenes/pies_encabezados',$file->getClientOriginalName());
+            $file->getClientOriginalName(); 
+            $data['pie']=$file->getClientOriginalName();          
+        }
+        
+        if(Input::hasFile('encabezado')){
+            $file=Input::file('encabezado');
+            $file->move(public_path().'/imagenes/pies_encabezados',$file->getClientOriginalName());
+            $data['encabezado']=$file->getClientOriginalName();
             
         }
-         
         $guardar=Imagenes::guardar($data);
 
         if ($guardar) {

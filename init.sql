@@ -72,3 +72,27 @@ WITH (
 ALTER TABLE public.tblcargo
   OWNER TO postgres;
 
+
+-- Table: public.tblimagenes
+
+-- DROP TABLE public.tblimagenes;
+
+CREATE TABLE public.tblimagenes
+(
+  id bigserial,
+  descripcion character varying,
+  pie character varying,
+  encabezado character varying,
+  estatus integer,
+  fecha_creacion timestamp without time zone DEFAULT now(),
+  id_org integer,
+  CONSTRAINT tblimagenes_pkey PRIMARY KEY (id),
+  CONSTRAINT tblimagenes_id_fkey FOREIGN KEY (id)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblimagenes
+  OWNER TO postgres;

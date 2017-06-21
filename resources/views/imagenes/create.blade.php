@@ -6,7 +6,7 @@
           </div>
           <div class="card-content">
           <!-- Aqui es donde va el form-->
-            <form role="form" id="create" method="POST">
+            <form role="form" id="create" method="POST" files="true">
 
                 <div class="form-group">
                   <label for="nombre">Nombre de Organismo</label>
@@ -22,21 +22,31 @@
                   <input type="text" class="form-control" id="descripcion" name="descripcion"
                     placeholder="Introduzca el nombre" required autocomplete="off">
                 </div>
-                <div class="control-group">
-                                          <label class="control-label" for="píe">Adjuntar Pie</label>
-                                          <div class="controls">
-                                            <input class="input-file uniform_on" id="píe" type="file">
-                                          </div>
-                                        </div>
+                <div class="form-group">
+                  <div class="file-field input-field">
+                    <div class="btn">
+                      <span>Adjuntar Píe de página</span>
+                      <input type="file" name="pie" id="pie">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text" placeholder="Subir píe">
+                    </div>
+                  </div>
+                </div>
 
-                <div class="control-group">
-                                          <label class="control-label" for="encabezado">Adjuntar Encabezado</label>
-                                          <div class="controls">
-                                            <input class="input-file uniform_on" id="encabezado" type="file">
-                                          </div>
-                                        </div>
+                <div class="form-group">
+                  <div class="file-field input-field">
+                    <div class="btn">
+                      <span>Adjuntar Encabezado de página</span>
+                      <input type="file" name="encabezado" id="encabezado">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text" placeholder="Subir encabezado">
+                    </div>
+                  </div>
+                </div>
 
-                <button type="submit" class="waves-effect waves-light btn">Guardar</button>
+                <button type="submit"   class="waves-effect waves-light btn">Guardar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar"> 
             </form>
           <!-- Aqui es donde va el form-->
@@ -45,18 +55,16 @@
       </div>
     </div>
 
-
     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
-            $('#create').submit(function (event) {
+            $('#create').on('submit',function (event) {
                 var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'id_org'                  : $('select[name=id_org]').val(),
                     'descripcion'             : $('input[name=descripcion]').val(),
-                    'pie'                  : $('file[name=pie]').val(),
-                    'encabezado'             : $('file[name=encabezado]').val(),
+                    'pie'                     : $('#pie').prop('files')[0],
+                    'encabezado'              : $('#encabezado').prop('files')[0],
                 };
-
                 //validaciones 
                 var valido=1;
                 var mensaje="";
@@ -71,15 +79,18 @@
                   mensaje = "Verifique la longitud del nombre de la Imagen";
                   alert(mensaje);  
                 }
+                
                 //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
                 if (valido == 1) {
                 // procesamiento del  form
                 $.ajax({
-                    type        : 'POST',                               //metodo
-                    url         : '<?= asset('imagenes/store') ?>', //controlador
-                    data        : formData,                             //array con nombres de campos
-                    dataType    : 'json',                               //tipo de salida
-                    encode      : true                                  //decodificacion
+                          url:'<?= asset('imagenes/store') ?>',
+                          data: new FormData($("#create")[0]),
+                          dataType:'json',
+                          async:false,
+                          type:'post',
+                          processData: false,
+                          contentType: false,
                 }).done(function(data) {
                     //ejecuta el y despliega el mensaje json obtenido
                     //si respuesta del json es fail
