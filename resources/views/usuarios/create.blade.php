@@ -31,7 +31,7 @@
                 <div class="form-group">
                   <label for="contrasena">Contraseña</label>
                   <input type="text" class="form-control" id="contrasena" name="contrasena"
-                    placeholder="Introduzca las iniciales" required autocomplete="off">
+                    placeholder="Introduzca la contraseña" required autocomplete="off">
                 </div>
 
                 <div class="form-group">
@@ -75,7 +75,7 @@
                   </select>
                 </div>
  
-                <button type="submit" class="waves-effect waves-light btn">Guardar</button>
+                <button type="button" id="bt" class="waves-effect waves-light btn">Guardar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar"> 
             </form>
           <!-- Aqui es donde va el form-->
@@ -87,7 +87,11 @@
 
     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
-            $('#create').submit(function (event) {
+            //$('#create').submit(function (event) {
+              //$('#bt').on('click',function (event){
+                //$('#create').submit(function (event) {
+               $('#bt').on('click',function (event){
+               // $('#create').submit(function (event) {
                 var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'cedula'                    : $('input[name=cedula]').val(),
@@ -100,40 +104,56 @@
                     'id_dep'                    : $('select[name=id_dep]').val(),
                     'id_cargo'                  : $('select[name=id_org]').val(),
                     'perfil'                    : $('select[name=perfil]').val()
-
                 };
 
                 //validaciones 
                 var valido=1;
                 var mensaje="";
                 //si no se ha seleccionado un organismo select tiene valor 00
-                if(formData['id_org']=="00"){
-                  valido   = 0;
-                  mensaje = "Debe seleccionar organismo";
-                  alert(mensaje);  
-                //si la longitud de la descripcion tiene menos de 7 o mas de 50 caracteres
-                }else if (formData['descripcion'].length <= 7 || formData['descripcion'].length >=51){
-                  valido   = 0;
-                  mensaje = "Verifique la longitud del nombre de dependencia";
-                  alert(mensaje);  
+
+                if(formData['cedula']==""){
+                  valido  = 0;
+                  mensaje = "Debe introducir la cedula del usuario"
+                  alert(mensaje); 
+                } else if (formData['nombres'].length >= 3 || formData['nombres'].length <=9){
+                  valido = 0;
+                  mensaje = "Debe verificar la longitud del nombre";
+                } else if (formData['apellidos'].length >= 3 || formData['apellidos'].length <=20){
+                  valido = 0;
+                  mensaje = "Debe verificar la longitud del apellido";
+                  alert(mensaje);
+                } else if (formData['usuario'].length >=3 || formData['usuario'].length <=10){
+                  valido = 0;
+                  mensaje = "Debe verificar la longitud del usuario";
+                  alert(mensaje);
+                } else if (formData['iniciales'].lentgh >=1 || formData['iniciales'].length <=3){
+                  valido = 0;
+                  mensaje = "Debe verificar la longitud de las iniciales";
+                  alert(mensaje);
+                } else if (formData['id_org']=="00"){
+                  valido = 0;
+                  mensaje = "Debe seleccionar un organismo";
+                  alert(mensaje);
+                } else if (formData['id_dep']=="00"){
+                  valido = 0;
+                  mensaje = "Debe seleccionar una dependencia";
+                  alert(mensaje);
+                } else if (formData['id_cargo']=="00"){
+                  valido = 0;
+                  mensaje = "Debe seleccionar un cargo";
+                  alert(mensaje);
+                } else if (formData['perfil']="00"){
+                  valido = 0;
+                  mensaje = "Debe seleccionar un perfil";
+                  alert(mensaje);
                 }
-                //si no se selecciona la dependencia
-                if(formData['id_dep']=="00"){
-                  valido   = 0;
-                  mensaje = "Debe seleccionar Dependencia";
-                  alert(mensaje);  
-                //si la longitud de la descripcion tiene menos de 7 o mas de 50 caracteres
-                }else if (formData['descripcion'].length <= 7 || formData['descripcion'].length >=51){
-                  valido   = 0;
-                  mensaje = "Verifique la longitud del nombre de dependencia";
-                  alert(mensaje);  
-                }
+
                 //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
                 if (valido == 1) {
                 // procesamiento del  form
                 $.ajax({
                     type        : 'POST',                               //metodo
-                    url         : '<?= asset('dependencias/store') ?>', //controlador
+                    url         : '<?= asset('usuarios/store') ?>', //controlador
                     data        : formData,                             //array con nombres de campos
                     dataType    : 'json',                               //tipo de salida
                     encode      : true                                  //decodificacion
@@ -156,7 +176,7 @@
 
                 // previene que se ejecute submit dando enter
                 event.preventDefault();
-            });
+            });   
     </script>
 
     <script type="text/javascript">
@@ -175,12 +195,3 @@
         });
     </script>
 
-
-    <script type="text/javascript">
-          
-      function validarSiNumero(numero){
-        if (!/^([0-9])*$/.test(numero))
-          alert("El valor " + numero + " no es un número");
-      }
-    
-    </script>

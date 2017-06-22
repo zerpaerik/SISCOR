@@ -49,28 +49,21 @@ COMMENT ON COLUMN public.tbldependencia.estatus IS 'Estatus:
 
 CREATE TABLE public.tblcargos
 (
-  id bigserial NOT NULL,
-  descripcion character(50),
-  CONSTRAINT tblcargos_pkey PRIMARY KEY (idcargo)
+  id bigint NOT NULL DEFAULT nextval('tblcargos_id_seq'::regclass),
+  descripcion character(50) NOT NULL,
+  estatus integer NOT NULL DEFAULT 1, -- Estatus:...
+  CONSTRAINT tblcargos_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
 );
 ALTER TABLE public.tblcargos
   OWNER TO postgres;
+COMMENT ON COLUMN public.tblcargos.estatus IS 'Estatus:
+1: Activo
+2: Inactivo';
 
-  CREATE TABLE public.tblcargo
-(
-  id bigint NOT NULL DEFAULT nextval('tblcargos_id_seq'::regclass),
-  descripcion character(50),
-  estatus integer NOT NULL DEFAULT 1,
-  CONSTRAINT tblcargos_pkey PRIMARY KEY (id)
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.tblcargo
-  OWNER TO postgres;
+
   CREATE TABLE public.tblusuarios
 (
   id bigint NOT NULL DEFAULT nextval('usuarios_id_seq'::regclass),
