@@ -30,14 +30,6 @@ class organismosController extends Controller
     }
 
 
-    public function getDependencias(Request $request,$id){
-        if($request->ajax()){
-           $dependencias= Dependencias::dependencias($id);
-           return response()->json($dependencias)
-
-        } 
-
-    }
 
     public function create()
     {

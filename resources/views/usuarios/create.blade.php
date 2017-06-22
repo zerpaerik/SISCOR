@@ -39,14 +39,9 @@
                   </select>
                 </div>
 
+
                 <div class="form-group">
-                  <label for="id_dep">Nombre de Dependencia</label>
-                  <select name="id_dep" id="id_dep" class="form-control" placeholder="Seleccione la Dependencia">
-                    <option value="00">Seleccione</option>
-                    @foreach ($dependencia as $dep)
-                      <option value="{{$dep->id}}">{{$dep->descripcion}}</option>
-                    @endforeach
-                  </select>
+                    <div id="orgbydep"></div>
                 </div>
 
                 <div class="form-group">
@@ -131,4 +126,20 @@
                 // previene que se ejecute submit dando enter
                 event.preventDefault();
             });
+    </script>
+
+    <script type="text/javascript">
+        $('#id_org').on('change',function(){
+          var id= $('#id_org').val();
+          var link= '{{asset("usuarios/orgbydep/id")}}';
+              link= link.replace('id',id);
+          $.ajax({
+                 type: "get",
+                 url: link ,
+                 success: function(a) {
+                    $('#orgbydep').html(a);
+                 }
+          });
+
+        });
     </script>

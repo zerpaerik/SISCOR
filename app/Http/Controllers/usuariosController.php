@@ -50,4 +50,10 @@ class usuariosController extends Controller
           return response()->json(['respuesta' => 'fail','mensaje' => 'Error al guardar verifique']);
         }
     }
+
+    public function orgbydep($id)
+    {
+      $dependencia = Dependencias::orgbydep($id);
+      return view("usuarios.orgbydep",['dependencia'=>$dependencia]);
+    }
 }

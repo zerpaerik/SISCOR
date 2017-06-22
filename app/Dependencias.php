@@ -24,21 +24,6 @@ class Dependencias extends Model
         ];
 
     
-
-    public static function dependencias($id){
-
-         return Dependencias::where('id_org''='$id) 
-         ->get();
-
-
-
-    }
-
-
-
-
-
-
     public static function lista(){
         $dependencia = DB::table('tbldependencia as a')
                      ->select('a.id','a.descripcion','a.id_org','b.descripcion as organismo')
@@ -109,6 +94,20 @@ class Dependencias extends Model
          }else{
             return false;
          }        
+    }
+
+    public static function orgbydep($id){
+                $dependencia = DB::table('tbldependencia as a')
+                     ->where('a.estatus','=','1')
+                     ->where('a.id_org','=', $id)
+                     ->orderby('a.descripcion')
+                     ->get();
+         if(!is_null($dependencia)){
+            return $dependencia;
+         }else{
+            return false;
+         }
+
     }
 
 }

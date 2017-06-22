@@ -64,7 +64,6 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
     //Rutas externas módulo de usuarios regulares
 	Route::get('/dependencias', function () {return view('dependencias.create');});
 	Route::get('/dependencias/create','dependenciasController@create');
-	Route::get('/dependencias/{id}','organismosController@getDependencias');
 	Route::post('/dependencias/store','dependenciasController@store');
 	Route::get('/dependencias/listDependencias','dependenciasController@index');
 	Route::get('/dependencias/edit/{id}','dependenciasController@edit');
@@ -111,4 +110,5 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::put('/usuarios/update/{id}','usuariosController@update');
     Route::get('/usuarios/usuarios-modal/{id}','usuariosController@usuarioModal');
 	Route::put('/usuarios/destroy/{id}','usuariosController@destroy');
+	Route::get('/usuarios/orgbydep/{id}','usuariosController@orgbydep');
 });
