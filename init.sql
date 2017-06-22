@@ -2,11 +2,14 @@
 
 -- DROP TABLE public.tblorganismo;
 
+-- DROP TABLE public.tblorganismo;
+
 CREATE TABLE public.tblorganismo
 (
-  id bigserial,
+  id bigint NOT NULL DEFAULT nextval('tblorganismo_id_org_seq'::regclass),
   descripcion character(50),
   estatus integer NOT NULL DEFAULT 1, -- Estatus:...
+  siglas character varying NOT NULL,
   CONSTRAINT tblorganismo_pkey PRIMARY KEY (id)
 )
 WITH (

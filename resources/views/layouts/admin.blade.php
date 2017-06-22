@@ -48,11 +48,11 @@
         </nav>
         <!-- Dropdown Structure -->
 <ul id="dropdown1" class="dropdown-content">
-<li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
-</li>
-<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+<li><a href="#"><i class="fa fa-user fa-fw"></i>Mis Datos</a>
+</li>s
+<li><a href="#"><i class="fa fa-gear fa-fw"></i>Modificar</a>
 </li> 
-<li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+<li><a href="#"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
 </li>
 </ul>
 <ul id="dropdown2" class="dropdown-content w250">
