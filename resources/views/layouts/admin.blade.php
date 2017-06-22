@@ -49,11 +49,7 @@
         <!-- Dropdown Structure -->
 <ul id="dropdown1" class="dropdown-content">
 <li><a href="#"><i class="fa fa-user fa-fw"></i>Mis Datos</a>
-<<<<<<< HEAD
 </li>
-=======
-</li>s
->>>>>>> 3a40f6b8ae7fe75fa5715f20c05cf9a1992805e0
 <li><a href="#"><i class="fa fa-gear fa-fw"></i>Modificar</a>
 </li> 
 <li><a href="#"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
