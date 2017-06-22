@@ -51,7 +51,7 @@ class usuariosController extends Controller
                   'perfil'=>Input::get('perfil'),
                 );
          
-        $guardar=Dependencias::guardar($data);
+        $guardar=Usuarios::guardar($data);
 
         if ($guardar) {
           return response()->json(['respuesta' => 'success','mensaje' => 'Guardado exitosamente']);

@@ -29,7 +29,6 @@ class Usuarios extends Model
         'id_dep',
         'id_cargo',
         'estatus',
-        'fecha_creacion',
         'perfil'
         ];
 

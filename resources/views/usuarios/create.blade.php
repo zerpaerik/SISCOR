@@ -75,7 +75,7 @@
                   </select>
                 </div>
  
-                <button type="button" id="bt" class="waves-effect waves-light btn">Guardar</button>
+                <button type="submit" class="waves-effect waves-light btn">Guardar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar"> 
             </form>
           <!-- Aqui es donde va el form-->
@@ -90,8 +90,8 @@
             //$('#create').submit(function (event) {
               //$('#bt').on('click',function (event){
                 //$('#create').submit(function (event) {
-               $('#bt').on('click',function (event){
-               // $('#create').submit(function (event) {
+               //$('#bt').on('click',function (event){
+               $('#create').submit(function (event) {
                 var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'cedula'                    : $('input[name=cedula]').val(),
