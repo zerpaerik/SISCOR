@@ -2,11 +2,14 @@
 
 -- DROP TABLE public.tblorganismo;
 
+-- DROP TABLE public.tblorganismo;
+
 CREATE TABLE public.tblorganismo
 (
-  id bigserial,
+  id bigint NOT NULL DEFAULT nextval('tblorganismo_id_org_seq'::regclass),
   descripcion character(50),
   estatus integer NOT NULL DEFAULT 1, -- Estatus:...
+  siglas character varying NOT NULL,
   CONSTRAINT tblorganismo_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -47,6 +50,13 @@ COMMENT ON COLUMN public.tbldependencia.estatus IS 'Estatus:
 
 -- DROP TABLE public.tblcargos;
 
+<<<<<<< HEAD
+=======
+-- Table: public.tblcargos
+
+-- DROP TABLE public.tblcargos;
+
+>>>>>>> 3a40f6b8ae7fe75fa5715f20c05cf9a1992805e0
 CREATE TABLE public.tblcargos
 (
   id bigint NOT NULL DEFAULT nextval('tblcargos_id_seq'::regclass),
@@ -62,8 +72,11 @@ ALTER TABLE public.tblcargos
 COMMENT ON COLUMN public.tblcargos.estatus IS 'Estatus:
 1: Activo
 2: Inactivo';
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 3a40f6b8ae7fe75fa5715f20c05cf9a1992805e0
   CREATE TABLE public.tblusuarios
 (
   id bigint NOT NULL DEFAULT nextval('usuarios_id_seq'::regclass),
