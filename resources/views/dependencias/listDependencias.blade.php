@@ -14,6 +14,8 @@
 					<thead>
 						<th>Id</th>
 						<th>Descripción</th>
+						<th>Organismo</th>
+
 
 				</thead>
 				<tbody>
@@ -21,6 +23,7 @@
 						<tr>
 							<td>{{$dependencia->id}}</td>
 							<td>{{$dependencia->descripcion}}</td>
+							<td>{{$dependencia->id_org}}</td>
 
 							<td>
 								<input type="button" 

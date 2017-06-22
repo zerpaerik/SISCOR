@@ -24,6 +24,17 @@
                     placeholder="Introduzca el apellido" required autocomplete="off">
                 </div>
                 <div class="form-group">
+                  <label for="usuario">Usuario</label>
+                  <input type="text" class="form-control" id="usuario" name="usuario"
+                    placeholder="Introduzca las iniciales" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                  <label for="contrasena">Contraseña</label>
+                  <input type="text" class="form-control" id="contrasena" name="contrasena"
+                    placeholder="Introduzca las iniciales" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
                   <label for="iniciales">Iniciales</label>
                   <input type="text" class="form-control" id="iniciales" name="iniciales"
                     placeholder="Introduzca las iniciales" required autocomplete="off">
@@ -48,8 +59,8 @@
                   <label for="id_cargo">Nombre de Cargo</label>
                   <select name="id_cargo" id="id_cargo" class="form-control" placeholder="Seleccione el Cargo">
                     <option value="00">Seleccione</option>
-                    @foreach ($dependencia as $dep)
-                      <option value="{{$dep->id}}">{{$dep->descripcion}}</option>
+                    @foreach ($organismo as $org)
+                      <option value="{{$org->id}}">{{$org->descripcion}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -79,8 +90,17 @@
             $('#create').submit(function (event) {
                 var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
-                    'id_org'                  : $('select[name=id_org]').val(),
-                    'descripcion'             : $('input[name=descripcion]').val(),
+                    'cedula'                    : $('input[name=cedula]').val(),
+                    'nombres'                   : $('input[name=nombres]').val(),
+                    'apellidos'                 : $('input[name=apellidos]').val(),
+                    'usuario'                   : $('input[name=usuario]').val(),
+                    'contrasena'                : $('input[name=contrasena]').val(),
+                    'iniciales'                 : $('input[name=iniciales]').val(),
+                    'id_org'                    : $('select[name=id_org]').val(),
+                    'id_dep'                    : $('select[name=id_dep]').val(),
+                    'id_cargo'                  : $('select[name=id_org]').val(),
+                    'perfil'                    : $('select[name=perfil]').val()
+
                 };
 
                 //validaciones 
@@ -90,6 +110,17 @@
                 if(formData['id_org']=="00"){
                   valido   = 0;
                   mensaje = "Debe seleccionar organismo";
+                  alert(mensaje);  
+                //si la longitud de la descripcion tiene menos de 7 o mas de 50 caracteres
+                }else if (formData['descripcion'].length <= 7 || formData['descripcion'].length >=51){
+                  valido   = 0;
+                  mensaje = "Verifique la longitud del nombre de dependencia";
+                  alert(mensaje);  
+                }
+                //si no se selecciona la dependencia
+                if(formData['id_dep']=="00"){
+                  valido   = 0;
+                  mensaje = "Debe seleccionar Dependencia";
                   alert(mensaje);  
                 //si la longitud de la descripcion tiene menos de 7 o mas de 50 caracteres
                 }else if (formData['descripcion'].length <= 7 || formData['descripcion'].length >=51){
@@ -142,4 +173,14 @@
           });
 
         });
+    </script>
+
+
+    <script type="text/javascript">
+          
+      function validarSiNumero(numero){
+        if (!/^([0-9])*$/.test(numero))
+          alert("El valor " + numero + " no es un número");
+      }
+    
     </script>

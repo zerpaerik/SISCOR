@@ -14,12 +14,14 @@
 					<thead>
 						<th>Id</th>
 						<th>Descripción</th>
+						<th>Siglas</th>
 				</thead>
 				<tbody>
 					@foreach($data as $organismo)
 						<tr>
 							<td>{{$organismo->id}}</td>
 							<td>{{$organismo->descripcion}}</td>
+							<td>{{$organismo->siglas}}</td>
 							<td>
 								<input type="button" 
 							           class=" waves-effect waves-light btn actualizar" 

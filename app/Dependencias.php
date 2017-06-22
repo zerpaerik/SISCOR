@@ -20,7 +20,7 @@ class Dependencias extends Model
         'descripcion',
         'id_org',
         'estatus',
-        'id_org'
+        'siglas'
         ];
 
     
@@ -59,6 +59,7 @@ class Dependencias extends Model
         $dependencia=new Dependencias;
         $dependencia->descripcion=$data['descripcion'];
         $dependencia->id_org=$data['id_org'];
+        $dependencia->siglas=$data['siglas'];
 
         $dependencia->save();
 
@@ -73,6 +74,8 @@ class Dependencias extends Model
     public static function actualizar($id,$data){
        $dependencia=Dependencias::findOrFail($id);
        $dependencia->descripcion=$data['descripcion'];
+       $dependencia->id_org=$data['id_org'];
+       $dependencia->siglas=$data['siglas'];
 
        $dependencia->update();
 

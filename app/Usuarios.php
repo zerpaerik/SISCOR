@@ -37,7 +37,7 @@ class Usuarios extends Model
     public static function login($data){
         $usuario = DB::table('tblusuarios')
                      ->where('usuario','=',$data['usuario'])
-                     ->where('estatus','=','Activo')
+                     ->where('estatus','=','1')
                      ->first();
 
          if(!is_null($usuario)){
@@ -77,7 +77,7 @@ class Usuarios extends Model
         $usuario->iniciales=$data['iniciales'];
         $usuario->id_org=$data['id_org'];
         $usuario->id_dep=$data['id_dep'];
-        $usuario->id_cargo=$data['id_cargo'];
+        $usuario->id_cargo=$data['id_org'];
         $usuario->perfil=$data['perfil'];
         //$usuario->id_cargo=$data['id_cargo'];
         

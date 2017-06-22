@@ -32,14 +32,23 @@ class usuariosController extends Controller
     {
       $organismos= Organismos::lista();
       $dependencias= Dependencias::lista();
-      return view("usuarios.create",['organismo'=>$organismos],['dependencia'=>$dependencias]);
+      $cargos= Cargos::lista();
+      return view("usuarios.create",['organismo'=>$organismos],['dependencia'=>$dependencias],['cargo'=>$cargos]);
     }
 
     public function store ()
     {
     $data= array(
-                  'id_org'     =>Input::get('id_org'), 
-                  'descripcion'=>Input::get('descripcion'),
+                  'cedula'=>Input::get('cedula'),
+                  'nombres'=>Input::get('nombres'),
+                  'apellidos'=>Input::get('apellidos'),
+                  'usuario'=>Input::get('usuario'),
+                  'contrasena'=>Input::get('contrasena'),
+                  'iniciales'=>Input::get('iniciales'),
+                  'id_org'=>Input::get('id_org'),
+                  'id_dep'=>Input::get('id_dep'),
+                  'id_cargo'=>Input::get('id_org'),
+                  'perfil'=>Input::get('perfil'),
                 );
          
         $guardar=Dependencias::guardar($data);

@@ -43,6 +43,7 @@ class organismosController extends Controller
     {
     $data= array(
                       'descripcion'=>Input::get('descripcion'),
+                      'siglas'=>Input::get('siglas')
 
                     );
          
@@ -64,7 +65,8 @@ class organismosController extends Controller
     public function update($id)
     {
         $data= array(
-             'descripcion'=>Input::get('descripcion')
+             'descripcion'=>Input::get('descripcion'),
+             'siglas'=>Input::get('siglas')
               );
 
        $actualizar=Organismos::actualizar($id,$data);
