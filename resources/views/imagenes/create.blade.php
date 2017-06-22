@@ -92,6 +92,7 @@
                           processData: false,
                           contentType: false,
                 }).done(function(data) {
+                  
                     //ejecuta el y despliega el mensaje json obtenido
                     //si respuesta del json es fail
                     if (data.respuesta=="fail") {

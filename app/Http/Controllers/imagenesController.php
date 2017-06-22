@@ -38,9 +38,11 @@ class imagenesController extends Controller
     public function store ()
     {
     $data= array(
+
                   'descripcion' =>Input::get('descripcion'), 
                   'estatus'     =>Input::get('estatus'),
                   'id_org'      =>Input::get('id_org')
+
                 );
 
         if(Input::hasFile('pie')){

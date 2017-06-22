@@ -271,9 +271,19 @@
                             </li>
                         </ul>
                     </li>
-                    
                     <li>
-                        <a href="table.html" class="waves-effect waves-dark"><i class="fa fa-user"></i>Usuarios</a>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-user "></i>Usuarios <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="redireccion" href="{{asset('/usuarios/create')}}">Crear</a>
+                            </li>
+                            <li>
+                                <a class="redireccion" href="{{asset('/usuarios/listIUsuarios')}}">Listar</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+
                     </li>
                     <li>
                         <a href="form.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> Forms </a>
@@ -356,7 +366,7 @@
     </ul>
   </div>
         
-                <footer><p>All right reserved. Template by: <a href="https://webthemez.com/admin-template/">WebThemez.com</a></p>
+                <footer><p>Desarrollado Por: <a href="http://guarico.gob.ve/pagina_oficial//">Gobernación del Estado Bolivariano de Guárico</a></p>
                 
         
                 </footer>
