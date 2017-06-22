@@ -25,19 +25,14 @@ class Dependencias extends Model
 
     
 
-    public static function dependencias($id){
+   // public static function dependencias($id){
 
-         return Dependencias::where('id_org''='$id) 
-         ->get();
-
-
-
-    }
+     //    return Dependencias::where('id_org''='$id) 
+       //  ->get();
 
 
 
-
-
+    //}
 
     public static function lista(){
         $dependencia = DB::table('tbldependencia as a')
@@ -110,5 +105,7 @@ class Dependencias extends Model
             return false;
          }        
     }
+
+    public static function
 
 }

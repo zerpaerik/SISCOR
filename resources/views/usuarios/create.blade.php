@@ -132,3 +132,22 @@
                 event.preventDefault();
             });
     </script>
+
+
+    <script type="text/javascript">
+      $('#id_org').on('change',function(){
+       alert($('#id_org').val());
+
+
+       $.ajax({
+          type: "get",
+          url: S(this).attr("href"),
+          succes: function(a) {
+            $('#contenidoppal').html(a);
+          }
+       });
+
+      });
+
+
+    </script>

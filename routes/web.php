@@ -111,4 +111,5 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::put('/usuarios/update/{id}','usuariosController@update');
     Route::get('/usuarios/usuarios-modal/{id}','usuariosController@usuarioModal');
 	Route::put('/usuarios/destroy/{id}','usuariosController@destroy');
+	Route::get('/usuarios/orgbydep/{id}','usuariosController@orgbydep');
 });
