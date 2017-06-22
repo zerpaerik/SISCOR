@@ -57,7 +57,7 @@
                   mensaje = "Debe seleccionar organismo";
                   alert(mensaje);  
                 //si la longitud de la descripcion tiene menos de 7 o mas de 50 caracteres
-                }else if (formData['descripcion'].length <= 7 || formData['descripcion'].length >=51){
+                }else if (formData['descripcion'].length <= 7 || formData['descripcion'].length >= 51){
                   valido   = 0;
                   mensaje = "Verifique la longitud del nombre de dependencia";
                   alert(mensaje);  

@@ -68,14 +68,14 @@
                 <div class="form-group">
                   <label for="perfil">Perfíl</label>
                   <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
-                    <option value="0">Seleccione</option>
+                    <option value="00">Seleccione</option>
                     <option value="1">Usuario</option>
                     <option value="2">Admin</option>
                     
                   </select>
                 </div>
  
-                <button type="submit" class="waves-effect waves-light btn">Guardar</button>
+                <button type="button" id="bt" class="waves-effect waves-light btn">Guardar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar"> 
             </form>
           <!-- Aqui es donde va el form-->
@@ -87,10 +87,8 @@
 
     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
-            //$('#create').submit(function (event) {
-              //$('#bt').on('click',function (event){
-                //$('#create').submit(function (event) {
-               //$('#bt').on('click',function (event){
+
+              // $('#bt').on('click',function (event){
                $('#create').submit(function (event) {
                 var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
@@ -102,7 +100,7 @@
                     'iniciales'                 : $('input[name=iniciales]').val(),
                     'id_org'                    : $('select[name=id_org]').val(),
                     'id_dep'                    : $('select[name=id_dep]').val(),
-                    'id_cargo'                  : $('select[name=id_org]').val(),
+                    'id_cargo'                  : $('select[name=id_cargo]').val(),
                     'perfil'                    : $('select[name=perfil]').val()
                 };
 
@@ -110,14 +108,14 @@
                 var valido=1;
                 var mensaje="";
                 //si no se ha seleccionado un organismo select tiene valor 00
-
                 if(formData['cedula']==""){
                   valido  = 0;
-                  mensaje = "Debe introducir la cedula del usuario"
+                  mensaje = "Debe introducir la cedula del usuario";
                   alert(mensaje); 
                 } else if (formData['nombres'].length <= 3 || formData['nombres'].length >=9){
                   valido = 0;
                   mensaje = "Debe verificar la longitud del nombre";
+                  alert(mensaje);
                 } else if (formData['apellidos'].length <= 3 || formData['apellidos'].length >=20){
                   valido = 0;
                   mensaje = "Debe verificar la longitud del apellido";
@@ -142,7 +140,7 @@
                   valido = 0;
                   mensaje = "Debe seleccionar un cargo";
                   alert(mensaje);
-                } else if (formData['perfil']="00"){
+                } else if (formData['perfil'] == "00"){
                   valido = 0;
                   mensaje = "Debe seleccionar un perfil";
                   alert(mensaje);
@@ -172,7 +170,7 @@
                   
                 });
                 //muestra mensaje de error si no se valida
-                }
+                }else{alert("no valido");}
 
                 // previene que se ejecute submit dando enter
                 event.preventDefault();
