@@ -115,18 +115,18 @@
                   valido  = 0;
                   mensaje = "Debe introducir la cedula del usuario"
                   alert(mensaje); 
-                } else if (formData['nombres'].length >= 3 || formData['nombres'].length <=9){
+                } else if (formData['nombres'].length <= 3 || formData['nombres'].length >=9){
                   valido = 0;
                   mensaje = "Debe verificar la longitud del nombre";
-                } else if (formData['apellidos'].length >= 3 || formData['apellidos'].length <=20){
+                } else if (formData['apellidos'].length <= 3 || formData['apellidos'].length >=20){
                   valido = 0;
                   mensaje = "Debe verificar la longitud del apellido";
                   alert(mensaje);
-                } else if (formData['usuario'].length >=3 || formData['usuario'].length <=10){
+                } else if (formData['usuario'].length <=3 || formData['usuario'].length >=10){
                   valido = 0;
                   mensaje = "Debe verificar la longitud del usuario";
                   alert(mensaje);
-                } else if (formData['iniciales'].lentgh >=1 || formData['iniciales'].length <=3){
+                } else if (formData['iniciales'].lentgh <=1 || formData['iniciales'].length >=3){
                   valido = 0;
                   mensaje = "Debe verificar la longitud de las iniciales";
                   alert(mensaje);
