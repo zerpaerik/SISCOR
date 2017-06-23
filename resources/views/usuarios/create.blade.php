@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group">
                   <label for="contrasena">Contraseña</label>
-                  <input type="text" class="form-control" id="contrasena" name="contrasena"
+                  <input type="password" class="form-control" id="contrasena" name="contrasena"
                     placeholder="Introduzca la contraseña" required autocomplete="off">
                 </div>
 
@@ -68,7 +68,7 @@
                 <div class="form-group">
                   <label for="perfil">Perfíl</label>
                   <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
-                    <option value="0">Seleccione</option>
+                    <option value="00">Seleccione</option>
                     <option value="1">Usuario</option>
                     <option value="2">Admin</option>
                     
@@ -142,7 +142,7 @@
                   valido = 0;
                   mensaje = "Debe seleccionar un cargo";
                   alert(mensaje);
-                } else if (formData['perfil']="00"){
+                } else if (formData['perfil']=="00"){
                   valido = 0;
                   mensaje = "Debe seleccionar un perfil";
                   alert(mensaje);

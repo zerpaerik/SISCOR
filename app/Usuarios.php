@@ -42,7 +42,7 @@ class Usuarios extends Model
          if(!is_null($usuario)){
             if (Hash::check($data['contrasena'],$usuario->contrasena)) {
                Session::put('ID',$usuario->id);
-               Session::put('NOMBRE',$usuario->nombre." ".$usuario->apellido);
+               Session::put('NOMBRE',$usuario->nombres." ".$usuario->apellidos);
                Session::put('PERFIL',$usuario->perfil);
 
                return true;
@@ -93,7 +93,7 @@ class Usuarios extends Model
 
 
     public static function actualizar($id,$data){
-       $usuario=Usuarios::findOrFail($id);
+        $usuario=Usuarios::findOrFail($id);
         $usuario->cedula=$data['cedula'];
         $usuario->nombres=$data['nombres'];
         $usuario->apellidos=$data['apellidos'];
@@ -116,7 +116,7 @@ class Usuarios extends Model
     }
 
     public static function eliminar($id){
-       $usuario=Usuario::findOrFail($id);
+       $usuario=Usuarios::findOrFail($id);
        $usuario->estatus='2';
 
        $usuario->update();

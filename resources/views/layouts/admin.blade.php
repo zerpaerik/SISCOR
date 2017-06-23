@@ -278,7 +278,7 @@
                                 <a class="redireccion" href="{{asset('/usuarios/create')}}">Crear</a>
                             </li>
                             <li>
-                                <a class="redireccion" href="{{asset('/usuarios/listIUsuarios')}}">Listar</a>
+                                <a class="redireccion" href="{{asset('/usuarios/listUsuarios')}}">Listar</a>
                             </li>
                         </ul>
                     </li>

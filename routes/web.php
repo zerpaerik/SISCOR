@@ -12,8 +12,8 @@
 //*********************Rutas para administrador*********************************
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
     //Rutas externas módulo de usuarios
-	Route::get('/user', function () {return view('user.loginUser');});
-	Route::post('/login','userController@login');
+	Route::get('/user', function () {return view('usuarios.loginUsuarios');});
+	Route::post('/login','usuariosController@login');
 });
 
 Route::group(['middleware' => ['inside','HistoryBack']], function () {
@@ -105,7 +105,7 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::get('/usuarios', function () {return view('usuarios.create');});
 	Route::get('/usuarios/create','usuariosController@create');
 	Route::post('/usuarios/store','usuariosController@store');
-	Route::get('/usuarios/listImagenes','usuariosController@index');
+	Route::get('/usuarios/listUsuarios','usuariosController@index');
 	Route::get('/usuarios/edit/{id}','usuariosController@edit');
 	Route::put('/usuarios/update/{id}','usuariosController@update');
     Route::get('/usuarios/usuarios-modal/{id}','usuariosController@usuarioModal');
