@@ -120,7 +120,6 @@ class Usuarios extends Model
         $usuario->id_cargo=$data['id_cargo'];
         $usuario->perfil=$data['perfil'];
 
-
        $usuario->update();
 
          if(!is_null($usuario)){

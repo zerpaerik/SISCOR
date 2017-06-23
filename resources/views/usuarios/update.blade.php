@@ -1,37 +1,41 @@
-    <div class="row">
-      <div class="col-md-8 col-sm-12 col-xs-12">
+   <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="card">
           <div class="card-action">
-              <b>Crear Usuarios</b>
+              <b>Actualizar Usuarios</b>
           </div>
           <div class="card-content">
-          <!-- Aqui es donde va el form-->
-            <form role="form" action="{{asset('usuarios/update')}}/{{$data->id}}" id="update">
-                 
-                <div class="form-group">
+          <form role="form" action="{{asset('usuarios/update')}}/{{$data->id}}" id="update">
+              <div class="form-group">
                   <label for="cedula">Cédula de Identidad</label>
-                  <input type="text" class="form-control" id="cedula" name="cedula"
-                    placeholder="Introduzca la Cédula de Identidad" value="{{$data->cedula}}" required autocomplete="off">
+                  <input type="text" class="form-control" id="cedula" name="cedula" value="{{$data->cedula}}"
+                    placeholder="Introduzca la Cédula de Identidad" required autocomplete="off" >
                 </div>
                 <div class="form-group">
                   <label for="nombres">Nombres</label>
-                  <input type="text" class="form-control" id="nombres" name="nombres"
-                    placeholder="Introduzca el nombre" value="{{$data->nombres}}" required autocomplete="off">
+                  <input type="text" class="form-control" id="nombres" name="nombres" value="{{$data->nombres}}"
+                    placeholder="Introduzca el nombre" required autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="apellidos">Apellidos</label>
-                  <input type="text" class="form-control" id="apellidos" name="apellidos"
-                    placeholder="Introduzca el apellido" value="{{$data->apellidos}}" required autocomplete="off">
+                  <input type="text" class="form-control" id="apellidos" name="apellidos" value="{{$data->apellidos}}"
+                    placeholder="Introduzca el apellido" required autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="usuario">Usuario</label>
-                  <input type="text" class="form-control" id="usuario" name="usuario"
-                    placeholder="Introduzca las iniciales" value="{{$data->usuario}}" required autocomplete="off">
+                  <input type="text" class="form-control" id="usuario" name="usuario" value="{{$data->usuario}}"
+                    placeholder="Introduzca las iniciales" required autocomplete="off">
                 </div>
                 <div class="form-group">
+                  <label for="contrasena">Contraseña</label>
+                  <input type="password" class="form-control" id="contrasena" name="contrasena" value="{{$data->contrasena}}"
+                    placeholder="Introduzca la contraseña" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
                   <label for="iniciales">Iniciales</label>
-                  <input type="text" class="form-control" id="iniciales" name="iniciales"
-                    placeholder="Introduzca las iniciales" value="{{$data->iniciales}}" required autocomplete="off">
+                  <input type="text" class="form-control" id="iniciales" name="iniciales" value="{{$data->inciales}}"
+                    placeholder="Introduzca las iniciales" required autocomplete="off">
                 </div>
 
                 <div class="form-group">
@@ -68,25 +72,18 @@
                     
                   </select>
                 </div>
- 
-                <button type="submit" class="waves-effect waves-light btn">Guardar</button>
-                <input type="reset" class="btn btn-info" value="Limpiar"> 
-            </form>
-          <!-- Aqui es donde va el form-->
+              <button type="submit" class=" waves-effect waves-light btn">Actualizar</button>
+              <input type="reset" class="btn btn-info" value="Limpiar"> 
+          </form>
         </div>        
         </div>          
       </div>
     </div>
 
-
     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
-            //$('#create').submit(function (event) {
-              //$('#bt').on('click',function (event){
-                //$('#create').submit(function (event) {
-               //$('#bt').on('click',function (event){
-               $('#create').submit(function (event) {
-                var formData = {
+            $('#update').submit(function (event) {
+              var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'cedula'                    : $('input[name=cedula]').val(),
                     'nombres'                   : $('input[name=nombres]').val(),
@@ -99,8 +96,7 @@
                     'id_cargo'                  : $('select[name=id_org]').val(),
                     'perfil'                    : $('select[name=perfil]').val()
                 };
-
-                //validaciones 
+                    //validaciones 
                 var valido=1;
                 var mensaje="";
                 //si no se ha seleccionado un organismo select tiene valor 00
@@ -142,8 +138,7 @@
                   alert(mensaje);
                 }
 
-                //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
-              if (valido == 1) {
+                if (valido == 1) {
                 // process the form
                 $.ajax({
                     type        : 'PUT',                              //metodo
@@ -167,13 +162,11 @@
                 });
 
                 }
-
                 // previene que se ejecute submit dando enter
                 event.preventDefault();
-            });  
+            });
 
-
-          function recargar(){
+            function recargar(){
                $('#paginacion').empty();
                $.ajax({
                   type: "get",
@@ -182,7 +175,5 @@
                       $('#paginacion').html(a);
                   }
                  });
-            } 
+            }
     </script>
-
-  
