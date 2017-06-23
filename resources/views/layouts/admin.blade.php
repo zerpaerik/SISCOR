@@ -287,7 +287,7 @@
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-envelope"></i> Correspondencia<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Redactar Nueva</a>
+                                <a href="#">Redactar Nuevas</a>
                             </li>
                             
                             <li>
