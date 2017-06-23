@@ -70,7 +70,7 @@ class usuariosController extends Controller
 
      public function edit($id)
     {
-      $dependencia=Dependencias::findOrFail($id);
+      $dependencia=Dependencias::lista();
       $organismos= Organismos::lista();
       return view("usuarios.update",['data'=>$dependencia,'organismos'=>$organismos]);
     }
@@ -101,8 +101,8 @@ class usuariosController extends Controller
 
     public function usuarioModal($id)
     {
-      $dependencia=Usuarios::findOrFail($id);
-      return view("usuarios.usuarios-modal",['usuarios'=>$usuarios]);
+      $usuario=Usuarios::findOrFail($id);
+      return view("usuarios.usuarios-modal",['usuario'=>$usuario]);
     }
 
 

@@ -4,7 +4,7 @@
 			<div class="card">
 				<div class="card-action">
 				<div class="col s6">
-					<b>Lista de Dependencias</b>
+					<b>Lista de Usuarios</b>
 				</div>			
 				<div class="input-field col s6">
                   @include('usuarios.search')

@@ -66,6 +66,21 @@ class Usuarios extends Model
          }        
     }
 
+     public static function buscar($query){
+   
+        $usuario = DB::table('tblusuarios')
+                     ->where('estatus','=','1')
+                     ->where('nombres','ilike', "%$query%")
+                     ->orderby('cedula')
+                     ->paginate(5);
+
+         if(!is_null($usuario)){
+            return $usuario;
+         }else{
+            return false;
+         }        
+    }
+
     public static function guardar($data){
         $usuario=new Usuarios;
         $usuario->cedula=$data['cedula'];
