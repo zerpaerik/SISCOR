@@ -64,10 +64,10 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="perfil">Perfíl</label>
+                  <label for="perfil">Tipo de Usuario</label>
                   <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl" value="{{$data->perfil}}">
                     <option value="00">Seleccione</option>
-                    <option value="1">Usuario</option>
+                    <option value="1">Regular</option>
                     <option value="2">Admin</option>
                     
                   </select>
@@ -108,6 +108,7 @@
                 } else if (formData['nombres'].length <= 3 || formData['nombres'].length >=9){
                   valido = 0;
                   mensaje = "Debe verificar la longitud del nombre";
+                  alert(mensaje);
                 } else if (formData['apellidos'].length <= 3 || formData['apellidos'].length >=20){
                   valido = 0;
                   mensaje = "Debe verificar la longitud del apellido";

@@ -77,7 +77,11 @@ COMMENT ON COLUMN public.tblcargos.estatus IS 'Estatus:
 
 =======
 >>>>>>> 3a40f6b8ae7fe75fa5715f20c05cf9a1992805e0
-  CREATE TABLE public.tblusuarios
+  -- Table: public.tblusuarios
+
+-- DROP TABLE public.tblusuarios;
+
+CREATE TABLE public.tblusuarios
 (
   id bigint NOT NULL DEFAULT nextval('usuarios_id_seq'::regclass),
   cedula character varying NOT NULL,
@@ -88,19 +92,16 @@ COMMENT ON COLUMN public.tblcargos.estatus IS 'Estatus:
   iniciales character varying NOT NULL,
   id_org integer,
   id_dep integer NOT NULL,
-  id_cargo integer NOT NULL,
-  estatus integer NOT NULL DEFAULT 1,
-  fecha_creacion timestamp without time zone NOT NULL DEFAULT now(),
-  perfil integer, -- Perfiles:...
+  estatus integer NOT NULL DEFAULT 1, -- Estatus:...
+  cargo character varying NOT NULL, -- - Descripcion de Cargo
+  perfil integer NOT NULL, -- Perfiles:...
+  tipo_usuario integer NOT NULL, -- Tipos de Usuario:...
   CONSTRAINT usuarios_pkey PRIMARY KEY (id),
-  CONSTRAINT usuarios_id_fkey FOREIGN KEY (id)
-      REFERENCES public.tblorganismo (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT usuarios_id_fkey1 FOREIGN KEY (id)
+  CONSTRAINT tblusuarios_id_dep_fkey FOREIGN KEY (id_dep)
       REFERENCES public.tbldependencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT usuarios_id_fkey2 FOREIGN KEY (id)
-      REFERENCES public.tblcargos (id) MATCH SIMPLE
+  CONSTRAINT tblusuarios_id_org_fkey FOREIGN KEY (id_org)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
@@ -108,10 +109,18 @@ WITH (
 );
 ALTER TABLE public.tblusuarios
   OWNER TO postgres;
+COMMENT ON COLUMN public.tblusuarios.estatus IS 'Estatus:
+1: Activo
+2: Inactivo';
+COMMENT ON COLUMN public.tblusuarios.cargo IS '- Descripcion de Cargo';
 COMMENT ON COLUMN public.tblusuarios.perfil IS 'Perfiles:
-1: Usuario Regular
-2: Usuario Admin';
-
+10: Director General / Presidente
+20: Asistente DR/PR
+30: Director / Jefe de División
+40: Analistas';
+COMMENT ON COLUMN public.tblusuarios.tipo_usuario IS 'Tipos de Usuario:
+1: Regular
+2: Admin';
 
 
 

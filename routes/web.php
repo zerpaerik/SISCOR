@@ -100,11 +100,29 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 });
 
 //**********************Rutas para Usuarios********************************
+
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
     //Rutas externas módulo de usuarios regulares
 	Route::get('/usuarios', function () {return view('usuarios.create');});
+	Route::get('/logout','usuariosController@logout');
 	Route::get('/usuarios/create','usuariosController@create');
 	Route::post('/usuarios/store','usuariosController@store');
+	Route::get('/usuarios/listUsuarios','usuariosController@index');
+	Route::get('/usuarios/edit/{id}','usuariosController@edit');
+	Route::put('/usuarios/update/{id}','usuariosController@update');
+    Route::get('/usuarios/usuarios-modal/{id}','usuariosController@usuarioModal');
+	Route::put('/usuarios/destroy/{id}','usuariosController@destroy');
+	Route::get('/usuarios/orgbydep/{id}','usuariosController@orgbydep');
+	Route::get('/usuarios/updatepasswd/{id}','usuariosController@updatepasswd');
+});
+
+//**********************Rutas para Correspondencia********************************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	Route::get('/correspondencia', function () {return view('correspondencia.create');});
+	Route::get('/correspondencia/create','correspondenciaController@create');
+	Route::post('/correspondencia/store','correspondenciaController@store');
 	Route::get('/usuarios/listUsuarios','usuariosController@index');
 	Route::get('/usuarios/edit/{id}','usuariosController@edit');
 	Route::put('/usuarios/update/{id}','usuariosController@update');

@@ -48,8 +48,10 @@ class usuariosController extends Controller
                   'iniciales'=>Input::get('iniciales'),
                   'id_org'=>Input::get('id_org'),
                   'id_dep'=>Input::get('id_dep'),
-                  'id_cargo'=>Input::get('id_org'),
+                  'cargo'=>Input::get('cargo'),
                   'perfil'=>Input::get('perfil'),
+                  'tipo_usuario'=>Input::get('tipo_usuario'),
+                  'estatus'=>Input::get('estatus')
                 );
          
         $guardar=Usuarios::guardar($data);
@@ -86,8 +88,10 @@ class usuariosController extends Controller
                   'iniciales'=>Input::get('iniciales'),
                   'id_org'=>Input::get('id_org'),
                   'id_dep'=>Input::get('id_dep'),
-                  'id_cargo'=>Input::get('id_org'),
+                  'cargo'=>Input::get('cargo'),
                   'perfil'=>Input::get('perfil'),
+                  'tipo_usuario'=>Input::get('tipo_usuario'),
+                  'estatus'=>Input::get('estatus')
               );
 
        $actualizar=Usuarios::actualizar($id,$data);
@@ -98,6 +102,22 @@ class usuariosController extends Controller
         }
 
     }
+
+    public function updatepasswd($id)
+    {
+        $data= array(
+                  'contrasena'=>Input::get('contrasena') 
+              );
+
+       $actualizar=Usuarios::actualizar($id,$data);
+        if ($actualizar) {
+          return response()->json(['respuesta' => 'success','mensaje' => 'Actualizado exitosamente']);
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al actualizar verifique']);
+        }
+
+    }
+
 
     public function usuarioModal($id)
     {

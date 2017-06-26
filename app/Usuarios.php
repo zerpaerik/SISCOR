@@ -27,9 +27,10 @@ class Usuarios extends Model
         'iniciales' ,
         'id_org',
         'id_dep',
-        'id_cargo',
-        'estatus',
-        'perfil'
+        'cargo',
+        'perfil',
+        'tipo_usuario',
+        'estatus'
         ];
 
 
@@ -40,17 +41,14 @@ class Usuarios extends Model
                      ->first();
 
          if(!is_null($usuario)){
-            if (Hash::check($data['contrasena'],$usuario->contrasena)) {
-               Session::put('ID',$usuario->id);
-               Session::put('NOMBRE',$usuario->nombres." ".$usuario->apellidos);
-               Session::put('PERFIL',$usuario->perfil);
+           // if (Hash::check($data['contrasena'],$usuario->contrasena)) {
+               Session::put('id',$usuario->id);
+               Session::put('nombre',$usuario->nombres." ".$usuario->apellidos);
 
                return true;
             }else{
                return false;
-            }
-         }else{
-            return false;
+
          }        
     }
 
@@ -91,8 +89,9 @@ class Usuarios extends Model
         $usuario->iniciales=$data['iniciales'];
         $usuario->id_org=$data['id_org'];
         $usuario->id_dep=$data['id_dep'];
-        $usuario->id_cargo=$data['id_org'];
+        $usuario->cargo=$data['cargo'];
         $usuario->perfil=$data['perfil'];
+        $usuario->tipo_usuario=$data['tipo_usuario'];
         //$usuario->id_cargo=$data['id_cargo'];
         
 
@@ -117,10 +116,24 @@ class Usuarios extends Model
         $usuario->iniciales=$data['iniciales'];
         $usuario->id_org=$data['id_org'];
         $usuario->id_dep=$data['id_dep'];
-        $usuario->id_cargo=$data['id_cargo'];
+        $usuario->cargo=$data['cargo'];
         $usuario->perfil=$data['perfil'];
+        $usuario->tipo_usuario=$data['tipo_usuario'];
 
        $usuario->update();
+
+         if(!is_null($usuario)){
+            return true;
+         }else{
+            return false;
+         }        
+    }
+
+     public static function updatepasswd($id,$data){
+        $usuario=Usuarios::findOrFail($id);
+        $usuario->contrasena=$data['contrasena'];
+       
+        $usuario->update();
 
          if(!is_null($usuario)){
             return true;

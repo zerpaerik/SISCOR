@@ -56,20 +56,28 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="id_cargo">Nombre de Cargo</label>
-                  <select name="id_cargo" id="id_cargo" class="form-control" placeholder="Seleccione el Cargo">
+                  <label for="cargo">Descripción de Cargo</label>
+                  <input type="text" class="form-control" id="cargo" name="cargo"
+                    placeholder="Introduzca la descripcion del cargo" required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                  <label for="perfil">Perfil</label>
+                  <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
                     <option value="00">Seleccione</option>
-                    @foreach ($organismo as $org)
-                      <option value="{{$org->id}}">{{$org->descripcion}}</option>
-                    @endforeach
+                    <option value="10">Director General</option>
+                    <option value="20">Asistente Director</option>
+                    <option value="30">Director-Coord</option>
+                    <option value="40">Analistas</option>
+                   
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <label for="perfil">Perfíl</label>
-                  <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
+                  <label for="tipo_usuario">Tipo de Usuario</label>
+                  <select name="tipo_usuario" id="tipo_usuario" class="form-control" placeholder="Seleccione el Perfíl">
                     <option value="00">Seleccione</option>
-                    <option value="1">Usuario</option>
+                    <option value="1">Regular</option>
                     <option value="2">Admin</option>
                     
                   </select>
@@ -102,8 +110,9 @@
                     'iniciales'                 : $('input[name=iniciales]').val(),
                     'id_org'                    : $('select[name=id_org]').val(),
                     'id_dep'                    : $('select[name=id_dep]').val(),
-                    'id_cargo'                  : $('select[name=id_org]').val(),
-                    'perfil'                    : $('select[name=perfil]').val()
+                    'cargo'                     : $('input[name=cargo]').val(),
+                    'perfil'                    : $('select[name=perfil]').val(),
+                    'tipo_usuario'              : $('select[name=tipo_usuario]').val(),
                 };
 
                 //validaciones 
@@ -113,11 +122,12 @@
 
                 if(formData['cedula']==""){
                   valido  = 0;
-                  mensaje = "Debe introducir la cedula del usuario"
+                  mensaje = "Debe introducir la cedula del usuario";
                   alert(mensaje); 
                 } else if (formData['nombres'].length <= 3 || formData['nombres'].length >=9){
                   valido = 0;
                   mensaje = "Debe verificar la longitud del nombre";
+                  alert(mensaje);
                 } else if (formData['apellidos'].length <= 3 || formData['apellidos'].length >=20){
                   valido = 0;
                   mensaje = "Debe verificar la longitud del apellido";
@@ -138,13 +148,17 @@
                   valido = 0;
                   mensaje = "Debe seleccionar una dependencia";
                   alert(mensaje);
-                } else if (formData['id_cargo']=="00"){
+                } else if (formData['cargo'].length <=3 || formData['cargo'].length >=10){
                   valido = 0;
-                  mensaje = "Debe seleccionar un cargo";
+                  mensaje = "Debe verificar la longitud del cargo";
                   alert(mensaje);
                 } else if (formData['perfil']=="00"){
                   valido = 0;
                   mensaje = "Debe seleccionar un perfil";
+                  alert(mensaje);
+                } else if (formData['tipo_usuario']=="00"){
+                  valido = 0;
+                  mensaje = "Debe seleccionar un tipo de usuario";
                   alert(mensaje);
                 }
 

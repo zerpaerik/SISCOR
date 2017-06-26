@@ -48,11 +48,10 @@
         </nav>
         <!-- Dropdown Structure -->
 <ul id="dropdown1" class="dropdown-content">
-<li><a href="#"><i class="fa fa-user fa-fw"></i>Mis Datos</a>
-</li>
-<li><a href="#"><i class="fa fa-gear fa-fw"></i>Modificar</a>
+
+<li><a href="{{asset('/usuarios/updatepasswd')}}"><i class="fa fa-gear fa-fw"></i>Modificar Contraseña</a>
 </li> 
-<li><a href="#"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
+<li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
 </li>
 </ul>
 <ul id="dropdown2" class="dropdown-content w250">
@@ -287,7 +286,7 @@
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-envelope"></i> Correspondencia<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Redactar Nueva</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Redactar Nueva</a>
                             </li>
                             
                             <li>

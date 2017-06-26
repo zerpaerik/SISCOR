@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Login Administrador</title>
+<title>Iniciar Sesión</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-  <link rel="stylesheet" href="{{asset('css/login.css')}}">
-  <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
-  <script src="{{asset('js/bootstrap.min.js')}}"></script>
+  <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
+  <script src="{{asset('assets/js/jquery-3.1.1.min.js')}}"></script>
+  <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+
 
 </head>
 <body>
@@ -16,7 +17,7 @@
           <div class="col-md-4 col-md-offset-4">
               <div class="panel panel-default panel-primary class">
                   <div class="panel-heading">
-                      <span class="glyphicon glyphicon-lock"></span> LOGIN</div>
+                      <span class="glyphicon glyphicon-lock"></span> Inicio de Sesión</div>
                   <div class="panel-body">
                     {!!Form::open(array('url'=>'login','method'=>'POST','class'=>'form-horizontal','autocomplete'=>'off')) !!}
                   	{{Form::token()}}
