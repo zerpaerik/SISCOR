@@ -4,6 +4,9 @@
           <div class="card-action">
               <b>Redactar Correspondencias</b>
           </div>
+
+          <link rel="stylesheet" href="css/summernote.css">
+    
           <div class="card-content">
           <!-- Aqui es donde va el form-->
             <form role="form" id="create" method="POST">
@@ -38,6 +41,10 @@
                 </div>
 
                 <div class="form-group">
+                    <div id="orgbydep"></div>
+                </div>
+
+                <div class="form-group">
                   <label for="siglas">Asunto</label>
                   <input type="text" class="form-control" id="siglas" name="siglas"
                     placeholder="Introduzca las siglas de la dependencia" required autocomplete="off">
@@ -53,29 +60,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="nombre">Nombre de Dependencia</label>
-                  <input type="text" class="form-control" id="descripcion" name="descripcion"
-                    placeholder="Introduzca el nombre de la dependencia" required autocomplete="off">
-                </div>
-                <div class="form-group">
-                  <label for="siglas">Siglas de Dependencia</label>
-                  <input type="text" class="form-control" id="siglas" name="siglas"
-                    placeholder="Introduzca las siglas de la dependencia" required autocomplete="off">
-                </div>
 
-                <div class="form-group">
-                  <label for="perfil">Tipo de Correspondencia</label>
-                  <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
-                    <option value="00">Seleccione</option>
-                    <option value="10">Oficio</option>
-                    <option value="20">Memorandum</option>
-                    <option value="30">Circular</option>
-                   
-                  </select>
-                </div>
-
- 
+                <div id="summernote">Contenido</div>
+               
                 <button type="submit" class="waves-effect waves-light btn">Enviar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar"> 
                 <button type="submit" class="waves-effect waves-light btn">Vista Previa</button>
@@ -86,7 +73,7 @@
         </div>          
       </div>
     </div>
-
+    <script src="js/summernote.js"></script>
 
     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
@@ -141,4 +128,27 @@
                 // previene que se ejecute submit dando enter
                 event.preventDefault();
             });
+
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+       $('#summernote').summernote();
+       });
+    </script>
+
+    <script type="text/javascript">
+        $('#id_org').on('change',function(){
+          var id= $('#id_org').val();
+          var link= '{{asset("usuarios/orgbydep/id")}}';
+              link= link.replace('id',id);
+          $.ajax({
+                 type: "get",
+                 url: link ,
+                 success: function(a) {
+                    $('#orgbydep').html(a);
+                 }
+          });
+
+        });
     </script>
