@@ -69,6 +69,12 @@ class usuariosController extends Controller
       return view("usuarios.orgbydep",['dependencia'=>$dependencia]);
     }
 
+    public function usrbyorg($id)
+    {
+      $dependencia = Dependencias::orgbydep($id);
+      return view("usuarios.orgbydep",['dependencia'=>$dependencia]);
+    }
+
 
      public function edit($id)
     {

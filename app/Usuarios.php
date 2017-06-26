@@ -129,6 +129,22 @@ class Usuarios extends Model
          }        
     }
 
+
+     public static function usrbyorg($id){
+             $usuario = DB::table('tblusuarios as a')
+                     ->where('a.estatus','=','1')
+                     ->where('a.id_org','=', $id)
+                     ->where('a.perfil','=','10')
+                     ->get();
+         if(!is_null($usuario)){
+            return $usuario;
+         }else{
+            return false;
+         }
+
+    }
+    
+
      public static function updatepasswd($id,$data){
         $usuario=Usuarios::findOrFail($id);
         $usuario->contrasena=$data['contrasena'];

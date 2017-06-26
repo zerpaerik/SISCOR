@@ -44,6 +44,21 @@
                     <div id="orgbydep"></div>
                 </div>
 
+               
+                <div class="form-group">
+                    <div id="usrbyorg"></div>
+                </div>
+
+                <div class="form-group">
+                  <label for="nombre">En atención:</label>
+                  <select name="id_org" id="id_org" class="form-control" placeholder="Introduzca organismo">
+                    <option value="00">Seleccione</option>
+                    @foreach ($organismo as $org)
+                      <option value="{{$org->id}}">{{$org->descripcion}}</option>
+                    @endforeach
+                  </select>
+                </div>
+
                 <div class="form-group">
                   <label for="siglas">Asunto</label>
                   <input type="text" class="form-control" id="siglas" name="siglas"
@@ -61,7 +76,7 @@
                   </div>
                 </div>
 
-                <div id="summernote">Contenido</div>
+                <div id="summernote"></div>
                
                 <button type="submit" class="waves-effect waves-light btn">Enviar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar"> 
@@ -140,13 +155,13 @@
     <script type="text/javascript">
         $('#id_org').on('change',function(){
           var id= $('#id_org').val();
-          var link= '{{asset("usuarios/orgbydep/id")}}';
+          var link= '{{asset("correspondencia/usrbyorg/id")}}';
               link= link.replace('id',id);
           $.ajax({
                  type: "get",
                  url: link ,
                  success: function(a) {
-                    $('#orgbydep').html(a);
+                    $('#usrbyorg').html(a);
                  }
           });
 

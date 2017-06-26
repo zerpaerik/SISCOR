@@ -49,5 +49,12 @@ class correspondenciaController extends Controller
           return response()->json(['respuesta' => 'fail','mensaje' => 'Error al guardar verifique']);
         }
     }
+
+     public function usrbyorg($id)
+    {
+      $destinatario = Usuarios::usrbyorg($id);
+      return view("correspondencia.usrbyorg",['destinatario'=>$destinatario]);
+    }
+
     //
 }
