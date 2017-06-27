@@ -6,13 +6,17 @@
           </div>
           <div class="card-content">
           <form role="form" action="{{asset('direcciones/update')}}/{{$data->id}}" id="update">
+
               <div class="form-group">
                 <label for="id_org">Nombre de Organismo</label>
+                <select name="id_org" id="id_org" class="form-control" placeholder="Introduzca organismo">
+                <option value="{{$org->descripcion}}">Seleccione</option>
                 @foreach($organismos as $org)
                   @if($data->id_org == $org->id)
                   <input type="text" class="form-control" value="{{$org->descripcion}}" readonly>
                   @endif
                 @endforeach
+                </select>
               </div>
 
               <div class="form-group">
@@ -50,7 +54,7 @@
                     'id_org'                  : $('select[name=id_org]').val(),
                     'id_dep'                  : $('select[name=id_dep]').val(),
                     'descripcion'             : $('input[name=descripcion]').val(),
-                    'siglas'                  : $('input[name=siglas]').val(),
+                    'siglas'                  : $('input[name=siglas]').val()
 
                 };
                     //validaciones 

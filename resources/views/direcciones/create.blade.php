@@ -52,7 +52,7 @@
                     'id_org'                  : $('select[name=id_org]').val(),
                     'id_dep'                  : $('select[name=id_dep]').val(),
                     'descripcion'             : $('input[name=descripcion]').val(),
-                    'siglas'                  : $('input[name=siglas]').val(),
+                    'siglas'                  : $('input[name=siglas]').val()
                 };
 
                 //validaciones 
