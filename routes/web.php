@@ -115,6 +115,20 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::get('/usuarios/orgbydep/{id}','usuariosController@orgbydep');
 	Route::get('/usuarios/updatepasswd/{id}','usuariosController@updatepasswd');
 });
+//**********************Rutas para Direcciones********************************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	Route::get('/direcciones', function () {return view('direcciones.create');});
+	Route::get('/direcciones/create','direccionController@create');
+	Route::post('/direcciones/store','direccionController@store');
+	Route::get('/direcciones/listDirecciones','direccionController@index');
+	Route::get('/direcciones/edit/{id}','direccionController@edit');
+	Route::put('/direcciones/update/{id}','direccionController@update');
+    Route::get('/direcciones/direcciones-modal/{id}','direccionController@direccionModal');
+	Route::put('/direcciones/destroy/{id}','direccionController@destroy');
+
+});
 
 //**********************Rutas para Correspondencia********************************
 

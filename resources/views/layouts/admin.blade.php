@@ -178,48 +178,29 @@
     <li>
 </ul>   
 <ul id="dropdown4" class="dropdown-content dropdown-tasks w250">
-  <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Doe</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Today</em>
-                                    </span>
-                                </div>
-                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
+  <li>                       
+
+                   <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-bars "></i>Bandejas de Correspondencia<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="redireccion" href="{{asset('/imagenes/create')}}">Recibidas</a>
+                            </li>
+                            <li>
+                                <a class="redireccion" href="{{asset('/imagenes/listImagenes')}}">Redactadas</a>
+                            </li>
+                            <li>
+                                <a class="redireccion" href="{{asset('/imagenes/listImagenes')}}">Enviadas</a>
+                            </li>
+                            <li>
+                                <a class="redireccion" href="{{asset('/imagenes/listImagenes')}}">Archivadas</a>
+                            </li>
+                            <li>
+                                <a class="redireccion" href="{{asset('/imagenes/listImagenes')}}">Borrador</a>
+                            </li>
+                        </ul>
+                    </li>
+
 </ul>  
        <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
@@ -252,7 +233,29 @@
                         </ul>
                     </li>
                      <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-tags "></i>Cargos<span class="fa arrow"></span></a>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-tags "></i>Direcciones<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="redireccion" href="{{asset('/direcciones/create')}}">Crear</a>
+                            </li>
+                            <li>
+                                <a class="redireccion" href="{{asset('/direcciones/listDirecciones')}}">Listar</a>
+                            </li>
+                        </ul>
+                    </li>
+                     <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-tags "></i>Divisiones<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="redireccion" href="{{asset('/cargos/create')}}">Crear</a>
+                            </li>
+                            <li>
+                                <a class="redireccion" href="{{asset('/cargos/listCargos')}}">Listar</a>
+                            </li>
+                        </ul>
+                    </li>
+                     <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-tags "></i>Departamentos<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a class="redireccion" href="{{asset('/cargos/create')}}">Crear</a>
@@ -292,22 +295,7 @@
                                 <a class="redireccion" href="{{asset('/correspondencia/create')}}">Redactar Nueva</a>
                             </li>
                             
-                            <li>
-                                <a href="#">Bandejas<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="#">Recibidas</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Enviadas</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Archivadas</a>
-                                    </li>
-
-                                </ul>
-
-                            </li>
+                            
                         </ul>
                     </li>
                 
