@@ -38,6 +38,7 @@
                     @endforeach
                   </select>
                 </div>
+                <div id="orgbydep"></div>
 
                 <div class="form-group">
                   <label for="id_dep">Nombre de Dependencia</label>
@@ -143,7 +144,7 @@
           type: "get",
           url: S(this).attr("href"),
           succes: function(a) {
-            $('#contenidoppal').html(a);
+            $('#orgbydep').html(a);
           }
        });
 

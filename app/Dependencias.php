@@ -106,6 +106,20 @@ class Dependencias extends Model
          }        
     }
 
-    public static function
+    public static function orgbydep($id){
+    $dependencia=DB::table('tbldependencia as a')
+               ->where('a.estatus','=','1')
+               ->where('a.id_org','=',$id)
+               ->orderby('a.descripcion')
+               ->get()
+
+            if(!is_null($dependencia)){
+                return $dependencia;
+            }else{
+                return false;
+            }
+            }
+
+    }
 
 }
