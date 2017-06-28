@@ -147,3 +147,100 @@ WITH (
 );
 ALTER TABLE public.tblimagenes
   OWNER TO postgres;
+
+  -- Table: public.tbldireccion
+
+-- DROP TABLE public.tbldireccion;
+
+CREATE TABLE public.tbldireccion
+(
+  id bigint NOT NULL DEFAULT nextval('tbldireccion_id_seq'::regclass),
+  descripcion character varying NOT NULL,
+  id_org integer,
+  id_dep integer,
+  siglas character varying NOT NULL,
+  estatus integer NOT NULL DEFAULT 1, -- Estatus:...
+  CONSTRAINT tbldireccion_pkey PRIMARY KEY (id),
+  CONSTRAINT tbldireccion_id_dep_fkey FOREIGN KEY (id_dep)
+      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tbldireccion_id_org_fkey FOREIGN KEY (id_org)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tbldireccion
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tbldireccion.estatus IS 'Estatus:
+1: Activo
+2: Inactivo';
+
+-- Table: public.tbldivision
+
+-- DROP TABLE public.tbldivision;
+
+CREATE TABLE public.tbldivision
+(
+  descripcion character varying NOT NULL,
+  id_org integer,
+  id_dep integer,
+  id_dir integer,
+  siglas character varying,
+  estatus integer NOT NULL DEFAULT 1, -- -Estatus:...
+  id bigint NOT NULL DEFAULT nextval('tbldivision_id_seq'::regclass),
+  CONSTRAINT tbldivision_pkey PRIMARY KEY (id),
+  CONSTRAINT tbldivision_id_dep_fkey FOREIGN KEY (id_dep)
+      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tbldivision_id_dir_fkey FOREIGN KEY (id_dir)
+      REFERENCES public.tbldireccion (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tbldivision_id_org_fkey FOREIGN KEY (id_org)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tbldivision
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tbldivision.estatus IS '-Estatus:
+1:Activo
+2:Inactivo';
+
+-- Table: public.tbldepartamento
+
+-- DROP TABLE public.tbldepartamento;
+
+CREATE TABLE public.tbldepartamento
+(
+  id integer NOT NULL,
+  descripcion character varying NOT NULL,
+  id_org integer,
+  id_dep integer,
+  id_dir integer,
+  id_div integer,
+  siglas character varying NOT NULL,
+  estatus integer NOT NULL DEFAULT 1, -- Estatus:...
+  CONSTRAINT tbldepartamento_pkey PRIMARY KEY (id),
+  CONSTRAINT tbldepartamento_id_dep_fkey FOREIGN KEY (id_dep)
+      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tbldepartamento_id_dir_fkey FOREIGN KEY (id_dir)
+      REFERENCES public.tbldireccion (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tbldepartamento_id_org_fkey FOREIGN KEY (id_org)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tbldepartamento
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tbldepartamento.estatus IS 'Estatus:
+1: Activo
+2.: Inactivo';
+
