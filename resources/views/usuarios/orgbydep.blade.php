@@ -5,3 +5,19 @@
 <option value="{{$dep->id}}">{{$dep->descripcion}}</option>
 @endforeach
 </select>
+
+ <script type="text/javascript">
+        $('#id_dep').on('change',function(){
+          var id= $('#id_dep').val();
+          var link= '{{asset("divisiones/depbydir/id")}}';
+              link= link.replace('id',id);
+          $.ajax({
+                 type: "get",
+                 url: link ,
+                 success: function(a) {
+                    $('#depbydir').html(a);
+                 }
+          });
+
+        });
+    </script>

@@ -92,6 +92,20 @@ class Division extends Model
          }        
     }
 
+     public static function dirbydiv($id){
+                $division= DB::table('tbldivision as a')
+                     ->where('a.estatus','=','1')
+                     ->where('a.id_dir','=', $id)
+                     ->orderby('a.descripcion')
+                     ->get();
+         if(!is_null($division)){
+            return $division;
+         }else{
+            return false;
+         }
+
+    }
+
     public static function eliminar($id){
        $division=Division::findOrFail($id);
        $division->estatus='2';

@@ -1,0 +1,1 @@
+listDepartamentos.blade.php

@@ -146,6 +146,22 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 
 });
 
+//**********************Rutas para Departamentos********************************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	Route::get('/departamentos', function () {return view('departamentos.create');});
+	Route::get('/departamentos/create','departamentoController@create');
+	Route::post('/departamentos/store','departamentoController@store');
+	Route::get('/departamentos/listDepartamentos','departamentoController@index');
+	Route::get('/departamentos/edit/{id}','departamentoController@edit');
+	Route::put('/departamentos/update/{id}','departamentoController@update');
+    Route::get('/departamentos/departamentos-modal/{id}','departamentoController@departamentoModal');
+	Route::put('/departamentos/destroy/{id}','departamentoController@destroy');
+	Route::get('/departamentos/dirbydiv/{id}','departamentoController@dirbydiv');
+
+});
+
 //**********************Rutas para Correspondencia********************************
 
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
