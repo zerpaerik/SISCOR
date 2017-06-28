@@ -26,7 +26,16 @@
               </div>
 
               <div class="form-group">
-                <label for="descripcion">Nombre de Dirección</label>
+                <label for="id_dep">Nombre de Direccion</label>
+                @foreach($direccion as $dir)
+                  @if($data->id_dir == $dir->id)
+                  <input type="text" class="form-control" value="{{$dep->descripcion}}" readonly>
+                  @endif
+                @endforeach
+              </div>
+
+              <div class="form-group">
+                <label for="descripcion">Nombre de Division</label>
                   <input type="text" class="form-control" id="descripcion" name="descripcion"
                          required="" value="{{$data->descripcion}}" required autocomplete="off">
               </div>
@@ -50,6 +59,7 @@
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'id_org'                  : $('select[name=id_org]').val(),
                     'id_dep'                  : $('select[name=id_dep]').val(),
+                    'id_dir'                  : $('select[name=id_dir]').val(),
                     'descripcion'             : $('input[name=descripcion]').val(),
                     'siglas'                  : $('input[name=siglas]').val(),
 
@@ -108,7 +118,7 @@
                $('#paginacion').empty();
                $.ajax({
                   type: "get",
-                  url: "{{ asset('/direcciones/listDirecciones') }}",
+                  url: "{{ asset('/divisiones/listDivisiones') }}",
                   success: function(a) {
                       $('#paginacion').html(a);
                   }

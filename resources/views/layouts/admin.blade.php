@@ -247,10 +247,10 @@
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-tags "></i>Divisiones<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="redireccion" href="{{asset('/cargos/create')}}">Crear</a>
+                                <a class="redireccion" href="{{asset('/divisiones/create')}}">Crear</a>
                             </li>
                             <li>
-                                <a class="redireccion" href="{{asset('/cargos/listCargos')}}">Listar</a>
+                                <a class="redireccion" href="{{asset('/divisiones/listDivisiones')}}">Listar</a>
                             </li>
                         </ul>
                     </li>

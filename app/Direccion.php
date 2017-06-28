@@ -89,6 +89,20 @@ class Direccion extends Model
          }        
     }
 
+    public static function depbydir($id){
+                $direccion= DB::table('tbldireccion as a')
+                     ->where('a.estatus','=','1')
+                     ->where('a.id_dep','=', $id)
+                     ->orderby('a.descripcion')
+                     ->get();
+         if(!is_null($direccion)){
+            return $direccion;
+         }else{
+            return false;
+         }
+
+    }
+
     public static function eliminar($id){
        $direccion=Direccion::findOrFail($id);
        $direccion->estatus='2';

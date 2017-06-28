@@ -130,6 +130,22 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 
 });
 
+//**********************Rutas para Divisiones********************************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	Route::get('/divisiones', function () {return view('direcciones.create');});
+	Route::get('/divisiones/create','divisionController@create');
+	Route::post('/divisiones/store','divisionController@store');
+	Route::get('/divisiones/listDivisiones','divisionController@index');
+	Route::get('/divisiones/edit/{id}','divisionController@edit');
+	Route::put('/divisiones/update/{id}','divisionController@update');
+    Route::get('/divisiones/divisiones-modal/{id}','divisionController@divisionModal');
+	Route::put('/divisiones/destroy/{id}','divisionController@destroy');
+	Route::get('/divisiones/depbydir/{id}','divisionController@depbydir');
+
+});
+
 //**********************Rutas para Correspondencia********************************
 
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
