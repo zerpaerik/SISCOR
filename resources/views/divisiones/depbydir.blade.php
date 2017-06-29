@@ -10,7 +10,6 @@
 <script type="text/javascript">
         $('#id_dir').on('change',function(){
           var id= $('#id_dir').val();
-          alert("entroooooo");
           var link= '{{asset("departamentos/dirbydiv/id")}}';
               link= link.replace('id',id);
           $.ajax({

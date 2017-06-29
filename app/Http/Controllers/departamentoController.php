@@ -102,7 +102,7 @@ class departamentoController extends Controller
 
     public function dirbydiv($id)
     {
-      $division = Division::depbydir($id);
+      $division = Division::dirbydiv($id);
       return view("departamentos.dirbydiv",['division'=>$division]);
     }
 

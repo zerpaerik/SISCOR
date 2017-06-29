@@ -27,10 +27,12 @@ class Usuarios extends Model
         'iniciales' ,
         'id_org',
         'id_dep',
+        'id_dir',
+        'id_div',
         'cargo',
         'perfil',
         'tipo_usuario',
-        'estatus'
+        'aprobador'
         ];
 
 
@@ -89,9 +91,12 @@ class Usuarios extends Model
         $usuario->iniciales=$data['iniciales'];
         $usuario->id_org=$data['id_org'];
         $usuario->id_dep=$data['id_dep'];
+        $usuario->id_dir=$data['id_dir'];
+        $usuario->id_div=$data['id_div'];
         $usuario->cargo=$data['cargo'];
         $usuario->perfil=$data['perfil'];
         $usuario->tipo_usuario=$data['tipo_usuario'];
+        $usuario->aprobador=$data['aprobador'];
         //$usuario->id_cargo=$data['id_cargo'];
         
 
@@ -116,9 +121,12 @@ class Usuarios extends Model
         $usuario->iniciales=$data['iniciales'];
         $usuario->id_org=$data['id_org'];
         $usuario->id_dep=$data['id_dep'];
+        $usuario->id_dir=$data['id_dir'];
+        $usuario->id_div=$data['id_div'];
         $usuario->cargo=$data['cargo'];
         $usuario->perfil=$data['perfil'];
         $usuario->tipo_usuario=$data['tipo_usuario'];
+        $usuario->aprobador=$data['aprobador'];
 
        $usuario->update();
 

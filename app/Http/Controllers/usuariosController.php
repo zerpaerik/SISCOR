@@ -12,6 +12,9 @@ use DB;
 use SISCOR\Usuarios;
 use SISCOR\Dependencias;
 use SISCOR\Organismos;
+use SISCOR\Direccion;
+use SISCOR\Division;
+use SISCOR\Departamento;
 use SISCOR\Cargos;
 
 class usuariosController extends Controller
@@ -33,8 +36,11 @@ class usuariosController extends Controller
     {
       $organismos= Organismos::lista();
       $dependencias= Dependencias::lista();
+      $direccion= Direccion::lista();
+      $division= Division::lista();
+      $departamento= Departamento::lista();
       $cargos= Cargos::lista();
-      return view("usuarios.create",['organismo'=>$organismos],['dependencia'=>$dependencias],['cargo'=>$cargos]);
+      return view("usuarios.create",['organismo'=>$organismos],['dependencia'=>$dependencias],['cargo'=>$cargos],['direccion'=>$direccion],['division'=>$division],['departamento'=>$departamento]);
     }
 
     public function store ()
@@ -48,10 +54,12 @@ class usuariosController extends Controller
                   'iniciales'=>Input::get('iniciales'),
                   'id_org'=>Input::get('id_org'),
                   'id_dep'=>Input::get('id_dep'),
+                  'id_dir'=>Input::get('id_dir'),
+                  'id_div'=>Input::get('id_div'),
                   'cargo'=>Input::get('cargo'),
                   'perfil'=>Input::get('perfil'),
                   'tipo_usuario'=>Input::get('tipo_usuario'),
-                  'estatus'=>Input::get('estatus')
+                  'aprobador'=>Input::get('aprobador')
                 );
          
         $guardar=Usuarios::guardar($data);
@@ -94,10 +102,12 @@ class usuariosController extends Controller
                   'iniciales'=>Input::get('iniciales'),
                   'id_org'=>Input::get('id_org'),
                   'id_dep'=>Input::get('id_dep'),
+                  'id_dir'=>Input::get('id_dir'),
+                  'id_div'=>Input::get('id_div'),
                   'cargo'=>Input::get('cargo'),
                   'perfil'=>Input::get('perfil'),
                   'tipo_usuario'=>Input::get('tipo_usuario'),
-                  'estatus'=>Input::get('estatus')
+                  'aprobador'=>Input::get('aprobador')
               );
 
        $actualizar=Usuarios::actualizar($id,$data);

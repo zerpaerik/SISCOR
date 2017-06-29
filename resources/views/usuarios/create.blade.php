@@ -56,6 +56,15 @@
                 </div>
 
                 <div class="form-group">
+                    <div id="depbydir"></div>
+                </div>
+
+                <div class="form-group">
+                    <div id="dirbydiv"></div>
+                </div>
+
+
+                <div class="form-group">
                   <label for="cargo">Descripción de Cargo</label>
                   <input type="text" class="form-control" id="cargo" name="cargo"
                     placeholder="Introduzca la descripcion del cargo" required autocomplete="off">
@@ -65,9 +74,10 @@
                   <label for="perfil">Perfil</label>
                   <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
                     <option value="00">Seleccione</option>
-                    <option value="10">Director General</option>
+                    <option value="10">Director General/ Presid / Secret</option>
                     <option value="20">Asistente Director</option>
                     <option value="30">Director-Coord</option>
+                    <option value="40">Analistas</option>
                     <option value="40">Analistas</option>
                    
                   </select>
@@ -82,7 +92,18 @@
                     
                   </select>
                 </div>
- 
+
+                 <div class="form-group">
+                  <label for="aprobador">Aprobador</label>
+                  <select name="aprobador" id="aprobador" class="form-control" placeholder="Es aprobador?">
+                    <option value="00">Seleccione</option>
+                    <option value="0">No</option>
+                    <option value="1">Si</option>
+                    
+                  </select>
+                </div>
+
+
                 <button type="submit" class="waves-effect waves-light btn">Guardar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar"> 
             </form>
@@ -110,9 +131,12 @@
                     'iniciales'                 : $('input[name=iniciales]').val(),
                     'id_org'                    : $('select[name=id_org]').val(),
                     'id_dep'                    : $('select[name=id_dep]').val(),
+                    'id_dir'                    : $('select[name=id_dir]').val(),
+                    'id_div'                    : $('select[name=id_div]').val(),
                     'cargo'                     : $('input[name=cargo]').val(),
                     'perfil'                    : $('select[name=perfil]').val(),
                     'tipo_usuario'              : $('select[name=tipo_usuario]').val(),
+                    'aprobador'                 : $('select[name=aprobador]').val(),
                 };
 
                 //validaciones 
@@ -160,7 +184,10 @@
                   valido = 0;
                   mensaje = "Debe seleccionar un tipo de usuario";
                   alert(mensaje);
-                }
+                } else if (formData['aprobador']=="00"){
+                  valido = 0;
+                  mensaje = "Debe seleccionar si es aprobador o no";
+                  alert(mensaje);
 
                 //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
                 if (valido == 1) {

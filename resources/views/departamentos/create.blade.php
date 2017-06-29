@@ -136,9 +136,7 @@
 
     <script type="text/javascript">
         $('#id_dep').on('change',function(){
-          alert("entro");
           var id= $('#id_dep').val();
-          alert("entro");
           var link= '{{asset("divisiones/depbydir/id")}}';
               link= link.replace('id',id);
           $.ajax({

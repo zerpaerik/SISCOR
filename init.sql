@@ -90,15 +90,26 @@ CREATE TABLE public.tblusuarios
   usuario character varying NOT NULL,
   contrasena character varying NOT NULL,
   iniciales character varying NOT NULL,
-  id_org integer,
+  id_org integer NOT NULL,
   id_dep integer NOT NULL,
-  estatus integer NOT NULL DEFAULT 1, -- Estatus:...
   cargo character varying NOT NULL, -- - Descripcion de Cargo
   perfil integer NOT NULL, -- Perfiles:...
   tipo_usuario integer NOT NULL, -- Tipos de Usuario:...
+  id_dir integer,
+  id_div integer,
+  id_dpt integer,
   CONSTRAINT usuarios_pkey PRIMARY KEY (id),
   CONSTRAINT tblusuarios_id_dep_fkey FOREIGN KEY (id_dep)
       REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblusuarios_id_dir_fkey FOREIGN KEY (id_dir)
+      REFERENCES public.tbldireccion (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblusuarios_id_div_fkey FOREIGN KEY (id_div)
+      REFERENCES public.tbldivision (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblusuarios_id_dpt_fkey FOREIGN KEY (id_dpt)
+      REFERENCES public.tbldepartamento (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblusuarios_id_org_fkey FOREIGN KEY (id_org)
       REFERENCES public.tblorganismo (id) MATCH SIMPLE
@@ -109,18 +120,54 @@ WITH (
 );
 ALTER TABLE public.tblusuarios
   OWNER TO postgres;
-COMMENT ON COLUMN public.tblusuarios.estatus IS 'Estatus:
-1: Activo
-2: Inactivo';
 COMMENT ON COLUMN public.tblusuarios.cargo IS '- Descripcion de Cargo';
 COMMENT ON COLUMN public.tblusuarios.perfil IS 'Perfiles:
-10: Director General / Presidente
-20: Asistente DR/PR
-30: Director / Jefe de División
-40: Analistas';
+10: Director General / Secretario / Presidente
+20: Asistente DG / SEC / PRS
+30: Director
+40: Jefe de Division
+50: Especialista
+60: Analista';
 COMMENT ON COLUMN public.tblusuarios.tipo_usuario IS 'Tipos de Usuario:
-1: Regular
-2: Admin';
+1: Admin
+2: Regular';
+
+CREATE TABLE public.tblusuariosaprob
+(
+  id bigint NOT NULL DEFAULT nextval('tblusuariosaprob_id_seq'::regclass),
+  id_usuario integer NOT NULL,
+  id_org integer,
+  id_dep integer,
+  id_dir integer,
+  id_div integer,
+  id_dpt integer,
+  fecha_inicio timestamp without time zone DEFAULT now(),
+  fecha_fin timestamp without time zone,
+  CONSTRAINT tblusuariosaprob_pkey PRIMARY KEY (id),
+  CONSTRAINT tblusuariosaprob_id_dep_fkey FOREIGN KEY (id_dep)
+      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblusuariosaprob_id_dir_fkey FOREIGN KEY (id_dir)
+      REFERENCES public.tbldireccion (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblusuariosaprob_id_div_fkey FOREIGN KEY (id_div)
+      REFERENCES public.tbldivision (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblusuariosaprob_id_dpt_fkey FOREIGN KEY (id_dpt)
+      REFERENCES public.tbldepartamento (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblusuariosaprob_id_org_fkey FOREIGN KEY (id_org)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblusuariosaprob_id_usuario_fkey FOREIGN KEY (id_usuario)
+      REFERENCES public.tblusuarios (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblusuariosaprob
+  OWNER TO postgres;
 
 
 
