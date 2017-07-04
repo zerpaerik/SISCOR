@@ -152,43 +152,11 @@
                   valido = 0;
                   mensaje = "Debe verificar la longitud del nombre";
                   alert(mensaje);
-                } else if (formData['apellidos'].length <= 3 || formData['apellidos'].length >=20){
+                } else if (formData['apellidos'].length <= 3 || formData['apellidos'].length >=9){
                   valido = 0;
                   mensaje = "Debe verificar la longitud del apellido";
                   alert(mensaje);
-                } else if (formData['usuario'].length <=3 || formData['usuario'].length >=10){
-                  valido = 0;
-                  mensaje = "Debe verificar la longitud del usuario";
-                  alert(mensaje);
-                } else if (formData['iniciales'].lentgh <=1 || formData['iniciales'].length >=3){
-                  valido = 0;
-                  mensaje = "Debe verificar la longitud de las iniciales";
-                  alert(mensaje);
-                } else if (formData['id_org']=="00"){
-                  valido = 0;
-                  mensaje = "Debe seleccionar un organismo";
-                  alert(mensaje);
-                } else if (formData['id_dep']=="00"){
-                  valido = 0;
-                  mensaje = "Debe seleccionar una dependencia";
-                  alert(mensaje);
-                } else if (formData['cargo'].length <=3 || formData['cargo'].length >=10){
-                  valido = 0;
-                  mensaje = "Debe verificar la longitud del cargo";
-                  alert(mensaje);
-                } else if (formData['perfil']=="00"){
-                  valido = 0;
-                  mensaje = "Debe seleccionar un perfil";
-                  alert(mensaje);
-                } else if (formData['tipo_usuario']=="00"){
-                  valido = 0;
-                  mensaje = "Debe seleccionar un tipo de usuario";
-                  alert(mensaje);
-                } else if (formData['aprobador']=="00"){
-                  valido = 0;
-                  mensaje = "Debe seleccionar si es aprobador o no";
-                  alert(mensaje);
-
+                } 
                 //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
                 if (valido == 1) {
                 // procesamiento del  form

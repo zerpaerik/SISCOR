@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use SISCOR\UsuariosAprobadores;
 
 class Usuarios extends Model
 {
@@ -81,34 +82,53 @@ class Usuarios extends Model
          }        
     }
 
-    public static function guardar($data){
-        $usuario=new Usuarios;
-        $usuario->cedula=$data['cedula'];
-        $usuario->nombres=$data['nombres'];
-        $usuario->apellidos=$data['apellidos'];
-        $usuario->usuario=$data['usuario'];
-        $usuario->contrasena=$data['contrasena'];
-        $usuario->iniciales=$data['iniciales'];
-        $usuario->id_org=$data['id_org'];
-        $usuario->id_dep=$data['id_dep'];
-        $usuario->id_dir=$data['id_dir'];
-        $usuario->id_div=$data['id_div'];
-        $usuario->cargo=$data['cargo'];
-        $usuario->perfil=$data['perfil'];
-        $usuario->tipo_usuario=$data['tipo_usuario'];
-        $usuario->aprobador=$data['aprobador'];
-        //$usuario->id_cargo=$data['id_cargo'];
-        
+    public static function guardar($data,$data1)
+
+            DB::beginTransaction();
+        //todas tus implementaciones con sus funciones a modelo
+        try {
+                  $data=Input::get('cedula'),
+                  $data=Input::get('nombres'),
+                  $data=Input::get('apellidos'),
+                  $data=Input::get('usuario'),
+                  $data=Input::get('contrasena'),
+                  $data=Input::get('iniciales'),
+                  $data=Input::get('id_org'),
+                  $data=Input::get('id_dep'),
+                  $data=Input::get('id_dir'),
+                  $data=Input::get('id_div'),
+                  $data=Input::get('cargo'),
+                  $data=Input::get('perfil'),
+                  $data=Input::get('tipo_usuario'),
+                  $data=Input::get('aprobador')
+                
+                
+                $guardar=Usuarios::save($data);
+
+                $data1= array(                      
+
+                             $data1->id_usuario=$usuario->id;
+                             $data1->id_org=$usuario->id_org;
+                             $data1->id_dep=$usuario->id_dep;
+                             $data1->id_dir=$usuario->id_dir;
+                             $data1->id_div=$usuario->id_div;
+
+                             )
+
+                $guardar2=UsuariosAprobadores::save($data1);
+ }
+        // Ha ocurrido un error, devolvemos la BD a su estado previo y hacemos lo que queramos con esa excepción
+        catch (\Exception $e)
+        {
+                DB::rollback();
+                // no se... Informemos con un echo por ejemplo
+                echo 'ERROR (' . $e->getCode() . '): ' . $e->getMessage();
+        }
+
+        // Hacemos los cambios permanentes ya que no han habido errores
+        DB::commit();
 
 
-        $usuario->save();
-
-         if(!is_null($usuario)){
-            return true;
-         }else{
-            return false;
-         }        
-    }
 
 
     public static function actualizar($id,$data){

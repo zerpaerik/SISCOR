@@ -44,6 +44,7 @@ class usuariosController extends Controller
     }
 
     public function store ()
+    
     {
     $data= array(
                   'cedula'=>Input::get('cedula'),
