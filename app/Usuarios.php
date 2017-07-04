@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use SISCOR\app\UsuariosAprobadores;
+use SISCOR\UsuariosAprobadores;
 
 class Usuarios extends Model
 {
@@ -112,8 +112,7 @@ class Usuarios extends Model
                 $aprobador->id_dep      =$data['id_dep'];
                 $aprobador->id_dir      =$data['id_dir'];
                 $aprobador->id_div      =$data['id_div'];
-                $aprobador->id_dpt      =$data['id_dpt'];
-                $aprobador->fecha_inicio=getdate();
+                $aprobador->fecha_inicio=date('Y-m-d H:i:s');
                 $aprobador->save();
 
             }
@@ -123,7 +122,7 @@ class Usuarios extends Model
 
         } catch (\Exception $e) { //esto atrapa cualquier error y devuelve false al controller
             DB::rollback();
-            echo $e->getMessage(); die();
+            //echo $e->getMessage(); die(); //para probar si hay error 
             return false;
         }
 
