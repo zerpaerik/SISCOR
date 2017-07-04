@@ -43,7 +43,11 @@
             </div>
 
             <ul class="nav navbar-top-links navbar-right"> 
-                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>               
+                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4">
+                <i class="fa fa-envelope fa-fw"></i> 
+                <i class="material-icons right">arrow_drop_down</i>
+                </a>
+                </li>               
                 <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
                 <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
                   <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>Admin SISCOR</b> <i class="material-icons right">arrow_drop_down</i></a></li>
@@ -128,7 +132,7 @@
     </li>
     <li class="divider"></li>
     <li>
-        <a href="#">
+        <a class="redireccion" href="{{asset('/organismos/create')}}">
             <div>
                 <p>
                     <strong>Task 2</strong>

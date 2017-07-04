@@ -113,6 +113,7 @@ class Usuarios extends Model
                 $aprobador->id_dir      =$data['id_dir'];
                 $aprobador->id_div      =$data['id_div'];
                 $aprobador->fecha_inicio=date('Y-m-d H:i:s');
+                $aprobador->fecha_fin=date('2030-07-04 11:16:12');
                 $aprobador->save();
 
             }

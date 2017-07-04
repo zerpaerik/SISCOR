@@ -44,6 +44,14 @@
                     <div id="orgbydep"></div>
                 </div>
 
+
+                <div class="form-group">
+                    <div id="depbydir"></div>
+                </div>
+
+                <div class="form-group">
+                    <div id="dirbydiv"></div>
+                </div>
                
                 <div class="form-group">
                     <div id="usrbyorg"></div>
@@ -88,7 +96,7 @@
         </div>          
       </div>
     </div>
-    <script src="js/summernote.js"></script>
+    <script src="assets/js/summernote.js"></script>
 
     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
@@ -162,6 +170,22 @@
                  url: link ,
                  success: function(a) {
                     $('#usrbyorg').html(a);
+                 }
+          });
+
+        });
+    </script>
+
+     <script type="text/javascript">
+        $('#id_org').on('change',function(){
+          var id= $('#id_org').val();
+          var link= '{{asset("usuarios/orgbydep/id")}}';
+              link= link.replace('id',id);
+          $.ajax({
+                 type: "get",
+                 url: link ,
+                 success: function(a) {
+                    $('#orgbydep').html(a);
                  }
           });
 
