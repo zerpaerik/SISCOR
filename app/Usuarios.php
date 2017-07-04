@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use SISCOR\UsuariosAprobadores;
+use SISCOR\app\UsuariosAprobadores;
 
 class Usuarios extends Model
 {
@@ -33,7 +33,6 @@ class Usuarios extends Model
         'cargo',
         'perfil',
         'tipo_usuario',
-        'aprobador'
         ];
 
 
@@ -82,51 +81,56 @@ class Usuarios extends Model
          }        
     }
 
-    public static function guardar($data,$data1)
-
-            DB::beginTransaction();
-        //todas tus implementaciones con sus funciones a modelo
+    public static function guardar($data){
         try {
-                  $data=Input::get('cedula'),
-                  $data=Input::get('nombres'),
-                  $data=Input::get('apellidos'),
-                  $data=Input::get('usuario'),
-                  $data=Input::get('contrasena'),
-                  $data=Input::get('iniciales'),
-                  $data=Input::get('id_org'),
-                  $data=Input::get('id_dep'),
-                  $data=Input::get('id_dir'),
-                  $data=Input::get('id_div'),
-                  $data=Input::get('cargo'),
-                  $data=Input::get('perfil'),
-                  $data=Input::get('tipo_usuario'),
-                  $data=Input::get('aprobador')
-                
-                
-                $guardar=Usuarios::save($data);
+            //toda la lógica va dentro del try 
+            //Inicia la transacción
+            DB::beginTransaction();
 
-                $data1= array(                      
+            //Implementacion de guardado de Usuario con datos del array $data
 
-                             $data1->id_usuario=$usuario->id;
-                             $data1->id_org=$usuario->id_org;
-                             $data1->id_dep=$usuario->id_dep;
-                             $data1->id_dir=$usuario->id_dir;
-                             $data1->id_div=$usuario->id_div;
+            $usuario=new Usuarios;//<-- instancia de la misma clase Usuarios
+            $usuario->cedula      =$data['cedula'];
+            $usuario->nombres     =$data['nombres'];
+            $usuario->apellidos   =$data['apellidos'];
+            $usuario->usuario     =$data['usuario'];
+            $usuario->contrasena  =$data['contrasena'];
+            $usuario->iniciales   =$data['iniciales'];
+            $usuario->id_org      =$data['id_org']; 
+            $usuario->id_dep      =$data['id_dep'];
+            $usuario->id_dir      =$data['id_dir'];
+            $usuario->id_div      =$data['id_div'];
+            $usuario->cargo       =$data['cargo'];
+            $usuario->perfil      =$data['perfil'];
+            $usuario->tipo_usuario=$data['tipo_usuario'];
+            $usuario->save();
+            //Implementacion de guardado de aprobador;  
+            if ($data['aprobador'] == "1") {
+                $aprobador = new UsuariosAprobadores;//<-- instancia de la clase UsuariosAprobadores
+                $aprobador->id_usuario  =$usuario->id;//El save genera un usuario y directamente lo coloca en el campo id
+                $aprobador->id_org      =$data['id_org']; 
+                $aprobador->id_dep      =$data['id_dep'];
+                $aprobador->id_dir      =$data['id_dir'];
+                $aprobador->id_div      =$data['id_div'];
+                $aprobador->id_dpt      =$data['id_dpt'];
+                $aprobador->fecha_inicio=getdate();
+                $aprobador->save();
 
-                             )
+            }
 
-                $guardar2=UsuariosAprobadores::save($data1);
- }
-        // Ha ocurrido un error, devolvemos la BD a su estado previo y hacemos lo que queramos con esa excepción
-        catch (\Exception $e)
-        {
-                DB::rollback();
-                // no se... Informemos con un echo por ejemplo
-                echo 'ERROR (' . $e->getCode() . '): ' . $e->getMessage();
+            //se confirman los datos; puede haber multiples implementaciones pero est es el unico commit para todas al final
+            DB::commit();
+
+        } catch (\Exception $e) { //esto atrapa cualquier error y devuelve false al controller
+            DB::rollback();
+            echo $e->getMessage(); die();
+            return false;
         }
 
-        // Hacemos los cambios permanentes ya que no han habido errores
-        DB::commit();
+        return true;
+
+    }
+
 
 
 

@@ -50,13 +50,6 @@ COMMENT ON COLUMN public.tbldependencia.estatus IS 'Estatus:
 
 -- DROP TABLE public.tblcargos;
 
-<<<<<<< HEAD
-=======
--- Table: public.tblcargos
-
--- DROP TABLE public.tblcargos;
-
->>>>>>> 3a40f6b8ae7fe75fa5715f20c05cf9a1992805e0
 CREATE TABLE public.tblcargos
 (
   id bigint NOT NULL DEFAULT nextval('tblcargos_id_seq'::regclass),

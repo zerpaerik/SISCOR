@@ -171,7 +171,7 @@
                     //si respuesta del json es fail
                     if (data.respuesta=="fail") {
                       //mensaje rojo , dura 3 segs
-                      toastr.danger(data.mensaje, {timeOut: 300});  
+                      toastr.error(data.mensaje, {timeOut: 300});  
                     }else{
                       //mensaje azul , dura 3 segs
                       toastr.info(data.mensaje, {timeOut: 300}); 

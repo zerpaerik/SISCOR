@@ -62,7 +62,6 @@ class usuariosController extends Controller
                   'tipo_usuario'=>Input::get('tipo_usuario'),
                   'aprobador'=>Input::get('aprobador')
                 );
-         
         $guardar=Usuarios::guardar($data);
 
         if ($guardar) {
