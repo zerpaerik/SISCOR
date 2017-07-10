@@ -163,7 +163,7 @@
   <li>                       
 
 <li>
-                            <a class="redireccion" href="{{asset('/divisiones/listDivisiones')}}">
+                            <a class="redireccion" href="{{asset('/imagenes/create')}}">
                                 <div>
                                     <i class="fa fa-table" aria-hidden="true"></i> Crear Encabezados
                                     <span class="pull-right text-muted small"></span>
@@ -171,7 +171,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="redireccion" href="{{asset('/divisiones/listDivisiones')}}">
+                            <a class="redireccion" href="{{asset('/imagenes/listImagenes')}}">
                                 <div>
                                     <i class="fa fa-table" aria-hidden="true"></i> Listar Encabezados
                                     <span class="pull-right text-muted small"></span>
@@ -179,7 +179,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="redireccion" href="{{asset('/divisiones/listDivisiones')}}">
+                            <a class="redireccion" href="{{asset('/imagenes/create')}}">
                                 <div>
                                     <i class="fa fa-table" aria-hidden="true"></i> Crear Pie
                                     <span class="pull-right text-muted small"></span>
@@ -187,7 +187,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="redireccion" href="{{asset('/divisiones/listDivisiones')}}">
+                            <a class="redireccion" href="{{asset('/imagenes/listImagenes')}}">
                                 <div>
                                     <i class="fa fa-table" aria-hidden="true"></i> Listar Divisiones
                                     <span class="pull-right text-muted small"></span>
