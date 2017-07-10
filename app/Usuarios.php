@@ -166,6 +166,7 @@ class Usuarios extends Model
              $usuario = DB::table('tblusuarios as a')
                      ->where('a.estatus','=','1')
                      ->where('a.id_org','=', $id)
+                     //->where('a.id_dep','=','14')
                      ->where('a.perfil','=','10')
                      ->get();
          if(!is_null($usuario)){
