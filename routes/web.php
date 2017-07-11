@@ -114,6 +114,10 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::put('/usuarios/destroy/{id}','usuariosController@destroy');
 	Route::get('/usuarios/orgbydep/{id}','usuariosController@orgbydep');
 	Route::get('/usuarios/updatepasswd/{id}','usuariosController@updatepasswd');
+    // Rutas para creación de roles y permisos de usuarios//
+    Route::post('/usuarios/create_rol/{id}','usuariosController@crear_rol');
+    Route::post('/usuarios/create_permisos/{id}','usuariosController@crear_permisos');
+
 });
 //**********************Rutas para Direcciones********************************
 
@@ -169,11 +173,5 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::get('/correspondencia', function () {return view('correspondencia.create');});
 	Route::get('/correspondencia/create','correspondenciaController@create');
 	Route::post('/correspondencia/store','correspondenciaController@store');
-	Route::get('/correspondencia/usrbyorg/{id}','correspondenciaController@usrbyorg');
-	Route::get('/usuarios/listUsuarios','usuariosController@index');
-	Route::get('/usuarios/edit/{id}','usuariosController@edit');
-	Route::put('/usuarios/update/{id}','usuariosController@update');
-    Route::get('/usuarios/usuarios-modal/{id}','usuariosController@usuarioModal');
-	Route::put('/usuarios/destroy/{id}','usuariosController@destroy');
-	Route::get('/usuarios/orgbydep/{id}','usuariosController@orgbydep');
+	
 });

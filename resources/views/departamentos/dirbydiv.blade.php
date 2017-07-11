@@ -5,3 +5,5 @@
 <option value="{{$div->id}}">{{$div->descripcion}}</option>
 @endforeach
 </select>
+
+

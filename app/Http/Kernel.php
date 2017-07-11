@@ -55,6 +55,9 @@ class Kernel extends HttpKernel
         'inside' => \SISCOR\Http\Middleware\Inside::class,
         'Outside' => \SISCOR\Http\Middleware\Outside::class,
         'HistoryBack' => \SISCOR\Http\Middleware\HistoryBack::class,
+        'roleshinobi' => \Caffeinated\Shinobi\Middleware\UserHasRole::class,
+        'permissionshinobi' => \Caffeinated\Shinobi\Middleware\UserHasPermission::class,
+
 
     ];
 }

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
+use Caffeinated\Shinobi\Models\Role;
+use Caffeinated\Shinobi\Models\Permission;
 use DB;
 use SISCOR\Usuarios;
 use SISCOR\Dependencias;
@@ -118,6 +120,56 @@ class usuariosController extends Controller
         }
 
     }
+
+
+    public function form_crear_rol(){
+    
+    $roles=Role::all();
+    return view("usuarios.create_rol")->with("roles",$roles);
+
+    }
+
+    public function crear_rol(Request $request){
+     
+     $rol=new Role;
+     $rol->name=$request->input("rol_name");
+     $rol->slug=$request->input("rol_slug");
+     $rol->description=$request->input("rol_description");
+
+     if($rol->save()){
+        return response()->json(['respuesta' => 'success','mensaje' => 'Creado exitosamente']);
+     } else {
+        return response()->json(['respuesta' => 'fail','mensaje' => 'Error al Crear verifique']);
+     }
+
+    }
+
+    public function form_crear_permiso(){
+    
+    $roles=Role::all();
+    $permisos=Permission::all();
+    return view("usuarios.create_permiso")->with("roles",$roles)->with("permisos",$permisos);
+
+    }
+
+    public function crear_permiso(Request $request){
+
+     $permiso=new Permission;
+     $permiso->name=$request->input("permiso_name");
+     $permiso->slug=$request->input("permiso_slug");
+     $permiso->description=$request->input("permiso_description");
+
+     if($permiso->save()){
+        return response()->json(['respuesta' => 'success','mensaje' => 'Creado exitosamente']);
+     } else {
+        return response()->json(['respuesta' => 'fail','mensaje' => 'Error al Crear verifique']);
+     }
+
+    }
+
+    }
+
+
 
     public function updatepasswd($id)
     {

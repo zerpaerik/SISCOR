@@ -81,7 +81,14 @@
                                 </div>
                             </a>
                         </li>
-                        
+                        <li>
+                            <a class="redireccion" href="{{asset('/usuarios/create_rol')}}">
+                                <div>
+                                    <i class="fa fa-user"></i> Crear Rol
+                                    <span class="pull-right text-muted small"></span>
+                                </div>
+                            </a>
+                        </li>
 </ul>
 <ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
 
