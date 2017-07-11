@@ -12,8 +12,8 @@
 //*********************Rutas para administrador*********************************
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
     //Rutas externas módulo de usuarios
-	Route::get('/user', function () {return view('user.loginUser');});
-	Route::post('/login','userController@login');
+	Route::get('/user', function () {return view('usuarios.loginUsuarios');});
+	Route::post('/login','usuariosController@login');
 });
 
 Route::group(['middleware' => ['inside','HistoryBack']], function () {
@@ -100,15 +100,83 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 });
 
 //**********************Rutas para Usuarios********************************
+
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
     //Rutas externas módulo de usuarios regulares
 	Route::get('/usuarios', function () {return view('usuarios.create');});
+	Route::get('/logout','usuariosController@logout');
 	Route::get('/usuarios/create','usuariosController@create');
 	Route::post('/usuarios/store','usuariosController@store');
-	Route::get('/usuarios/listImagenes','usuariosController@index');
+	Route::get('/usuarios/listUsuarios','usuariosController@index');
+	Route::get('/usuarios/edit/{id}','usuariosController@edit');
+	Route::put('/usuarios/update/{id}','usuariosController@update');
+    Route::get('/usuarios/usuarios-modal/{id}','usuariosController@usuarioModal');
+	Route::put('/usuarios/destroy/{id}','usuariosController@destroy');
+	Route::get('/usuarios/orgbydep/{id}','usuariosController@orgbydep');
+	Route::get('/usuarios/updatepasswd/{id}','usuariosController@updatepasswd');
+});
+//**********************Rutas para Direcciones********************************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	Route::get('/direcciones', function () {return view('direcciones.create');});
+	Route::get('/direcciones/create','direccionController@create');
+	Route::post('/direcciones/store','direccionController@store');
+	Route::get('/direcciones/listDirecciones','direccionController@index');
+	Route::get('/direcciones/edit/{id}','direccionController@edit');
+	Route::put('/direcciones/update/{id}','direccionController@update');
+    Route::get('/direcciones/direcciones-modal/{id}','direccionController@direccionModal');
+	Route::put('/direcciones/destroy/{id}','direccionController@destroy');
+
+});
+
+//**********************Rutas para Divisiones********************************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	Route::get('/divisiones', function () {return view('direcciones.create');});
+	Route::get('/divisiones/create','divisionController@create');
+	Route::post('/divisiones/store','divisionController@store');
+	Route::get('/divisiones/listDivisiones','divisionController@index');
+	Route::get('/divisiones/edit/{id}','divisionController@edit');
+	Route::put('/divisiones/update/{id}','divisionController@update');
+    Route::get('/divisiones/divisiones-modal/{id}','divisionController@divisionModal');
+	Route::put('/divisiones/destroy/{id}','divisionController@destroy');
+	Route::get('/divisiones/depbydir/{id}','divisionController@depbydir');
+
+});
+
+//**********************Rutas para Departamentos********************************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	Route::get('/departamentos', function () {return view('departamentos.create');});
+	Route::get('/departamentos/create','departamentoController@create');
+	Route::post('/departamentos/store','departamentoController@store');
+	Route::get('/departamentos/listDepartamentos','departamentoController@index');
+	Route::get('/departamentos/edit/{id}','departamentoController@edit');
+	Route::put('/departamentos/update/{id}','departamentoController@update');
+    Route::get('/departamentos/departamentos-modal/{id}','departamentoController@departamentoModal');
+	Route::put('/departamentos/destroy/{id}','departamentoController@destroy');
+	Route::get('/departamentos/dirbydiv/{id}','departamentoController@dirbydiv');
+
+});
+
+//**********************Rutas para Correspondencia********************************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	Route::get('/correspondencia', function () {return view('correspondencia.create');});
+	Route::get('/correspondencia/create','correspondenciaController@create');
+	Route::post('/correspondencia/store','correspondenciaController@store');
+	Route::get('/correspondencia/usrbyorg/{id}','correspondenciaController@usrbyorg');
+	Route::get('/usuarios/listUsuarios','usuariosController@index');
 	Route::get('/usuarios/edit/{id}','usuariosController@edit');
 	Route::put('/usuarios/update/{id}','usuariosController@update');
     Route::get('/usuarios/usuarios-modal/{id}','usuariosController@usuarioModal');
 	Route::put('/usuarios/destroy/{id}','usuariosController@destroy');
 	Route::get('/usuarios/orgbydep/{id}','usuariosController@orgbydep');
 });
+
+
+	Route::get('/prueba','correspondenciaController@prueba');

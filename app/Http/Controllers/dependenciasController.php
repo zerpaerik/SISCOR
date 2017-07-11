@@ -39,6 +39,7 @@ class dependenciasController extends Controller
     $data= array(
                   'id_org'     =>Input::get('id_org'), 
                   'descripcion'=>Input::get('descripcion'),
+                  'siglas'=>Input::get('siglas')
                 );
          
         $guardar=Dependencias::guardar($data);
@@ -60,7 +61,9 @@ class dependenciasController extends Controller
     public function update($id)
     {
         $data= array(
-             'descripcion'=>Input::get('descripcion')
+                  'id_org'     =>Input::get('id_org'), 
+                  'descripcion'=>Input::get('descripcion'),
+                  'siglas'=>Input::get('siglas')
               );
 
        $actualizar=Dependencias::actualizar($id,$data);

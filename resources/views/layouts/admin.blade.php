@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="{{asset('assets/js/Lightweight-Chart/cssCharts.css')}}"> 
     <!--toasts notification-->
     <link href="{{asset('assets/css/toastr.css')}}" rel="stylesheet" />
+    <!--summernote-->
+    <link href="{{asset('assets/css/summernote.css')}}" rel="stylesheet" />
+
 
 </head>
 
@@ -40,184 +43,162 @@
             </div>
 
             <ul class="nav navbar-top-links navbar-right"> 
-                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>               
-                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
-                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
-                  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>John Doe</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4">
+                <i class="fa fa-tags fa-fw"></i> 
+                <i class="material-icons right">arrow_drop_down</i>
+                </a>
+                </li>               
+                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i class="fa fa-sitemap fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i class="fa fa-user fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+                  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>Admin SISCOR</b> <i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </nav>
         <!-- Dropdown Structure -->
 <ul id="dropdown1" class="dropdown-content">
-<li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
-</li>
-<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+
+<li><a href="{{asset('/usuarios/updatepasswd')}}"><i class="fa fa-gear fa-fw"></i>Modificar Contraseña</a>
 </li> 
-<li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+<li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
 </li>
 </ul>
 <ul id="dropdown2" class="dropdown-content w250">
-  <li>
-                            <a href="#">
+ 
+        
+                        <li>
+                            <a class="redireccion" href="{{asset('/usuarios/create')}}">
                                 <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 min</span>
+                                    <i class="fa fa-user"></i> Crear Usuarios
+                                    <span class="pull-right text-muted small"></span>
                                 </div>
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#">
+                            <a class="redireccion" href="{{asset('/usuarios/listUsuarios')}}">
                                 <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 min</span>
+                                    <i class="fa fa-user"></i> Listar Usuarios
+                                    <span class="pull-right text-muted small"></span>
                                 </div>
                             </a>
                         </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 min</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 min</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 min</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
+                        
 </ul>
 <ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
-<li>
-        <a href="#">
-            <div>
-                <p>
-                    <strong>Task 1</strong>
-                    <span class="pull-right text-muted">60% Complete</span>
-                </p>
-                <div class="progress progress-striped active">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                        <span class="sr-only">60% Complete (success)</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </li>
-    <li class="divider"></li>
-    <li>
-        <a href="#">
-            <div>
-                <p>
-                    <strong>Task 2</strong>
-                    <span class="pull-right text-muted">28% Complete</span>
-                </p>
-                <div class="progress progress-striped active">
-                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%">
-                        <span class="sr-only">28% Complete</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </li>
-    <li class="divider"></li>
-    <li>
-        <a href="#">
-            <div>
-                <p>
-                    <strong>Task 3</strong>
-                    <span class="pull-right text-muted">60% Complete</span>
-                </p>
-                <div class="progress progress-striped active">
-                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                        <span class="sr-only">60% Complete (warning)</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </li>
-    <li class="divider"></li>
-    <li>
-        <a href="#">
-            <div>
-                <p>
-                    <strong>Task 4</strong>
-                    <span class="pull-right text-muted">85% Complete</span>
-                </p>
-                <div class="progress progress-striped active">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
-                        <span class="sr-only">85% Complete (danger)</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </li>
+
+                        <li class="divider"></li>
+                        <li>
+                            <a class="redireccion" href="{{asset('/organismos/create')}}">
+                                <div>
+                                    <i class="fa fa-sitemap"></i> Crear Organismos
+                                    <span class="pull-right text-muted small"></span>
+                                </div>
+                            </a>
+                        </li>
+
+
+                        <li class="divider"></li>
+                        <li>
+                            <a class="redireccion" href="{{asset('/organismos/listOrganismos')}}">
+                                <div>
+                                    <i class="fa fa-sitemap"></i> Listar Organismos
+                                    <span class="pull-right text-muted small"></span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="redireccion" href="{{asset('/dependencias/create')}}">
+                                <div>
+                                    <i class="fa fa-arrows-alt" aria-hidden="true"></i> Crear Dependencias
+                                    <span class="pull-right text-muted small"></span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="redireccion" href="{{asset('/dependencias/listDependencias')}}">
+                                <div>
+                                    <i class="fa fa-arrows-alt" aria-hidden="true"></i> Listar Dependencias
+                                    <span class="pull-right text-muted small"></span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="redireccion" href="{{asset('/direcciones/create')}}">
+                                <div>
+                                    <i class="fa fa-th-list" aria-hidden="true"></i> Crear Direcciones
+                                    <span class="pull-right text-muted small"></span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="redireccion" href="{{asset('/direcciones/listDirecciones')}}">
+                                <div>
+                                    <i class="fa fa-th-list" aria-hidden="true"></i> Listar Direcciones
+                                    <span class="pull-right text-muted small"></span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="redireccion" href="{{asset('/divisiones/create')}}">
+                                <div>
+                                    <i class="fa fa-table" aria-hidden="true"></i> Crear Divisiones
+                                    <span class="pull-right text-muted small"></span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="redireccion" href="{{asset('/divisiones/listDivisiones')}}">
+                                <div>
+                                    <i class="fa fa-table" aria-hidden="true"></i> Listar Divisiones
+                                    <span class="pull-right text-muted small"></span>
+                                </div>
+                            </a>
+                        </li>
+
+
+
     <li class="divider"></li>
     <li>
 </ul>   
 <ul id="dropdown4" class="dropdown-content dropdown-tasks w250">
-  <li>
-                            <a href="#">
+  <li>                       
+
+<li>
+                            <a class="redireccion" href="{{asset('/imagenes/create')}}">
                                 <div>
-                                    <strong>John Doe</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Today</em>
-                                    </span>
+                                    <i class="fa fa-table" aria-hidden="true"></i> Crear Encabezados
+                                    <span class="pull-right text-muted small"></span>
                                 </div>
-                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</div>
                             </a>
                         </li>
-                        <li class="divider"></li>
                         <li>
-                            <a href="#">
+                            <a class="redireccion" href="{{asset('/imagenes/listImagenes')}}">
                                 <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
+                                    <i class="fa fa-table" aria-hidden="true"></i> Listar Encabezados
+                                    <span class="pull-right text-muted small"></span>
                                 </div>
-                                <div>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</div>
                             </a>
                         </li>
-                        <li class="divider"></li>
                         <li>
-                            <a href="#">
+                            <a class="redireccion" href="{{asset('/imagenes/create')}}">
                                 <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
+                                    <i class="fa fa-table" aria-hidden="true"></i> Crear Pie
+                                    <span class="pull-right text-muted small"></span>
                                 </div>
-                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the...</div>
                             </a>
                         </li>
-                        <li class="divider"></li>
                         <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
+                            <a class="redireccion" href="{{asset('/imagenes/listImagenes')}}">
+                                <div>
+                                    <i class="fa fa-table" aria-hidden="true"></i> Listar Divisiones
+                                    <span class="pull-right text-muted small"></span>
+                                </div>
                             </a>
                         </li>
+                 
+                        </ul>
+                    </li>
+
+
 </ul>  
        <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
@@ -227,99 +208,36 @@
                     <li>
                         <a class="active-menu waves-effect waves-dark" href="index.html"><i class="fa fa-dashboard"></i>Menú Principal</a>
                     </li>
+                   
+                  
                     <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i>Organismos<span class="fa arrow"></span></a>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-envelope"></i> Correspondencia<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="redireccion" href="{{asset('/organismos/create')}}">Crear</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Redactar Nueva</a>
                             </li>
-                            <li>
-                                <a class="redireccion" href="{{asset('/organismos/listOrganismos')}}">Listar</a>
-                            </li>
+                            
+                            
                         </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-home "></i>Dependencias<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="redireccion" href="{{asset('/dependencias/create')}}">Crear</a>
-                            </li>
-                            <li>
-                                <a class="redireccion" href="{{asset('/dependencias/listDependencias')}}">Listar</a>
-                            </li>
-                        </ul>
-                    </li>
-                     <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-tags "></i>Cargos<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="redireccion" href="{{asset('/cargos/create')}}">Crear</a>
-                            </li>
-                            <li>
-                                <a class="redireccion" href="{{asset('/cargos/listCargos')}}">Listar</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-bars "></i>Pie/Encabezados <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="redireccion" href="{{asset('/imagenes/create')}}">Crear</a>
-                            </li>
-                            <li>
-                                <a class="redireccion" href="{{asset('/imagenes/listImagenes')}}">Listar</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-user "></i>Usuarios <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="redireccion" href="{{asset('/usuarios/create')}}">Crear</a>
-                            </li>
-                            <li>
-                                <a class="redireccion" href="{{asset('/usuarios/listIUsuarios')}}">Listar</a>
-                            </li>
-                        </ul>
-                    </li>
-                    
-
-                    </li>
-                    <li>
-                        <a href="form.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> Forms </a>
                     </li>
 
 
                     <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-envelope"></i> Bandejas<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Second Level Link</a>
+                                <a class="redireccion" href="{{asset('/usuarios/ListUsuarios')}}">Recibidas</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Por Aprobar</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Enviadas</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Asignadas</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Borrador</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Archivadas</a>
                             </li>
-                            <li>
-                                <a href="#">Second Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-
-                                </ul>
-
-                            </li>
+                            
+                            
                         </ul>
                     </li>
-                    <li>
-                        <a href="empty.html" class="waves-effect waves-dark"><i class="fa fa-fw fa-file"></i> Empty Page</a>
-                    </li>
+                
                 </ul>
 
             </div>
@@ -398,6 +316,8 @@
     <script src="{{asset('assets/js/easypiechart-data.js')}}"></script>
     
      <script src="{{asset('assets/js/Lightweight-Chart/jquery.chart.js')}}"></script>
+
+     <script src="{{asset('assets/js/summernote.js')}}"></script>
     
     <!-- Custom Js -->
     <script src="{{asset('assets/js/custom-scripts.js')}}"></script> 

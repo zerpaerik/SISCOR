@@ -17,7 +17,8 @@ class Organismos extends Model
 
     protected $fillable =[
         'id',
-        'descripcion'
+        'descripcion',
+        'siglas'
         ];
 
 
@@ -53,6 +54,7 @@ class Organismos extends Model
     public static function guardar($data){
         $organismo=new Organismos;
         $organismo->descripcion=$data['descripcion'];
+        $organismo->siglas=$data['siglas'];
 
         $organismo->save();
 
@@ -67,6 +69,8 @@ class Organismos extends Model
     public static function actualizar($id,$data){
        $organismo=Organismos::findOrFail($id);
        $organismo->descripcion=$data['descripcion'];
+       $organismo->siglas=$data['siglas'];
+       
 
        $organismo->update();
 

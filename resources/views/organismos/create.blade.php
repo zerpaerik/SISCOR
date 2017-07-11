@@ -14,6 +14,11 @@
     					<input type="text" class="form-control" id="descripcion" name="descripcion"
            				placeholder="Introduzca el nombre del Organismo y/o Ente" required autocomplete="off">
   					</div>
+            <div class="form-group">
+              <label for="siglas">Siglas de Organismo</label>
+              <input type="text" class="form-control" id="siglas" name="siglas"
+                  placeholder="Introduzca las siglas del Organismo y/o Ente" required autocomplete="off">
+            </div>
   				    <button type="submit" class=" waves-effect waves-light btn">Guardar</button>
   					<input type="reset" class="btn btn-info" value="Limpiar"> 
 				</form>
@@ -30,6 +35,7 @@
                 var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'descripcion'             : $('input[name=descripcion]').val(),
+                    'siglas'                  : $('input[name=siglas]').val()
                 };
                 //validaciones 
                 var valido=1;

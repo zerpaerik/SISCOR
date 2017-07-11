@@ -22,6 +22,11 @@
                   <input type="text" class="form-control" id="descripcion" name="descripcion"
                     placeholder="Introduzca el nombre de la dependencia" required autocomplete="off">
                 </div>
+                <div class="form-group">
+                  <label for="siglas">Siglas de Dependencia</label>
+                  <input type="text" class="form-control" id="siglas" name="siglas"
+                    placeholder="Introduzca las siglas de la dependencia" required autocomplete="off">
+                </div>
  
                 <button type="submit" class="waves-effect waves-light btn">Guardar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar"> 
@@ -40,6 +45,7 @@
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'id_org'                  : $('select[name=id_org]').val(),
                     'descripcion'             : $('input[name=descripcion]').val(),
+                    'siglas'                  : $('input[name=siglas]').val(),
                 };
 
                 //validaciones 

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 class Cargos extends Model
 {
 
-	protected $table='tblcargo';
+	protected $table='tblcargos';
     protected $primaryKey='id';
 
 
@@ -23,7 +23,7 @@ class Cargos extends Model
 
 
      public static function lista(){
-        $cargo = DB::table('tblcargo')
+        $cargo = DB::table('tblcargos')
                      ->where('estatus','=','1')
                      ->orderby('descripcion')
                      ->paginate(5);
@@ -38,7 +38,7 @@ class Cargos extends Model
 
     public static function buscar($query){
    
-        $cargo = DB::table('tblcargo')
+        $cargo = DB::table('tblcargos')
                      ->where('estatus','=','1')
                      ->where('descripcion','ilike', "%$query%")
                      ->orderby('descripcion')

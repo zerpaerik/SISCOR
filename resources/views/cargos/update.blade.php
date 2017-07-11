@@ -30,7 +30,7 @@
                 var valido=1;
                 var mensaje="";
                 //verifica la longitud de la descripcion
-                if (formData['descripcion'].length <= 7 || formData['descripcion'].length >=51){
+                if (formData['descripcion'].length <=7 || formData['descripcion'].length >=51){
                   valido   = 0;
                   mensaje = "Verifique la longitud del nombre del cargo";
                   alert(mensaje);  

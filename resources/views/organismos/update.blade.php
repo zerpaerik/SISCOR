@@ -12,6 +12,11 @@
     <input type="text" class="form-control" id="descripcion" name="descripcion"
            placeholder="Introduce tu nombre" required="" value="{{$data->descripcion}}" required autocomplete="off">
   </div>
+  <div class="form-group">
+    <label for="siglas">Siglas de Organismo</label>
+    <input type="text" class="form-control" id="siglas" name="siglas"
+           placeholder="Introduce tu nombre" required="" value="{{$data->siglas}}" required autocomplete="off">
+  </div>
   <button type="submit" class=" waves-effect waves-light btn">Actualizar</button>
 </form>
 				</div>    		
@@ -25,6 +30,7 @@
             	var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'descripcion'             : $('input[name=descripcion]').val(),
+                    'siglas'                  : $('input[name=siglas]').val()
                 };
                 //validaciones 
                 var valido=1;

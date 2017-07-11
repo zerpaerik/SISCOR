@@ -2,7 +2,7 @@
       <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="card">
           <div class="card-action">
-              <b>Crear Pie/Encabezados</b>
+              <b>Crear Encabezados</b>
           </div>
           <div class="card-content">
           <!-- Aqui es donde va el form-->
@@ -18,10 +18,11 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="nombre">Nombre</label>
-                  <input type="text" class="form-control" id="descripcion" name="descripcion"
+                  <label for="nombre">Texto</label>
+                  <input type="textarea" class="form-control" id="descripcion" name="descripcion"
                     placeholder="Introduzca el nombre" required autocomplete="off">
                 </div>
+
                 <div class="form-group">
                   <div class="file-field input-field">
                     <div class="btn">
