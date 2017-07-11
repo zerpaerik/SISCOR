@@ -32,7 +32,7 @@ class Usuarios extends Model
         'id_div',
         'cargo',
         'perfil',
-        'tipo_usuario',
+        'tipo_usuario'
         ];
 
 
