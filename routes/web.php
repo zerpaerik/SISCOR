@@ -177,3 +177,6 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::put('/usuarios/destroy/{id}','usuariosController@destroy');
 	Route::get('/usuarios/orgbydep/{id}','usuariosController@orgbydep');
 });
+
+
+	Route::get('/prueba','correspondenciaController@prueba');

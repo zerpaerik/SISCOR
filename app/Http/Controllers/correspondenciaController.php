@@ -13,6 +13,8 @@ use SISCOR\Usuarios;
 use SISCOR\Dependencias;
 use SISCOR\Organismos;
 use SISCOR\Cargos;
+use SISCOR\Correspondencia;
+
 
 class correspondenciaController extends Controller
 {
@@ -56,5 +58,7 @@ class correspondenciaController extends Controller
       return view("correspondencia.usrbyorg",['destinatario'=>$destinatario]);
     }
 
-    //
+    public function prueba(){
+     echo  Correspondencia::generarId(1,1,1);
+    }
 }

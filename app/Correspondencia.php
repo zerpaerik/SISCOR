@@ -23,7 +23,7 @@ class Correspondencia extends Model
         
         ];
 
-    
+
     public static function buscar($query){
    
         $correspondencia = DB::table('tblcorrespondencia')
@@ -38,28 +38,28 @@ class Correspondencia extends Model
          }        
     }
 
-    public static function generarId($id_org,$id_dep,$id_tipo_correspondencia){
+  /*  public static function generarId($id_org,$id_dep,$id_tipo_correspondencia){
         
         if ($data['id_tipo_correspondencia'] == '10'){
-        	$generarID= (O-siglas_org-siglas_dep-);
+        	$generarID= ('O-siglas_org-siglas_dep-');
         	return $generarID;
         } else if ($data['id_tipo_correspondencia'] == '20'){
-        	$generarID= (M-siglas_org-siglas_dep-);
+        	$generarID= ('M-siglas_org-siglas_dep-');
         	return $generarID;
 
         } else if ($data['id_tipo_correspondencia'] == '30'){
-        	$generarID= (C-siglas_org-siglas_dep-)
+        	$generarID= ('C-siglas_org-siglas_dep-')
     }
+*/
 
 
 
-
-    public static function guardar($data){
+  /*  public static function guardar($data){
          $aprobador10 = DB::table('tblusuarios')
                      ->where('estatus','=','1')
                      ->where('aprobador','=','1')
                      ->where('perfil','=','10')
-                     ->get()
+                     ->get();
                     
 
          if(!is_null($aprobador)){
@@ -131,13 +131,29 @@ class Correspondencia extends Model
 
         return true;
 
-    }
+    }*/
     
+    public static function generarId($id_org,$id_dep,$tipo_com){
+        if ($tipo_com == 1) {
+            $prefijo = 'O';
+        }else if($tipo_com == 2){
+            $prefijo = 'M';
+        }else if ($tipo_com == 3) {
+            $prefijo = 'C';
+        }
+        $sufijo = date("m-Y");
 
+        $searchSiglas = DB::table('tbldependencia')
+                    ->select('siglas')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_dep)
+                    ->where('id_org','=', $id_org)
+                    ->get();
 
-
-
-
-
+        foreach ($searchSiglas as $sigla) {
+            $siglas = $sigla->siglas;
+        }
+        return $siglas;
+    }
     
 }
