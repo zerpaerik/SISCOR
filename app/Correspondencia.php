@@ -38,22 +38,42 @@ class Correspondencia extends Model
          }        
     }
 
-    public static function generarId($id_org,$id_dep,$id_tipo_correspondencia){
-        
-        if ($data['id_tipo_correspondencia'] == '10'){
-        	$generarID= (O-siglas_org-siglas_dep-);
-        	return $generarID;
-        } else if ($data['id_tipo_correspondencia'] == '20'){
-        	$generarID= (M-siglas_org-siglas_dep-);
-        	return $generarID;
+    
+    public static function generarId($id_org,$id,$id_tipo_correspondencia){
 
-        } else if ($data['id_tipo_correspondencia'] == '30'){
-        	$generarID= (C-siglas_org-siglas_dep-)
-    }
+        if ($id_tipo_correspondencia == 1) {
+            $prefijo = 'O';
+        }else if($id_tipo_correspondencia == 2){
+            $prefijo = 'M';
+        }else if ($id_tipo_correspondencia == 3) { /////// denotamos el tipo de correspondencia
+            $prefijo = 'C';
+        }
+
+         
+         $sufijo=date("m-Y");
+         $searchSiglas = DB::table('tbldependencia')
+                    ->select('siglas')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id)
+                    ->where('id_org','=', $id_org)
+                    ->get();
+
+        foreach ($searchSiglas as $sigla) {
+            $siglas = $sigla->siglas;
+        }
+        return $prefijo.$siglas.$sufijo      
+
+
+        //return $id_org ." / ".$id_dep." / ".$id_tipo_correspondencia;
+        //return $prefijo;
+       // return $prefijo ." / ".$siglas." / ".$sufijo;
+       // return $prefijo."-".$siglas.$sufijo;
+       //return var_dump($siglas);
+    
 
 
 
-
+/*
     public static function guardar($data){
          $aprobador10 = DB::table('tblusuarios')
                      ->where('estatus','=','1')
@@ -133,11 +153,12 @@ class Correspondencia extends Model
 
     }
     
+*/
 
 
 
 
-
-
+}
+}
     
 }

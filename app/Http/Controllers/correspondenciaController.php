@@ -13,6 +13,7 @@ use SISCOR\Usuarios;
 use SISCOR\Dependencias;
 use SISCOR\Organismos;
 use SISCOR\Cargos;
+use SISCOR\Correspondencia;
 
 class correspondenciaController extends Controller
 {
@@ -23,6 +24,17 @@ class correspondenciaController extends Controller
       $cargos= Cargos::lista();
       return view("correspondencia.create",['organismo'=>$organismos],['dependencia'=>$dependencias],['cargo'=>$cargos]);
     }
+
+
+   
+
+    public function prueba(){
+     echo  Correspondencia::generarId(28,13,3);
+    
+}
+
+
+
 
     public function store ()
     {
