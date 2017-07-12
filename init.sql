@@ -284,3 +284,27 @@ COMMENT ON COLUMN public.tbldepartamento.estatus IS 'Estatus:
 1: Activo
 2.: Inactivo';
 
+CREATE TABLE public.tblcorrelativo
+(
+  id bigint NOT NULL DEFAULT nextval('tblcorrelativo_id_seq'::regclass),
+  contador integer NOT NULL,
+  fecha timestamp without time zone NOT NULL DEFAULT now(),
+  id_org integer,
+  id_dep integer,
+  id_tipo_correspondencia integer,
+  CONSTRAINT tblcorrelativo_pkey PRIMARY KEY (id),
+  CONSTRAINT tblcorrelativo_id_dep_fkey FOREIGN KEY (id_dep)
+      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblcorrelativo_id_org_fkey FOREIGN KEY (id_org)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblcorrelativo_id_tipo_correspondencia_fkey FOREIGN KEY (id_tipo_correspondencia)
+      REFERENCES public.tbltipocorrespondencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblcorrelativo
+  OWNER TO postgres;
