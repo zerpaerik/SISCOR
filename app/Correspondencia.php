@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use SISCOR\UsuariosAprobadores;
 use SISCOR\Usuarios;
+use SISCOR\Correlativo;
 
 class Correspondencia extends Model
 {
@@ -39,18 +40,19 @@ class Correspondencia extends Model
     }
 
     
-    public static function generarId($id_org,$id,$id_tipo_correspondencia){
+    public static function generarId($id_org,$id_dep,$id,$id_tipo_correspondencia){
 
         if ($id_tipo_correspondencia == 1) {
             $prefijo = 'O';
         }else if($id_tipo_correspondencia == 2){
             $prefijo = 'M';
-        }else if ($id_tipo_correspondencia == 3) { /////// denotamos el tipo de correspondencia
+        }else if ($id_tipo_correspondencia == 3) { 
             $prefijo = 'C';
-        }
+        } // el prefijo me traera el tipo de correspondencia (OFICIO-MEMO-CIRCULAR)
 
          
-         $sufijo=date("m-Y");
+         $sufijo=date("m-Y");  //variable para alojar mes y año de la correspondencia
+
          $searchSiglas = DB::table('tbldependencia')
                     ->select('siglas')
                     ->where('estatus','=','1')
@@ -60,15 +62,37 @@ class Correspondencia extends Model
 
         foreach ($searchSiglas as $sigla) {
             $siglas = $sigla->siglas;
+        } // arreglo de modelo que me devolvera las siglas de la dependencia
+
+        $searchContador= DB::table('tblcorrelativo')
+                    ->select('contador')
+                    ->where('id_dep','=',$id_dep)
+                    ->where('id_org','=', $id_org)
+                    ->get();
+
+        $contador="";
+
+      //if ($searchContador == null){
+        if (is_null($searchContador)){
+            $contador='0';
+        } else {
+         foreach ($searchContador as $correlativo){
+            $contador=$correlativo->contador+1;
         }
-        return $prefijo.$siglas.$sufijo      
+    }
+        return $contador;
+    //turn $contador;
+   //eturn var_dump($searchContador);
 
+      //tr_pad($input, 10, "-=", STR_PAD_LEFT)
 
+       //eturn $prefijo ."-".$siglas."-".$contador."-".$sufijo;
         //return $id_org ." / ".$id_dep." / ".$id_tipo_correspondencia;
         //return $prefijo;
        // return $prefijo ." / ".$siglas." / ".$sufijo;
        // return $prefijo."-".$siglas.$sufijo;
        //return var_dump($siglas);
+        
     
 
 
@@ -137,7 +161,21 @@ class Correspondencia extends Model
             $correlativo->id_tipo_correspondencia=$data['id_tipo_correspondencia'];
             $correlativo->save();
           
+ $searchContador= DB::table('tblcorrelativo')
+                    ->select('contador')
+                    ->where('id_dep','=',$id_dep)
+                    ->where('id_org','=', $id_org)
+                    ->get();
 
+        foreach ($searchContador as $conta){
+             $contador = $conta->$contador;
+        }
+
+        if ($contador == null){
+            $contador='0';
+        } else {
+            $contador=$contador+1;
+        }
             
 
             //se confirman los datos; puede haber multiples implementaciones pero est es el unico commit para todas al final
@@ -152,13 +190,6 @@ class Correspondencia extends Model
         return true;
 
     }
-    
-*/
-
-
-
-
+    */
 }
-}
-    
 }
