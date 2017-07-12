@@ -308,3 +308,20 @@ WITH (
 );
 ALTER TABLE public.tblcorrelativo
   OWNER TO postgres;
+
+  
+  CREATE TABLE public.tbltipocorrespondencia
+(
+  id bigint NOT NULL DEFAULT nextval('tbltipocorrespondencia_id_seq'::regclass),
+  descripcion character varying NOT NULL, -- Tipos de Correspondencia...
+  CONSTRAINT tbltipocorrespondencia_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tbltipocorrespondencia
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tbltipocorrespondencia.descripcion IS 'Tipos de Correspondencia
+-Oficios
+-Memorandum
+-Circulares';
