@@ -70,31 +70,19 @@ class Correspondencia extends Model
                     ->where('id_org','=', $id_org)
                     ->get();
 
-        $contador="";
-
-      //if ($searchContador == null){
-        if (is_null($searchContador)){
-            $contador='0';
+        $contador=0;
+          if(count($searchContador) ==0){
+            $contador=0;
         } else {
          foreach ($searchContador as $correlativo){
             $contador=$correlativo->contador+1;
         }
     }
-        return $contador;
-    //turn $contador;
-   //eturn var_dump($searchContador);
 
-      //tr_pad($input, 10, "-=", STR_PAD_LEFT)
 
-       //eturn $prefijo ."-".$siglas."-".$contador."-".$sufijo;
-        //return $id_org ." / ".$id_dep." / ".$id_tipo_correspondencia;
-        //return $prefijo;
-       // return $prefijo ." / ".$siglas." / ".$sufijo;
-       // return $prefijo."-".$siglas.$sufijo;
-       //return var_dump($siglas);
-        
-    
 
+
+        return $prefijo ."-".$siglas."-".$contador."-".$sufijo;
 
 
 /*

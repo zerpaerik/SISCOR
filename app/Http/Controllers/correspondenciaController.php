@@ -29,7 +29,7 @@ class correspondenciaController extends Controller
    
 
     public function prueba(){
-     echo  Correspondencia::generarId(28,13,13,1);
+     echo  Correspondencia::generarId(28,14,14,1);
     
 }
 
