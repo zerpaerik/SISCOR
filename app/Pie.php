@@ -7,10 +7,10 @@ use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
-class Imagenes extends Model
+class Pie extends Model
 {
 
-	protected $table='tblimagenes';
+	protected $table='tblpie';
     protected $primaryKey='id';
 
 
@@ -20,22 +20,22 @@ class Imagenes extends Model
         'id',
         'descripcion',
         'pie',
-        'encabezado',
         'estatus',
         'fecha_creacion',
-        'ir_org'
+        'ir_org',
+        'id_dep'
         ];
     //
 
 
      public static function lista(){
-        $imagenes = DB::table('tblimagenes')
+        $pie = DB::table('tblpie')
                      ->where('estatus','=','1')
                      ->orderby('descripcion')
                      ->paginate(5);
 
-         if(!is_null($imagenes)){
-            return $imagenes;
+         if(!is_null($pie)){
+            return $pie;
          }else{
             return false;
          }        
@@ -43,14 +43,14 @@ class Imagenes extends Model
 
     public static function buscar($query){
    
-        $imagenes = DB::table('tblimagenes')
+        $pie = DB::table('tblpie')
                      ->where('estatus','=','1')
                      ->where('descripcion','ilike', "%$query%")
                      ->orderby('descripcion')
                      ->paginate(5);
 
-         if(!is_null($imagenes)){
-            return $imagenes;
+         if(!is_null($pie)){
+            return $pie;
          }else{
             return false;
          }        
@@ -58,16 +58,29 @@ class Imagenes extends Model
     
 
     public static function guardar($data){
-        $imagenes=new Imagenes;
-        $imagenes->descripcion=$data['descripcion'];
-        $imagenes->pie=$data['pie'];
-        $imagenes->encabezado=$data['encabezado'];
-        $imagenes->estatus=1;
-        $imagenes->id_org=$data['id_org'];
+        $pie=new Pie;
+        $pie->descripcion=$data['descripcion'];
+        $pie->pie=$data['pie'];
+        $pie->estatus=1;
+        $pie->id_org=$data['id_org'];
+        $pie->id_dep=$data['id_dep'];
 
-        $imagenes->save();
+        $pie->save();
 
-         if(!is_null($imagenes)){
+         if(!is_null($pie)){
+            return true;
+         }else{
+            return false;
+         }        
+    }
+
+    public static function eliminar($id){
+       $pie=Pie::findOrFail($id);
+       $pie->estatus='2';
+
+       $pie->update();
+
+         if(!is_null($pie)){
             return true;
          }else{
             return false;

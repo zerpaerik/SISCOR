@@ -17,6 +17,21 @@ use SISCOR\Correspondencia;
 
 class correspondenciaController extends Controller
 {
+
+   public function index()
+    {
+      $searchText = Input::get('searchText'); 
+      $data= Correspondencia::buscar($searchText);
+      if ($data){
+         return view("correspondencia.bandejas.recibidas.listRecibidas",["data"=>$data,"searchText"=>$searchText]);
+      }else{
+         return view("layouts.nodata");
+
+      }
+    }
+
+
+
 	public function create()
     {
       $organismos= Organismos::lista();

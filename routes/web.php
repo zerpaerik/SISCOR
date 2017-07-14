@@ -86,18 +86,32 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 });
 
 
-//**********************Rutas para Pie y Encabezados********************************
+//**********************Rutas para Encabezados********************************
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
     //Rutas externas módulo de usuarios regulares
-	Route::get('/imagenes', function () {return view('imagenes.create');});
-	Route::get('/imagenes/create','imagenesController@create');
-	Route::post('/imagenes/store','imagenesController@store');
-	Route::get('/imagenes/listImagenes','imagenesController@index');
-	Route::get('/imagenes/edit/{id}','imagenesController@edit');
-	Route::put('/imagenes/update/{id}','imagenesController@update');
-    Route::get('/imagenes/imagenes-modal/{id}','imagenesController@cargoModal');
-	Route::put('/imagenes/destroy/{id}','imagenesController@destroy');
+	Route::get('/encabezados', function () {return view('encabezados.create');});
+	Route::get('/encabezados/create','encabezadosController@create');
+	Route::post('/encabezados/store','encabezadosController@store');
+	Route::get('/encabezados/listImagenes','encabezadosController@index');
+	Route::get('/encabezados/edit/{id}','encabezadosController@edit');
+	Route::put('/encabezados/update/{id}','encabezadosController@update');
+    Route::get('/encabezados/encabezado-modal/{id}','encabezadosController@encabezadoModal');
+	Route::put('/encabezados/destroy/{id}','encabezadosController@destroy');
 });
+
+//**********************Rutas para Pie********************************
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	Route::get('/pie', function () {return view('pie.create');});
+	Route::get('/pie/create','pieController@create');
+	Route::post('/pie/store','pieController@store');
+	Route::get('/pie/listPie','pieController@index');
+	Route::get('/pie/edit/{id}','pieController@edit');
+	Route::put('/pie/update/{id}','pieController@update');
+    Route::get('/pie/pie-modal/{id}','pieController@pieModal');
+	Route::put('/pie/destroy/{id}','pieController@destroy');
+});
+
 
 //**********************Rutas para Usuarios********************************
 
@@ -167,4 +181,27 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
     //Rutas externas módulo de usuarios regulares
 	Route::get('/prueba','correspondenciaController@prueba');
+	Route::get('/correspondencia', function () {return view('correspondencia.create');});
+	Route::get('/correspondencia/create','correspondenciaController@create');
+	Route::post('/correspondencia/store','correspondenciaController@store');
+});
+
+
+//*************Rutas para Bandeja de Recibidas de Correspondencia********************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	
+	Route::get('/correspondencia/bandejas/recibidas/ListRecibidas','correspondenciaController@index');
+	Route::get('/correspondencia/bandejas/recibidas/recibidas-modal/{id}','correspondenciaController@recibidasModal');
+});
+
+
+//*************Rutas para Bandeja de Por Aprobar Correspondencia********************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	
+	Route::get('/correspondencia/bandejas/por aprobar/ListPorAprobar','correspondenciaController@index');
+	Route::get('/correspondencia/bandejas/por aprobar/poraprobar-modal/{id}','correspondenciaController@recibidasModal');
 });

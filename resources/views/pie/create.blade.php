@@ -2,7 +2,7 @@
       <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="card">
           <div class="card-action">
-              <b>Crear Encabezados</b>
+              <b>Crear Pie</b>
           </div>
           <div class="card-content">
           <!-- Aqui es donde va el form-->
@@ -17,6 +17,11 @@
                     @endforeach
                   </select>
                 </div>
+
+                <div class="form-group">
+                    <div id="orgbydep"></div>
+                </div>
+
                 <div class="form-group">
                   <label for="nombre">Texto</label>
                   <input type="textarea" class="form-control" id="descripcion" name="descripcion"
@@ -26,7 +31,7 @@
                 <div class="form-group">
                   <div class="file-field input-field">
                     <div class="btn">
-                      <span>Adjuntar Píe de página</span>
+                      <span>Adjuntar Pie</span>
                       <input type="file" name="pie" id="pie">
                     </div>
                     <div class="file-path-wrapper">
@@ -35,17 +40,6 @@
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <div class="file-field input-field">
-                    <div class="btn">
-                      <span>Adjuntar Encabezado de página</span>
-                      <input type="file" name="encabezado" id="encabezado">
-                    </div>
-                    <div class="file-path-wrapper">
-                      <input class="file-path validate" type="text" placeholder="Subir encabezado">
-                    </div>
-                  </div>
-                </div>
 
                 <button type="submit"   class="waves-effect waves-light btn">Guardar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar"> 
@@ -62,9 +56,9 @@
                 var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'id_org'                  : $('select[name=id_org]').val(),
+                    'id_dep'                  : $('select[name=id_dep]').val(),
                     'descripcion'             : $('input[name=descripcion]').val(),
                     'pie'                     : $('#pie').prop('files')[0],
-                    'encabezado'              : $('#encabezado').prop('files')[0],
                 };
                 //validaciones 
                 var valido=1;
@@ -85,7 +79,7 @@
                 if (valido == 1) {
                 // procesamiento del  form
                 $.ajax({
-                          url:'<?= asset('imagenes/store') ?>',
+                          url:'<?= asset('pie/store') ?>',
                           data: new FormData($("#create")[0]),
                           dataType:'json',
                           async:false,
@@ -113,4 +107,20 @@
                 // previene que se ejecute submit dando enter
                 event.preventDefault();
             });
+    </script>
+
+     <script type="text/javascript">
+        $('#id_org').on('change',function(){
+          var id= $('#id_org').val();
+          var link= '{{asset("usuarios/orgbydep/id")}}';
+              link= link.replace('id',id);
+          $.ajax({
+                 type: "get",
+                 url: link ,
+                 success: function(a) {
+                    $('#orgbydep').html(a);
+                 }
+          });
+
+        });
     </script>

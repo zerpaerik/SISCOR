@@ -10,19 +10,20 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
 use DB;
 use Illuminate\Support\Facades\Auth;
-use SISCOR\Imagenes;
+use SISCOR\Encabezados;
 use SISCOR\Organismos;
+use SISCOR\Dependencias;
 use SISCOR\Http\Requests\ImagenesFormRequest;
 
-class imagenesController extends Controller
+class encabezadosController extends Controller
 {
     //
    public function index()
     {
       $searchText = Input::get('searchText'); 
-      $data= Imagenes::buscar($searchText);
+      $data= Encabezados::buscar($searchText);
       if ($data){
-         return view("imagenes.listImagenes",["data"=>$data,"searchText"=>$searchText]);
+         return view("encabezados.listImagenes",["data"=>$data,"searchText"=>$searchText]);
       }else{
          return view("layouts.nodata");
 
@@ -32,7 +33,8 @@ class imagenesController extends Controller
     public function create()
     {
       $organismos= Organismos::lista();
-      return view("imagenes.create",['organismo'=>$organismos]);
+      $dependencias= Dependencias::lista();
+      return view("encabezados.create",['organismo'=>$organismos],['dependencia'=>$dependencias]);
     }
 
     public function store ()
@@ -41,7 +43,8 @@ class imagenesController extends Controller
 
                   'descripcion' =>Input::get('descripcion'), 
                   'estatus'     =>Input::get('estatus'),
-                  'id_org'      =>Input::get('id_org')
+                  'id_org'      =>Input::get('id_org'),
+                  'id_dep'      =>Input::get('id_dep')
 
                 );
 
@@ -58,7 +61,7 @@ class imagenesController extends Controller
             $data['encabezado']=$file->getClientOriginalName();
             
         }
-        $guardar=Imagenes::guardar($data);
+        $guardar=Encabezados::guardar($data);
 
         if ($guardar) {
           return response()->json(['respuesta' => 'success','mensaje' => 'Guardado exitosamente']);
@@ -67,7 +70,22 @@ class imagenesController extends Controller
         }
     }
 
+ public function encabezadoModal($id)
+    {
+      $encabezado=Encabezados::findOrFail($id);
+      return view("encabezados.encabezado-modal",['encabezado'=>$encabezado]);
+    }
 
+
+    public function destroy($id)
+    {
+       $eliminar=Encabezados::eliminar($id);
+        if ($eliminar) {
+          return response()->json(['respuesta' => 'success','mensaje' => 'Eliminado exitosamente']);
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al eliminar verifique']);
+        }
+    }
 
 
 }

@@ -4,38 +4,38 @@
 			<div class="card">
 				<div class="card-action">
 				<div class="col s6">
-					<b>Lista de Imagenes</b>
+					<b>Lista de Encabezados</b>
 				</div>			
 				<div class="input-field col s6">
-                  @include('imagenes.search')
+                  @include('encabezados.search')
 				</div>
 				</div>
 				<table class="table">
 					<thead>
 						<th>Id</th>
 						<th>Descripción</th>
-						<th>Pie</th>
-						<th>Encabezado</th>
+						<th>Img Der</th>
+						<th>Img Izq</th>
 
 				</thead>
 				<tbody>
-					@foreach($data as $imagenes)
+					@foreach($data as $encabezado)
 						<tr>
-							<td>{{$imagenes->id}}</td>
-							<td>{{$imagenes->descripcion}}</td>
-							<td>{{$imagenes->pie}}</td>
-							<td>{{$imagenes->encabezado}}</td>
+							<td>{{$encabezado->id}}</td>
+							<td>{{$encabezado->descripcion}}</td>
+							<td>{{$encabezado->pie}}</td>
+							<td>{{$encabezado->encabezado}}</td>
 
 							<td>
 								<input type="button" 
 							           class=" waves-effect waves-light btn actualizar" 
-							           href="{{asset('imagenes/edit')}}/{{$imagenes->id}}" 
+							           href="{{asset('encabezados/edit')}}/{{$encabezado->id}}" 
 							           value="Actualizar"/>
 							</td>
 							<td>
 								<input type="button" 
 							           class="btn btn-danger eliminar" 
-							           href="{{asset('imagenes/dependenciamodal')}}/{{$imagenes->id}}" 
+							           href="{{asset('encabezados/encabezado-modal')}}/{{$encabezado->id}}" 
 							           value="Eliminar"/>
 							</td>
 						</tr>

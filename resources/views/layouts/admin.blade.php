@@ -163,7 +163,7 @@
   <li>                       
 
 <li>
-                            <a class="redireccion" href="{{asset('/imagenes/create')}}">
+                            <a class="redireccion" href="{{asset('/encabezados/create')}}">
                                 <div>
                                     <i class="fa fa-table" aria-hidden="true"></i> Crear Encabezados
                                     <span class="pull-right text-muted small"></span>
@@ -171,7 +171,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="redireccion" href="{{asset('/imagenes/listImagenes')}}">
+                            <a class="redireccion" href="{{asset('/encabezados/listImagenes')}}">
                                 <div>
                                     <i class="fa fa-table" aria-hidden="true"></i> Listar Encabezados
                                     <span class="pull-right text-muted small"></span>
@@ -179,7 +179,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="redireccion" href="{{asset('/imagenes/create')}}">
+                            <a class="redireccion" href="{{asset('/pie/create')}}">
                                 <div>
                                     <i class="fa fa-table" aria-hidden="true"></i> Crear Pie
                                     <span class="pull-right text-muted small"></span>
@@ -187,9 +187,9 @@
                             </a>
                         </li>
                         <li>
-                            <a class="redireccion" href="{{asset('/imagenes/listImagenes')}}">
+                            <a class="redireccion" href="{{asset('/pie/listPie')}}">
                                 <div>
-                                    <i class="fa fa-table" aria-hidden="true"></i> Listar Divisiones
+                                    <i class="fa fa-table" aria-hidden="true"></i> Listar Pie
                                     <span class="pull-right text-muted small"></span>
                                 </div>
                             </a>
@@ -226,12 +226,12 @@
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-envelope"></i> Bandejas<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="redireccion" href="{{asset('/usuarios/ListUsuarios')}}">Recibidas</a>
-                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Por Aprobar</a>
-                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Enviadas</a>
-                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Asignadas</a>
-                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Borrador</a>
-                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Archivadas</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Recibidas</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Por Aprobar</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Enviadas</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Asignadas</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Borrador</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Archivadas</a>
                             </li>
                             
                             

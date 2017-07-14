@@ -79,9 +79,6 @@ class Correspondencia extends Model
         }
     }
 
-
-
-
         return $prefijo ."-".$siglas."-".$contador."-".$sufijo;
 
 
