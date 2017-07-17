@@ -15,10 +15,11 @@ class Correlativo extends Model
 
     protected $fillable =[
         'contador',
-        'fecha',
         'id_org' ,
         'id_dep',
-        'id_tipo_correspondencia'
+        'id_tipo_correspondencia',
+        'updated_at',
+        'created_at'
         
         ];//
 }

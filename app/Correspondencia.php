@@ -65,21 +65,44 @@ class Correspondencia extends Model
         } // arreglo de modelo que me devolvera las siglas de la dependencia
 
         $searchContador= DB::table('tblcorrelativo')
-                    ->select('contador')
+                    ->select('*')
                     ->where('id_dep','=',$id_dep)
                     ->where('id_org','=', $id_org)
                     ->get();
 
-        $contador=0;
+        $contador=1;
           if(count($searchContador) ==0){
-            $contador=0;
+            $contador=1;
+            
+            $correlativo = new Correlativo;
+            $correlativo->contador=$contador;
+            $correlativo->id_org=$id_org;
+            $correlativo->id_dep=$id_dep;
+            $correlativo->id_tipo_correspondencia=$id_tipo_correspondencia;
+            $correlativo->save();
+
+            
         } else {
          foreach ($searchContador as $correlativo){
             $contador=$correlativo->contador+1;
-        }
-    }
 
-        return $prefijo ."-".$siglas."-".$contador."-".$sufijo;
+           
+            $correlativo=Correlativo::findOrFail($correlativo->id);
+            $correlativo->contador=$contador;
+            $correlativo->updated_at=date('Y-m-d H:i:s');
+            $correlativo->update();
+
+        }
+      
+    }
+    //return $correlativo->contador;
+  //  return $correlativo->contador+1;
+      // return $correlativo->contador;
+    return $prefijo ."-".$siglas."-".str_pad($contador, 4, "0", STR_PAD_LEFT)."-".$sufijo;
+
+   //return str_pad($contador, 4, "0", STR_PAD_LEFT);
+
+   // return var_dump($searchContador);
 
 
 /*
