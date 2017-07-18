@@ -74,56 +74,38 @@ COMMENT ON COLUMN public.tblcargos.estatus IS 'Estatus:
 
 -- DROP TABLE public.tblusuarios;
 
-CREATE TABLE public.tblusuarios
+CREATE TABLE public.users
 (
-  id bigint NOT NULL DEFAULT nextval('usuarios_id_seq'::regclass),
-  cedula character varying NOT NULL,
+  id bigint NOT NULL DEFAULT nextval('users_id_seq'::regclass),
   nombres character varying NOT NULL,
   apellidos character varying NOT NULL,
-  usuario character varying NOT NULL,
   contrasena character varying NOT NULL,
   iniciales character varying NOT NULL,
   id_org integer NOT NULL,
   id_dep integer NOT NULL,
-  cargo character varying NOT NULL, -- - Descripcion de Cargo
-  perfil integer NOT NULL, -- Perfiles:...
-  tipo_usuario integer NOT NULL, -- Tipos de Usuario:...
+  cargo character varying NOT NULL,
+  perfil integer NOT NULL,
+  tipo_usuario integer NOT NULL,
   id_dir integer,
   id_div integer,
-  id_dpt integer,
-  CONSTRAINT usuarios_pkey PRIMARY KEY (id),
-  CONSTRAINT tblusuarios_id_dep_fkey FOREIGN KEY (id_dep)
+  aprobador integer,
+  estatus integer DEFAULT 1,
+  cedula character varying NOT NULL,
+  usuario character varying NOT NULL,
+  CONSTRAINT users_pkey PRIMARY KEY (id),
+  CONSTRAINT users_id_dep_fkey FOREIGN KEY (id_dep)
       REFERENCES public.tbldependencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tblusuarios_id_dir_fkey FOREIGN KEY (id_dir)
-      REFERENCES public.tbldireccion (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tblusuarios_id_div_fkey FOREIGN KEY (id_div)
-      REFERENCES public.tbldivision (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tblusuarios_id_dpt_fkey FOREIGN KEY (id_dpt)
-      REFERENCES public.tbldepartamento (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tblusuarios_id_org_fkey FOREIGN KEY (id_org)
+  CONSTRAINT users_id_org_fkey FOREIGN KEY (id_org)
       REFERENCES public.tblorganismo (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public.tblusuarios
+ALTER TABLE public.users
   OWNER TO postgres;
-COMMENT ON COLUMN public.tblusuarios.cargo IS '- Descripcion de Cargo';
-COMMENT ON COLUMN public.tblusuarios.perfil IS 'Perfiles:
-10: Director General / Secretario / Presidente
-20: Asistente DG / SEC / PRS
-30: Director
-40: Jefe de Division
-50: Especialista
-60: Analista';
-COMMENT ON COLUMN public.tblusuarios.tipo_usuario IS 'Tipos de Usuario:
-1: Admin
-2: Regular';
+
 
 CREATE TABLE public.tblusuariosaprob
 (
