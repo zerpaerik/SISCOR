@@ -22,8 +22,8 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="perfil">Tipo de Correspondencia</label>
-                  <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
+                  <label for="id_tipo_correspondencia">Tipo de Correspondencia</label>
+                  <select name="id_tipo_correspondencia" id="id_tipo_correspondencia" class="form-control" placeholder="Seleccione el Perfíl">
                     <option value="00">Seleccione</option>
                     <option value="10">Oficio</option>
                     <option value="20">Memorandum</option>
@@ -32,8 +32,8 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="perfil">Tipo de Confidencialidad</label>
-                  <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
+                  <label for="confidencialidad">Tipo de Confidencialidad</label>
+                  <select name="confidencialidad" id="confidencialidad" class="form-control" placeholder="Seleccione el Perfíl">
                     <option value="00">Seleccione</option>
                     <option value="10">Uso Público</option>
                     <option value="20">Uso Confidencial</option>
@@ -69,8 +69,8 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="nombre">En atención:</label>
-                  <select name="id_org" id="id_org" class="form-control" placeholder="Introduzca organismo">
+                  <label for="enatencion">En atención:</label>
+                  <select name="enatencion" id="enatencion" class="form-control" placeholder="Introduzca organismo">
                     <option value="00">Seleccione</option>
                     @foreach ($organismo as $org)
                       <option value="{{$org->id}}">{{$org->descripcion}}</option>
@@ -79,15 +79,15 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="siglas">Asunto</label>
-                  <input type="text" class="form-control" id="siglas" name="siglas"
+                  <label for="asunto">Asunto</label>
+                  <input type="text" class="form-control" id="asunto" name="asunto"
                     placeholder="Introduzca las siglas de la dependencia" required autocomplete="off">
                 </div>
                 <div class="form-group">
                   <div class="file-field input-field">
                     <div class="btn">
                       <span>Adjuntar Archivo</span>
-                      <input type="file" name="pie" id="pie">
+                      <input type="file" name="adjunto" id="adjunto">
                     </div>
                     <div class="file-path-wrapper">
                       <input class="file-path validate" type="text" placeholder="Adjuntar el archivo">
@@ -114,9 +114,17 @@
             $('#create').submit(function (event) {
                 var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
-                    'id_org'                  : $('select[name=id_org]').val(),
-                    'descripcion'             : $('input[name=descripcion]').val(),
-                    'siglas'                  : $('input[name=siglas]').val(),
+                    'ubic'                         : $('select[name=ubic]').val(),
+                    'id_tipo_correspondencia'      : $('select[name=id_tipo_correspondencia]').val(),
+                    'confidencialidad'             : $('select[name=confidencialidad]').val(),
+                    'id_org'                       : $('select[name=id_org]').val(),
+                    'id_dep'                       : $('select[name=id_dep]').val(),
+                    'id_dir'                       : $('select[name=id_dir]').val(),
+                    'id_div'                       : $('select[name=id_div]').val(),
+                    'enatencion'                   : $('select[name=enatencion]').val(),
+                    'asunto'                       : $('input[name=descripcion]').val(),
+                    'contenido'                    : $('input[name=contenido]').val(),
+                    'adjunto'                      : $('#adjunto').prop('files')[0],
                 };
 
                 //validaciones 
@@ -138,7 +146,7 @@
                 // procesamiento del  form
                 $.ajax({
                     type        : 'POST',                               //metodo
-                    url         : '<?= asset('dependencias/store') ?>', //controlador
+                    url         : '<?= asset('correspondencia/store') ?>', //controlador
                     data        : formData,                             //array con nombres de campos
                     dataType    : 'json',                               //tipo de salida
                     encode      : true                                  //decodificacion

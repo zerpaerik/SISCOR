@@ -44,7 +44,11 @@ class correspondenciaController extends Controller
    
 
     public function prueba(){
-     echo  Correspondencia::generarId(28,13,13,1);
+    // echo  Correspondencia::generarId(28,13,13,1);
+      $organismos= Organismos::lista();
+      $dependencias= Dependencias::lista();
+      $cargos= Cargos::lista();
+      return view("correspondencia.create",['organismo'=>$organismos],['dependencia'=>$dependencias],['cargo'=>$cargos]);
     
 }
 
@@ -54,19 +58,26 @@ class correspondenciaController extends Controller
     public function store ()
     {
     $data= array(
-                  'cedula'=>Input::get('cedula'),
-                  'nombres'=>Input::get('nombres'),
-                  'apellidos'=>Input::get('apellidos'),
-                  'usuario'=>Input::get('usuario'),
-                  'contrasena'=>Input::get('contrasena'),
-                  'iniciales'=>Input::get('iniciales'),
-                  'id_org'=>Input::get('id_org'),
-                  'id_dep'=>Input::get('id_dep'),
-                  'cargo'=>Input::get('cargo'),
-                  'perfil'=>Input::get('perfil'),
-                  'tipo_usuario'=>Input::get('tipo_usuario'),
-                  'estatus'=>Input::get('estatus')
+                  'id_correspondencia'=>Input::get('id_correspondencia'),
+                  'id_tipo_correspondencia'=>Input::get('id_correspondencia'),
+                  'confidencialidad'=>Input::get('id_correspondencia'),
+                  'id_org'=>Input::get('id_correspondencia'),
+                  'id_dep'=>Input::get('id_correspondencia'),
+                  'id_dir'=>Input::get('id_correspondencia'),
+                  'id_div'=>Input::get('id_correspondencia'),
+                  'enatencion'=>Input::get('id_correspondencia'),
+                  'asunto'=>Input::get('asunto'),
+                  'contenido'=>Input::get('contenido')
                 );
+
+
+
+            if(Input::hasFile('adjunto')){
+            $file=Input::file('adjunto');
+            $file->move(public_path().'/imagenes/correspondencia',$file->getClientOriginalName());
+            $file->getClientOriginalName(); 
+            $data['adjunto']=$file->getClientOriginalName();          
+        }
          
         $guardar=Correspondencia::guardar($data);
 
