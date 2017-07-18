@@ -307,3 +307,127 @@ COMMENT ON COLUMN public.tbltipocorrespondencia.descripcion IS 'Tipos de Corresp
 -Oficios
 -Memorandum
 -Circulares';
+
+CREATE TABLE public.tblemision
+(
+  id bigint NOT NULL DEFAULT nextval('tblemision_id_seq'::regclass),
+  id_correspondencia character varying NOT NULL,
+  id_org_emisor integer NOT NULL,
+  id_dep_emisor integer NOT NULL,
+  id_tipo_correspondencia integer NOT NULL,
+  id_usuario_emisor integer NOT NULL,
+  id_usuario_aprobador integer NOT NULL,
+  fecha_emision timestamp without time zone NOT NULL DEFAULT now(),
+  id_estatus_emision integer NOT NULL,
+  esrespuesta boolean,
+  CONSTRAINT tblemision_pkey PRIMARY KEY (id),
+  CONSTRAINT tblemision_id_dep_emisor_fkey FOREIGN KEY (id_dep_emisor)
+      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblemision_id_estatus_emision_fkey FOREIGN KEY (id_estatus_emision)
+      REFERENCES public.tblestatuscorrespondencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblemision_id_org_emisor_fkey FOREIGN KEY (id_org_emisor)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblemision_id_tipo_correspondencia_fkey FOREIGN KEY (id_tipo_correspondencia)
+      REFERENCES public.tbltipocorrespondencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblemision
+  OWNER TO postgres;
+
+  CREATE TABLE public.tblrecepcion
+(
+  id integer NOT NULL,
+  id_correspondencia character varying NOT NULL,
+  id_org_receptor integer NOT NULL,
+  id_dep_receptor integer NOT NULL,
+  id_estatus_recepcion integer NOT NULL,
+  CONSTRAINT tblrecepcion_pkey PRIMARY KEY (id),
+  CONSTRAINT tblrecepcion_id_dep_receptor_fkey FOREIGN KEY (id_dep_receptor)
+      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblrecepcion_id_estatus_recepcion_fkey FOREIGN KEY (id_estatus_recepcion)
+      REFERENCES public.tblestatuscorrespondencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblrecepcion_id_org_receptor_fkey FOREIGN KEY (id_org_receptor)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblrecepcion
+  OWNER TO postgres;
+
+  CREATE TABLE public.tblhistorialcorrespondencia
+(
+  id bigint NOT NULL DEFAULT nextval('tblhistorialcorrespondencia_id_seq'::regclass),
+  id_correspondencia character varying NOT NULL,
+  id_usuario integer NOT NULL, -- --Id del usuario
+  id_estatus_correspondencia integer NOT NULL,
+  fecha timestamp without time zone NOT NULL DEFAULT now(),
+  emiorec integer NOT NULL, -- Emitido o Recibido....
+  CONSTRAINT tblhistorialcorrespondencia_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblhistorialcorrespondencia
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tblhistorialcorrespondencia.id_usuario IS '--Id del usuario';
+COMMENT ON COLUMN public.tblhistorialcorrespondencia.emiorec IS 'Emitido o Recibido.
+1. Emitido
+2. Recibido';
+
+CREATE TABLE public.tblcorrespondencia
+(
+  id bigint NOT NULL DEFAULT nextval('tblcorrespondencia_id_seq'::regclass),
+  id_correspondencia character varying NOT NULL, -- --Númeración de correspondencia
+  fecha timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT tblcorrespondencia_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblcorrespondencia
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tblcorrespondencia.id_correspondencia IS '--Númeración de correspondencia';
+
+
+CREATE TABLE public.tblestatuscorrespondencia
+(
+  id bigint NOT NULL DEFAULT nextval('tblestatuscorrespondencia_id_seq'::regclass),
+  descripcion character varying NOT NULL, -- -Estatus de Correspondencias
+  CONSTRAINT tblestatuscorrespondencia_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblestatuscorrespondencia
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tblestatuscorrespondencia.descripcion IS '-Estatus de Correspondencias';
+
+-- Table: public.tbltipocorrespondencia
+
+-- DROP TABLE public.tbltipocorrespondencia;
+
+CREATE TABLE public.tbltipocorrespondencia
+(
+  id bigint NOT NULL DEFAULT nextval('tbltipocorrespondencia_id_seq'::regclass),
+  descripcion character varying NOT NULL, -- Tipos de Correspondencia...
+  CONSTRAINT tbltipocorrespondencia_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tbltipocorrespondencia
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tbltipocorrespondencia.descripcion IS 'Tipos de Correspondencia
+-Oficios
+-Memorandum
+-Circulares';
