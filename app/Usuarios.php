@@ -12,7 +12,7 @@ class Usuarios extends Model
 {
 
 
-	protected $table='tblusuarios';
+	protected $table='users';
     protected $primaryKey='id';
 
 
@@ -37,13 +37,13 @@ class Usuarios extends Model
 
 
     public static function login($data){
-        $usuario = DB::table('tblusuarios')
+        $usuario = DB::table('users')
                      ->where('usuario','=',$data['usuario'])
                      ->where('estatus','=','1')
                      ->first();
 
          if(!is_null($usuario)){
-           // if (Hash::check($data['contrasena'],$usuario->contrasena)) {
+           //if (Hash::check($data['contrasena'],$usuario->contrasena)) {
                Session::put('id',$usuario->id);
                Session::put('nombre',$usuario->nombres." ".$usuario->apellidos);
 
@@ -54,8 +54,9 @@ class Usuarios extends Model
          }        
     }
 
+
     public static function lista(){
-        $usuario = DB::table('tblusuarios')
+        $usuario = DB::table('users')
                      ->where('estatus','=','1')
                      ->paginate(5);
 
@@ -68,7 +69,7 @@ class Usuarios extends Model
 
      public static function buscar($query){
    
-        $usuario = DB::table('tblusuarios')
+        $usuario = DB::table('users')
                      ->where('estatus','=','1')
                      ->where('nombres','ilike', "%$query%")
                      ->orderby('cedula')
@@ -163,7 +164,7 @@ class Usuarios extends Model
 
 
      public static function usrbyorg($id){
-             $usuario = DB::table('tblusuarios as a')
+             $usuario = DB::table('users as a')
                      ->where('a.estatus','=','1')
                      ->where('a.id_org','=', $id)
                      //->where('a.id_dep','=','14')

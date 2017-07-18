@@ -50,7 +50,7 @@
                 </li>               
                 <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i class="fa fa-sitemap fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
                 <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i class="fa fa-user fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
-                  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>Admin SISCOR</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+                  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <span class="hidden-xs">{{Session::get('nombre')}}</span> <i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </nav>
         <!-- Dropdown Structure -->
