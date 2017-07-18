@@ -19,9 +19,7 @@ class Correspondencia extends Model
     public $timestamps=false;
 
     protected $fillable =[
-        'id_correspondencia',
-        'fecha'
-        
+        'id_correspondencia'
         ];
 
     
@@ -68,6 +66,7 @@ class Correspondencia extends Model
                     ->select('*')
                     ->where('id_dep','=',$id_dep)
                     ->where('id_org','=', $id_org)
+                    ->whereYear('created_at','2017')
                     ->get();
 
         $contador=1;
@@ -96,13 +95,12 @@ class Correspondencia extends Model
       
     }
     //return $correlativo->contador;
-  //  return $correlativo->contador+1;
       // return $correlativo->contador;
-    return $prefijo ."-".$siglas."-".str_pad($contador, 4, "0", STR_PAD_LEFT)."-".$sufijo;
+    return $prefijo."-".$siglas."-".str_pad($contador, 4, "0", STR_PAD_LEFT)."-".$sufijo;
 
    //return str_pad($contador, 4, "0", STR_PAD_LEFT);
 
-   // return var_dump($searchContador);
+   //return var_dump($searchContador);
 
 
 /*

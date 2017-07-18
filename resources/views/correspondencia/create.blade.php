@@ -10,6 +10,17 @@
           <div class="card-content">
           <!-- Aqui es donde va el form-->
             <form role="form" id="create" method="POST">
+
+                <div class="form-group">
+                  <label for="ubic">Ubicación</label>
+                  <select name="ubic" id="ubic" class="form-control" placeholder="Seleccione Ubicación">
+                    <option value="00">Seleccione</option>
+                    <option value="10">Interno</option>
+                    <option value="20">Externo</option>
+                    
+                  </select>
+                </div>
+
                 <div class="form-group">
                   <label for="perfil">Tipo de Correspondencia</label>
                   <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
@@ -191,3 +202,5 @@
 
         });
     </script>
+
+    
