@@ -53,19 +53,17 @@ class correspondenciaController extends Controller
 
     public function store ()
     {
+
+
     $data= array(
-                  'cedula'=>Input::get('cedula'),
-                  'nombres'=>Input::get('nombres'),
-                  'apellidos'=>Input::get('apellidos'),
-                  'usuario'=>Input::get('usuario'),
-                  'contrasena'=>Input::get('contrasena'),
-                  'iniciales'=>Input::get('iniciales'),
-                  'id_org'=>Input::get('id_org'),
-                  'id_dep'=>Input::get('id_dep'),
-                  'cargo'=>Input::get('cargo'),
+                  'ubic'=>Input::get('ubic'),
                   'perfil'=>Input::get('perfil'),
-                  'tipo_usuario'=>Input::get('tipo_usuario'),
-                  'estatus'=>Input::get('estatus')
+                  'ubic'=>Input::get('ubic'),
+                  'ubic'=>Input::get('ubic'),
+                  'ubic'=>Input::get('ubic'),
+                  'ubic'=>Input::get('ubic'),
+                  'ubic'=>Input::get('ubic'),
+
                 );
          
         $guardar=Correspondencia::guardar($data);

@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                   <label for="perfil">Tipo de Correspondencia</label>
-                  <select name="perfil" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
+                  <select name="tipo" id="perfil" class="form-control" placeholder="Seleccione el Perfíl">
                     <option value="00">Seleccione</option>
                     <option value="10">Oficio</option>
                     <option value="20">Memorandum</option>
@@ -109,19 +109,20 @@
     </div>
     <script src="assets/js/summernote.js"></script>
 
-    <script type="text/javascript">
+     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
-            $('#create').submit(function (event) {
-                var formData = {
+            $('#create').on('submit',function (event) {
+             /*   var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'id_org'                  : $('select[name=id_org]').val(),
+                    'id_dep'                  : $('select[name=id_dep]').val(),
                     'descripcion'             : $('input[name=descripcion]').val(),
-                    'siglas'                  : $('input[name=siglas]').val(),
-                };
-
+                    'pie'                     : $('#pie').prop('files')[0],
+                    'encabezado'              : $('#encabezado').prop('files')[0],
+                };*/
                 //validaciones 
                 var valido=1;
-                var mensaje="";
+                /*var mensaje="";
                 //si no se ha seleccionado un organismo select tiene valor 00
                 if(formData['id_org']=="00"){
                   valido   = 0;
@@ -130,19 +131,23 @@
                 //si la longitud de la descripcion tiene menos de 7 o mas de 50 caracteres
                 }else if (formData['descripcion'].length <= 7 || formData['descripcion'].length >=51){
                   valido   = 0;
-                  mensaje = "Verifique la longitud del nombre de dependencia";
+                  mensaje = "Verifique la longitud del nombre de la Imagen";
                   alert(mensaje);  
-                }
+                }*/
+                
                 //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
                 if (valido == 1) {
                 // procesamiento del  form
                 $.ajax({
-                    type        : 'POST',                               //metodo
-                    url         : '<?= asset('dependencias/store') ?>', //controlador
-                    data        : formData,                             //array con nombres de campos
-                    dataType    : 'json',                               //tipo de salida
-                    encode      : true                                  //decodificacion
+                          url:'<?= asset('correspondencia/store') ?>',
+                          data: new FormData($("#create")[0]),
+                          dataType:'json',
+                          async:false,
+                          type:'post',
+                          processData: false,
+                          contentType: false,
                 }).done(function(data) {
+                    
                     //ejecuta el y despliega el mensaje json obtenido
                     //si respuesta del json es fail
                     if (data.respuesta=="fail") {
@@ -162,8 +167,8 @@
                 // previene que se ejecute submit dando enter
                 event.preventDefault();
             });
-
     </script>
+
 
     <script type="text/javascript">
       $(document).ready(function() {
