@@ -14,7 +14,6 @@ use SISCOR\Dependencias;
 use SISCOR\Organismos;
 use SISCOR\Direccion;
 use SISCOR\Division;
-use SISCOR\Departamento;
 use SISCOR\Cargos;
 
 class usuariosController extends Controller
@@ -38,9 +37,8 @@ class usuariosController extends Controller
       $dependencias= Dependencias::lista();
       $direccion= Direccion::lista();
       $division= Division::lista();
-      $departamento= Departamento::lista();
       $cargos= Cargos::lista();
-      return view("usuarios.create",['organismo'=>$organismos],['dependencia'=>$dependencias],['cargo'=>$cargos],['direccion'=>$direccion],['division'=>$division],['departamento'=>$departamento]);
+      return view("usuarios.create",['organismo'=>$organismos],['dependencia'=>$dependencias],['cargo'=>$cargos],['direccion'=>$direccion],['division'=>$division]);
     }
 
     public function store ()
