@@ -14,7 +14,6 @@ use SISCOR\Dependencias;
 use SISCOR\Organismos;
 use SISCOR\Direccion;
 use SISCOR\Division;
-use SISCOR\Cargos;
 
 class usuariosController extends Controller
 {
@@ -174,8 +173,5 @@ class usuariosController extends Controller
       return Redirect::to('user');
 
     }
-
-
-
 
 }
