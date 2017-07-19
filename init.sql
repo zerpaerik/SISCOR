@@ -20,16 +20,15 @@ COMMENT ON COLUMN public.tblorganismo.estatus IS 'Estatus:
 2: Inactivo';
 
 
--- Table: public.tbldependencia
-
--- DROP TABLE public.tbldependencia;
 
 CREATE TABLE public.tbldependencia
 (
-  id bigserial,
+  id bigint NOT NULL DEFAULT nextval('tbldependencia_id_seq'::regclass),
   descripcion character(50) NOT NULL,
   id_org integer,
   estatus integer NOT NULL DEFAULT 1, -- Estatus:...
+  siglas character varying NOT NULL,
+  firmante integer, -- Firmante:...
   CONSTRAINT tbldependencia_pkey PRIMARY KEY (id),
   CONSTRAINT tbldependencia_id_org_fkey FOREIGN KEY (id_org)
       REFERENCES public.tblorganismo (id) MATCH SIMPLE
@@ -43,6 +42,9 @@ ALTER TABLE public.tbldependencia
 COMMENT ON COLUMN public.tbldependencia.estatus IS 'Estatus:
 1: Activo
 2: Inactivo';
+COMMENT ON COLUMN public.tbldependencia.firmante IS 'Firmante:
+1:Si
+2:No';
 
 -- Table: public.tblcargos
 
@@ -64,9 +66,112 @@ COMMENT ON COLUMN public.tblcargos.estatus IS 'Estatus:
 1: Activo
 2: Inactivo';
 
-  -- Table: public.tblusuarios
 
--- DROP TABLE public.tblusuarios;
+
+
+CREATE TABLE public.tbldireccion
+(
+  id bigint NOT NULL DEFAULT nextval('tbldireccion_id_seq'::regclass),
+  descripcion character varying NOT NULL,
+  id_org integer,
+  id_dep integer,
+  siglas character varying NOT NULL,
+  estatus integer NOT NULL DEFAULT 1, -- Estatus:...
+  CONSTRAINT tbldireccion_pkey PRIMARY KEY (id),
+  CONSTRAINT tbldireccion_id_dep_fkey FOREIGN KEY (id_dep)
+      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tbldireccion_id_org_fkey FOREIGN KEY (id_org)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tbldireccion
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tbldireccion.estatus IS 'Estatus:
+1: Activo
+2: Inactivo';
+
+-- Table: public.tbldivision
+
+-- DROP TABLE public.tbldivision;
+
+CREATE TABLE public.tbldivision
+(
+  descripcion character varying NOT NULL,
+  id_org integer,
+  id_dep integer,
+  id_dir integer,
+  siglas character varying,
+  estatus integer NOT NULL DEFAULT 1, -- -Estatus:...
+  id bigint NOT NULL DEFAULT nextval('tbldivision_id_seq'::regclass),
+  CONSTRAINT tbldivision_pkey PRIMARY KEY (id),
+  CONSTRAINT tbldivision_id_dep_fkey FOREIGN KEY (id_dep)
+      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tbldivision_id_dir_fkey FOREIGN KEY (id_dir)
+      REFERENCES public.tbldireccion (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tbldivision_id_org_fkey FOREIGN KEY (id_org)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tbldivision
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tbldivision.estatus IS '-Estatus:
+1:Activo
+2:Inactivo';
+
+CREATE TABLE public.tblimagenes
+(
+  id bigserial,
+  descripcion character varying,
+  pie character varying,
+  encabezado character varying,
+  estatus integer,
+  fecha_creacion timestamp without time zone DEFAULT now(),
+  id_org integer,
+  CONSTRAINT tblimagenes_pkey PRIMARY KEY (id),
+  CONSTRAINT tblimagenes_id_fkey FOREIGN KEY (id)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblimagenes
+  OWNER TO postgres;
+
+CREATE TABLE public.tblpie
+(
+  descripcion character varying NOT NULL,
+  fecha timestamp without time zone NOT NULL DEFAULT now(),
+  pie character varying NOT NULL,
+  id_org integer NOT NULL,
+  id_dep integer NOT NULL,
+  estatus integer DEFAULT 1, -- 1: activo...
+  id bigint NOT NULL DEFAULT nextval('tblpie_id_seq'::regclass),
+  CONSTRAINT tblpie_pkey PRIMARY KEY (id),
+  CONSTRAINT tblpie_id_dep_fkey FOREIGN KEY (id_dep)
+      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT tblpie_id_org_fkey FOREIGN KEY (id_org)
+      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblpie
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tblpie.estatus IS '1: activo
+2:inactivo';
+
 
 CREATE TABLE public.users
 (
@@ -140,126 +245,6 @@ ALTER TABLE public.tblusuariosaprob
 
 
 
--- Table: public.tblimagenes
-
--- DROP TABLE public.tblimagenes;
-
-CREATE TABLE public.tblimagenes
-(
-  id bigserial,
-  descripcion character varying,
-  pie character varying,
-  encabezado character varying,
-  estatus integer,
-  fecha_creacion timestamp without time zone DEFAULT now(),
-  id_org integer,
-  CONSTRAINT tblimagenes_pkey PRIMARY KEY (id),
-  CONSTRAINT tblimagenes_id_fkey FOREIGN KEY (id)
-      REFERENCES public.tblorganismo (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.tblimagenes
-  OWNER TO postgres;
-
-  -- Table: public.tbldireccion
-
--- DROP TABLE public.tbldireccion;
-
-CREATE TABLE public.tbldireccion
-(
-  id bigint NOT NULL DEFAULT nextval('tbldireccion_id_seq'::regclass),
-  descripcion character varying NOT NULL,
-  id_org integer,
-  id_dep integer,
-  siglas character varying NOT NULL,
-  estatus integer NOT NULL DEFAULT 1, -- Estatus:...
-  CONSTRAINT tbldireccion_pkey PRIMARY KEY (id),
-  CONSTRAINT tbldireccion_id_dep_fkey FOREIGN KEY (id_dep)
-      REFERENCES public.tbldependencia (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tbldireccion_id_org_fkey FOREIGN KEY (id_org)
-      REFERENCES public.tblorganismo (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.tbldireccion
-  OWNER TO postgres;
-COMMENT ON COLUMN public.tbldireccion.estatus IS 'Estatus:
-1: Activo
-2: Inactivo';
-
--- Table: public.tbldivision
-
--- DROP TABLE public.tbldivision;
-
-CREATE TABLE public.tbldivision
-(
-  descripcion character varying NOT NULL,
-  id_org integer,
-  id_dep integer,
-  id_dir integer,
-  siglas character varying,
-  estatus integer NOT NULL DEFAULT 1, -- -Estatus:...
-  id bigint NOT NULL DEFAULT nextval('tbldivision_id_seq'::regclass),
-  CONSTRAINT tbldivision_pkey PRIMARY KEY (id),
-  CONSTRAINT tbldivision_id_dep_fkey FOREIGN KEY (id_dep)
-      REFERENCES public.tbldependencia (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tbldivision_id_dir_fkey FOREIGN KEY (id_dir)
-      REFERENCES public.tbldireccion (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tbldivision_id_org_fkey FOREIGN KEY (id_org)
-      REFERENCES public.tblorganismo (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.tbldivision
-  OWNER TO postgres;
-COMMENT ON COLUMN public.tbldivision.estatus IS '-Estatus:
-1:Activo
-2:Inactivo';
-
--- Table: public.tbldepartamento
-
--- DROP TABLE public.tbldepartamento;
-
-CREATE TABLE public.tbldepartamento
-(
-  id integer NOT NULL,
-  descripcion character varying NOT NULL,
-  id_org integer,
-  id_dep integer,
-  id_dir integer,
-  id_div integer,
-  siglas character varying NOT NULL,
-  estatus integer NOT NULL DEFAULT 1, -- Estatus:...
-  CONSTRAINT tbldepartamento_pkey PRIMARY KEY (id),
-  CONSTRAINT tbldepartamento_id_dep_fkey FOREIGN KEY (id_dep)
-      REFERENCES public.tbldependencia (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tbldepartamento_id_dir_fkey FOREIGN KEY (id_dir)
-      REFERENCES public.tbldireccion (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tbldepartamento_id_org_fkey FOREIGN KEY (id_org)
-      REFERENCES public.tblorganismo (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.tbldepartamento
-  OWNER TO postgres;
-COMMENT ON COLUMN public.tbldepartamento.estatus IS 'Estatus:
-1: Activo
-2.: Inactivo';
-
 CREATE TABLE public.tblcorrelativo
 (
   id bigint NOT NULL DEFAULT nextval('tblcorrelativo_id_seq'::regclass),
@@ -301,6 +286,52 @@ COMMENT ON COLUMN public.tbltipocorrespondencia.descripcion IS 'Tipos de Corresp
 -Oficios
 -Memorandum
 -Circulares';
+CREATE TABLE public.tblestatuscorrespondencia
+(
+  id bigint NOT NULL DEFAULT nextval('tblestatuscorrespondencia_id_seq'::regclass),
+  descripcion character varying NOT NULL, -- -Estatus de Correspondencias
+  CONSTRAINT tblestatuscorrespondencia_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblestatuscorrespondencia
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tblestatuscorrespondencia.descripcion IS '-Estatus de Correspondencias';
+
+
+
+CREATE TABLE public.tbltipocorrespondencia
+(
+  id bigint NOT NULL DEFAULT nextval('tbltipocorrespondencia_id_seq'::regclass),
+  descripcion character varying NOT NULL, -- Tipos de Correspondencia...
+  CONSTRAINT tbltipocorrespondencia_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tbltipocorrespondencia
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tbltipocorrespondencia.descripcion IS 'Tipos de Correspondencia
+-Oficios
+-Memorandum
+-Circulares';
+
+
+CREATE TABLE public.tblcorrespondencia
+(
+  id bigint NOT NULL DEFAULT nextval('tblcorrespondencia_id_seq'::regclass),
+  id_correspondencia character varying NOT NULL, -- --Númeración de correspondencia
+  fecha timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT tblcorrespondencia_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblcorrespondencia
+  OWNER TO postgres;
+COMMENT ON COLUMN public.tblcorrespondencia.id_correspondencia IS '--Númeración de correspondencia';
+
 
 CREATE TABLE public.tblemision
 (
@@ -378,48 +409,4 @@ COMMENT ON COLUMN public.tblhistorialcorrespondencia.emiorec IS 'Emitido o Recib
 1. Emitido
 2. Recibido';
 
-CREATE TABLE public.tblcorrespondencia
-(
-  id bigint NOT NULL DEFAULT nextval('tblcorrespondencia_id_seq'::regclass),
-  id_correspondencia character varying NOT NULL, -- --Númeración de correspondencia
-  fecha timestamp with time zone NOT NULL DEFAULT now(),
-  CONSTRAINT tblcorrespondencia_pkey PRIMARY KEY (id)
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.tblcorrespondencia
-  OWNER TO postgres;
-COMMENT ON COLUMN public.tblcorrespondencia.id_correspondencia IS '--Númeración de correspondencia';
 
-
-CREATE TABLE public.tblestatuscorrespondencia
-(
-  id bigint NOT NULL DEFAULT nextval('tblestatuscorrespondencia_id_seq'::regclass),
-  descripcion character varying NOT NULL, -- -Estatus de Correspondencias
-  CONSTRAINT tblestatuscorrespondencia_pkey PRIMARY KEY (id)
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.tblestatuscorrespondencia
-  OWNER TO postgres;
-COMMENT ON COLUMN public.tblestatuscorrespondencia.descripcion IS '-Estatus de Correspondencias';
-
-
-
-CREATE TABLE public.tbltipocorrespondencia
-(
-  id bigint NOT NULL DEFAULT nextval('tbltipocorrespondencia_id_seq'::regclass),
-  descripcion character varying NOT NULL, -- Tipos de Correspondencia...
-  CONSTRAINT tbltipocorrespondencia_pkey PRIMARY KEY (id)
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.tbltipocorrespondencia
-  OWNER TO postgres;
-COMMENT ON COLUMN public.tbltipocorrespondencia.descripcion IS 'Tipos de Correspondencia
--Oficios
--Memorandum
--Circulares';
