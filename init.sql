@@ -1,6 +1,4 @@
--- Table: public.tblorganismo
 
--- DROP TABLE public.tblorganismo;
 
 -- DROP TABLE public.tblorganismo;
 
@@ -65,11 +63,7 @@ ALTER TABLE public.tblcargos
 COMMENT ON COLUMN public.tblcargos.estatus IS 'Estatus:
 1: Activo
 2: Inactivo';
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 3a40f6b8ae7fe75fa5715f20c05cf9a1992805e0
   -- Table: public.tblusuarios
 
 -- DROP TABLE public.tblusuarios;
@@ -135,7 +129,7 @@ CREATE TABLE public.tblusuariosaprob
       REFERENCES public.tblorganismo (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblusuariosaprob_id_usuario_fkey FOREIGN KEY (id_usuario)
-      REFERENCES public.tblusuarios (id) MATCH SIMPLE
+      REFERENCES public.users (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
@@ -412,9 +406,7 @@ ALTER TABLE public.tblestatuscorrespondencia
   OWNER TO postgres;
 COMMENT ON COLUMN public.tblestatuscorrespondencia.descripcion IS '-Estatus de Correspondencias';
 
--- Table: public.tbltipocorrespondencia
 
--- DROP TABLE public.tbltipocorrespondencia;
 
 CREATE TABLE public.tbltipocorrespondencia
 (

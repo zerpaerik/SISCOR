@@ -1,4 +1,4 @@
-    <div class="row">
+ <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="card">
           <div class="card-action">
@@ -98,7 +98,7 @@
                 <div id="summernote"></div>
                
                 <button type="submit" class="waves-effect waves-light btn">Enviar</button>
-                <input type="reset" class="btn btn-info" value="Limpiar"> 
+                <input type="reset" class="btn btn-info" value="Limpiar">
                 <button type="submit" class="waves-effect waves-light btn">Vista Previa</button>
     
             </form>
@@ -112,7 +112,7 @@
     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
             $('#create').submit(function (event) {
-                var formData = {
+        /*        var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'ubic'                         : $('select[name=ubic]').val(),
                     'id_tipo_correspondencia'      : $('select[name=id_tipo_correspondencia]').val(),
@@ -125,13 +125,13 @@
                     'asunto'                       : $('input[name=descripcion]').val(),
                     'contenido'                    : $('input[name=contenido]').val(),
                     'adjunto'                      : $('#adjunto').prop('files')[0],
-                };
+                };*/
 
-                //validaciones 
+                //validaciones
                 var valido=1;
                 var mensaje="";
                 //si no se ha seleccionado un organismo select tiene valor 00
-                if(formData['id_org']=="00"){
+              /*  if(formData['id_org']=="00"){
                   valido   = 0;
                   mensaje = "Debe seleccionar organismo";
                   alert(mensaje);  
@@ -140,16 +140,19 @@
                   valido   = 0;
                   mensaje = "Verifique la longitud del nombre de dependencia";
                   alert(mensaje);  
-                }
+                }*/
                 //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
                 if (valido == 1) {
                 // procesamiento del  form
                 $.ajax({
-                    type        : 'POST',                               //metodo
-                    url         : '<?= asset('correspondencia/store') ?>', //controlador
-                    data        : formData,                             //array con nombres de campos
-                    dataType    : 'json',                               //tipo de salida
-                    encode      : true                                  //decodificacion
+                          type        : 'POST',                               //metodo
+                          url         : '<?= asset('correspondencia/store') ?>', //controlador
+                          data: new FormData($("#create")[0]),
+                          dataType:'json',
+                          async:false,
+                          type:'post',
+                          processData: false,
+                          contentType: false,
                 }).done(function(data) {
                     //ejecuta el y despliega el mensaje json obtenido
                     //si respuesta del json es fail
@@ -158,8 +161,8 @@
                       toastr.danger(data.mensaje, {timeOut: 300});  
                     }else{
                       //mensaje azul , dura 3 segs
-                      toastr.info(data.mensaje, {timeOut: 300}); 
-                      //limpia todos los campos del form 
+                      toastr.info(data.mensaje, {timeOut: 300});
+                      //limpia todos los campos del form
                       $('#create')[0].reset();                 
                     }
                   
@@ -210,5 +213,3 @@
 
         });
     </script>
-
-    
