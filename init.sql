@@ -4,7 +4,7 @@
 
 CREATE TABLE public.tblorganismo
 (
-  id bigint NOT NULL DEFAULT nextval('tblorganismo_id_org_seq'::regclass),
+  id bigserial NOT NULL,
   descripcion character(50),
   estatus integer NOT NULL DEFAULT 1, -- Estatus:...
   siglas character varying NOT NULL,
@@ -23,7 +23,7 @@ COMMENT ON COLUMN public.tblorganismo.estatus IS 'Estatus:
 
 CREATE TABLE public.tbldependencia
 (
-  id bigint NOT NULL DEFAULT nextval('tbldependencia_id_seq'::regclass),
+  id bigserial NOT NULL,
   descripcion character(50) NOT NULL,
   id_org integer,
   estatus integer NOT NULL DEFAULT 1, -- Estatus:...
@@ -52,7 +52,7 @@ COMMENT ON COLUMN public.tbldependencia.firmante IS 'Firmante:
 
 CREATE TABLE public.tblcargos
 (
-  id bigint NOT NULL DEFAULT nextval('tblcargos_id_seq'::regclass),
+  id bigserial NOT NULL,
   descripcion character(50) NOT NULL,
   estatus integer NOT NULL DEFAULT 1, -- Estatus:...
   CONSTRAINT tblcargos_pkey PRIMARY KEY (id)
@@ -71,7 +71,7 @@ COMMENT ON COLUMN public.tblcargos.estatus IS 'Estatus:
 
 CREATE TABLE public.tbldireccion
 (
-  id bigint NOT NULL DEFAULT nextval('tbldireccion_id_seq'::regclass),
+  id bigserial NOT NULL,
   descripcion character varying NOT NULL,
   id_org integer,
   id_dep integer,
@@ -106,7 +106,7 @@ CREATE TABLE public.tbldivision
   id_dir integer,
   siglas character varying,
   estatus integer NOT NULL DEFAULT 1, -- -Estatus:...
-  id bigint NOT NULL DEFAULT nextval('tbldivision_id_seq'::regclass),
+  id bigserial NOT NULL,
   CONSTRAINT tbldivision_pkey PRIMARY KEY (id),
   CONSTRAINT tbldivision_id_dep_fkey FOREIGN KEY (id_dep)
       REFERENCES public.tbldependencia (id) MATCH SIMPLE
@@ -129,7 +129,7 @@ COMMENT ON COLUMN public.tbldivision.estatus IS '-Estatus:
 
 CREATE TABLE public.tblimagenes
 (
-  id bigserial,
+  id bigserial NOT NULL,
   descripcion character varying,
   pie character varying,
   encabezado character varying,
@@ -155,7 +155,7 @@ CREATE TABLE public.tblpie
   id_org integer NOT NULL,
   id_dep integer NOT NULL,
   estatus integer DEFAULT 1, -- 1: activo...
-  id bigint NOT NULL DEFAULT nextval('tblpie_id_seq'::regclass),
+  id bigserial NOT NULL,
   CONSTRAINT tblpie_pkey PRIMARY KEY (id),
   CONSTRAINT tblpie_id_dep_fkey FOREIGN KEY (id_dep)
       REFERENCES public.tbldependencia (id) MATCH SIMPLE
@@ -175,7 +175,7 @@ COMMENT ON COLUMN public.tblpie.estatus IS '1: activo
 
 CREATE TABLE public.users
 (
-  id bigint NOT NULL DEFAULT nextval('users_id_seq'::regclass),
+  id bigserial NOT NULL,
   nombres character varying NOT NULL,
   apellidos character varying NOT NULL,
   contrasena character varying NOT NULL,
@@ -208,7 +208,7 @@ ALTER TABLE public.users
 
 CREATE TABLE public.tblusuariosaprob
 (
-  id bigint NOT NULL DEFAULT nextval('tblusuariosaprob_id_seq'::regclass),
+  id bigserial NOT NULL,
   id_usuario integer NOT NULL,
   id_org integer,
   id_dep integer,
@@ -247,7 +247,7 @@ ALTER TABLE public.tblusuariosaprob
 
 CREATE TABLE public.tblcorrelativo
 (
-  id bigint NOT NULL DEFAULT nextval('tblcorrelativo_id_seq'::regclass),
+  iid bigserial NOT NULL,
   contador integer NOT NULL,
   fecha timestamp without time zone NOT NULL DEFAULT now(),
   id_org integer,
@@ -273,7 +273,7 @@ ALTER TABLE public.tblcorrelativo
   
   CREATE TABLE public.tbltipocorrespondencia
 (
-  id bigint NOT NULL DEFAULT nextval('tbltipocorrespondencia_id_seq'::regclass),
+  id bigserial NOT NULL,
   descripcion character varying NOT NULL, -- Tipos de Correspondencia...
   CONSTRAINT tbltipocorrespondencia_pkey PRIMARY KEY (id)
 )
@@ -288,7 +288,7 @@ COMMENT ON COLUMN public.tbltipocorrespondencia.descripcion IS 'Tipos de Corresp
 -Circulares';
 CREATE TABLE public.tblestatuscorrespondencia
 (
-  id bigint NOT NULL DEFAULT nextval('tblestatuscorrespondencia_id_seq'::regclass),
+  id bigserial NOT NULL,
   descripcion character varying NOT NULL, -- -Estatus de Correspondencias
   CONSTRAINT tblestatuscorrespondencia_pkey PRIMARY KEY (id)
 )
@@ -303,7 +303,7 @@ COMMENT ON COLUMN public.tblestatuscorrespondencia.descripcion IS '-Estatus de C
 
 CREATE TABLE public.tbltipocorrespondencia
 (
-  id bigint NOT NULL DEFAULT nextval('tbltipocorrespondencia_id_seq'::regclass),
+  id bigserial NOT NULL,
   descripcion character varying NOT NULL, -- Tipos de Correspondencia...
   CONSTRAINT tbltipocorrespondencia_pkey PRIMARY KEY (id)
 )
@@ -320,7 +320,7 @@ COMMENT ON COLUMN public.tbltipocorrespondencia.descripcion IS 'Tipos de Corresp
 
 CREATE TABLE public.tblcorrespondencia
 (
-  id bigint NOT NULL DEFAULT nextval('tblcorrespondencia_id_seq'::regclass),
+  id bigserial NOT NULL,
   id_correspondencia character varying NOT NULL, -- --Númeración de correspondencia
   fecha timestamp with time zone NOT NULL DEFAULT now(),
   CONSTRAINT tblcorrespondencia_pkey PRIMARY KEY (id)
@@ -335,7 +335,7 @@ COMMENT ON COLUMN public.tblcorrespondencia.id_correspondencia IS '--Númeració
 
 CREATE TABLE public.tblemision
 (
-  id bigint NOT NULL DEFAULT nextval('tblemision_id_seq'::regclass),
+  id bigserial NOT NULL,
   id_correspondencia character varying NOT NULL,
   id_org_emisor integer NOT NULL,
   id_dep_emisor integer NOT NULL,
@@ -367,7 +367,7 @@ ALTER TABLE public.tblemision
 
   CREATE TABLE public.tblrecepcion
 (
-  id integer NOT NULL,
+  id bigserial NOT NULL,
   id_correspondencia character varying NOT NULL,
   id_org_receptor integer NOT NULL,
   id_dep_receptor integer NOT NULL,
@@ -391,7 +391,7 @@ ALTER TABLE public.tblrecepcion
 
   CREATE TABLE public.tblhistorialcorrespondencia
 (
-  id bigint NOT NULL DEFAULT nextval('tblhistorialcorrespondencia_id_seq'::regclass),
+  id bigserial NOT NULL,
   id_correspondencia character varying NOT NULL,
   id_usuario integer NOT NULL, -- --Id del usuario
   id_estatus_correspondencia integer NOT NULL,
