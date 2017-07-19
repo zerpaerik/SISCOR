@@ -1,7 +1,3 @@
-
-
--- DROP TABLE public.tblorganismo;
-
 CREATE TABLE public.tblorganismo
 (
   id bigserial NOT NULL,
@@ -227,9 +223,6 @@ CREATE TABLE public.tblusuariosaprob
   CONSTRAINT tblusuariosaprob_id_div_fkey FOREIGN KEY (id_div)
       REFERENCES public.tbldivision (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tblusuariosaprob_id_dpt_fkey FOREIGN KEY (id_dpt)
-      REFERENCES public.tbldepartamento (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblusuariosaprob_id_org_fkey FOREIGN KEY (id_org)
       REFERENCES public.tblorganismo (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -247,7 +240,7 @@ ALTER TABLE public.tblusuariosaprob
 
 CREATE TABLE public.tblcorrelativo
 (
-  iid bigserial NOT NULL,
+  id bigserial NOT NULL,
   contador integer NOT NULL,
   fecha timestamp without time zone NOT NULL DEFAULT now(),
   id_org integer,
@@ -259,10 +252,8 @@ CREATE TABLE public.tblcorrelativo
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblcorrelativo_id_org_fkey FOREIGN KEY (id_org)
       REFERENCES public.tblorganismo (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tblcorrelativo_id_tipo_correspondencia_fkey FOREIGN KEY (id_tipo_correspondencia)
-      REFERENCES public.tbltipocorrespondencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
+
 )
 WITH (
   OIDS=FALSE
@@ -301,21 +292,6 @@ COMMENT ON COLUMN public.tblestatuscorrespondencia.descripcion IS '-Estatus de C
 
 
 
-CREATE TABLE public.tbltipocorrespondencia
-(
-  id bigserial NOT NULL,
-  descripcion character varying NOT NULL, -- Tipos de Correspondencia...
-  CONSTRAINT tbltipocorrespondencia_pkey PRIMARY KEY (id)
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.tbltipocorrespondencia
-  OWNER TO postgres;
-COMMENT ON COLUMN public.tbltipocorrespondencia.descripcion IS 'Tipos de Correspondencia
--Oficios
--Memorandum
--Circulares';
 
 
 CREATE TABLE public.tblcorrespondencia
@@ -408,5 +384,4 @@ COMMENT ON COLUMN public.tblhistorialcorrespondencia.id_usuario IS '--Id del usu
 COMMENT ON COLUMN public.tblhistorialcorrespondencia.emiorec IS 'Emitido o Recibido.
 1. Emitido
 2. Recibido';
-
 
