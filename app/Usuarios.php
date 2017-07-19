@@ -133,9 +133,6 @@ class Usuarios extends Model
     }
 
 
-
-
-
     public static function actualizar($id,$data){
         $usuario=Usuarios::findOrFail($id);
         $usuario->cedula=$data['cedula'];
