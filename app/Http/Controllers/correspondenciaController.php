@@ -44,11 +44,7 @@ class correspondenciaController extends Controller
    
 
     public function prueba(){
-    // echo  Correspondencia::generarId(28,13,13,1);
-      $organismos= Organismos::lista();
-      $dependencias= Dependencias::lista();
-      $cargos= Cargos::lista();
-      return view("correspondencia.create",['organismo'=>$organismos],['dependencia'=>$dependencias],['cargo'=>$cargos]);
+    echo  Correspondencia::esAprobador();
     
 }
 
@@ -59,13 +55,13 @@ class correspondenciaController extends Controller
     {
     $data= array(
                   'id_correspondencia'=>Input::get('id_correspondencia'),
-                  'id_tipo_correspondencia'=>Input::get('id_correspondencia'),
-                  'confidencialidad'=>Input::get('id_correspondencia'),
-                  'id_org'=>Input::get('id_correspondencia'),
-                  'id_dep'=>Input::get('id_correspondencia'),
-                  'id_dir'=>Input::get('id_correspondencia'),
-                  'id_div'=>Input::get('id_correspondencia'),
-                  'enatencion'=>Input::get('id_correspondencia'),
+                  'id_tipo_correspondencia'=>Input::get('id_tipo_correspondencia'),
+                  'confidencialidad'=>Input::get('confidencialidad'),
+                  'id_org'=>Input::get('id_org'),
+                  'id_dep'=>Input::get('id_dep'),
+                  'id_dir'=>Input::get('id_dir'),
+                  'id_div'=>Input::get('id_div'),
+                  'enatencion'=>Input::get('enatencion'),
                   'asunto'=>Input::get('asunto'),
                   'contenido'=>Input::get('contenido')
                 );

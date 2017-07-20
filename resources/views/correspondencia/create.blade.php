@@ -42,7 +42,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="nombre">Nombre de Organismo</label>
+                  <label for="id_org">Nombre de Organismo</label>
                   <select name="id_org" id="id_org" class="form-control" placeholder="Introduzca organismo">
                     <option value="00">Seleccione</option>
                     @foreach ($organismo as $org)
