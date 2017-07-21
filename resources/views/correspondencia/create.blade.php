@@ -68,15 +68,6 @@
                     <div id="usrbyorg"></div>
                 </div>
 
-                <div class="form-group">
-                  <label for="enatencion">En atención:</label>
-                  <select name="enatencion" id="enatencion" class="form-control" placeholder="Introduzca organismo">
-                    <option value="00">Seleccione</option>
-                    @foreach ($organismo as $org)
-                      <option value="{{$org->id}}">{{$org->descripcion}}</option>
-                    @endforeach
-                  </select>
-                </div>
 
                 <div class="form-group">
                   <label for="asunto">Asunto</label>
@@ -131,15 +122,15 @@
                 var valido=1;
                 var mensaje="";
                 //si no se ha seleccionado un organismo select tiene valor 00
-              /*  if(formData['id_org']=="00"){
+              /* if(formData['id_org']=="00"){
                   valido   = 0;
                   mensaje = "Debe seleccionar organismo";
                   alert(mensaje);  
                 //si la longitud de la descripcion tiene menos de 7 o mas de 50 caracteres
-                }else if (formData['descripcion'].length <= 7 || formData['descripcion'].length >=51){
+                }else if (formData['id_dep']=="00"){
                   valido   = 0;
-                  mensaje = "Verifique la longitud del nombre de dependencia";
-                  alert(mensaje);  
+                  mensaje = "Debe seleccionar dependencia";
+                  alert(mensaje);   
                 }*/
                 //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
                 if (valido == 1) {
