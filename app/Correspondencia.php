@@ -69,7 +69,6 @@ class Correspondencia extends Model
             
             $id_estatus_correspondencia=7;
             $adjunto = $data['adjunto'];
-
             $correspondencia = new Correspondencia;
             $correspondencia->id_correspondencia= Correspondencia::generarId($usuarioOrg,$usuarioDep,$tipo);
             $correspondencia->save();

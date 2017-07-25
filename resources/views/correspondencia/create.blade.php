@@ -1,3 +1,4 @@
+
  <div class="row">
       <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="card">
@@ -86,7 +87,22 @@
                   </div>
                 </div>
 
-                <div id="summernote"></div>
+                
+                        <div class="panel-heading">Formulario con ckeditor</div>
+ 
+                        <div class="panel-body">
+                        <form>
+                            <textarea class="ckeditor" name="editor1" id="editor1" rows="10" cols="80">
+                                Este es el textarea que es modificado por la clase ckeditor
+                            </textarea>
+                        </form>
+                        </div>
+
+
+               <!-- Custom Js -->
+
+
+                <!--<div id="summernote"></div> -->
                
                 <button type="submit" class="waves-effect waves-light btn">Enviar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar">
@@ -204,3 +220,5 @@
 
         });
     </script>
+
+    <script src="{{ asset('/vendors/ckeditor/ckeditor.js') }}"></script>

@@ -385,3 +385,17 @@ COMMENT ON COLUMN public.tblhistorialcorrespondencia.emiorec IS 'Emitido o Recib
 1. Emitido
 2. Recibido';
 
+CREATE TABLE public.tbladjunto
+(
+  id bigint NOT NULL DEFAULT nextval('tbladjunto_id_seq'::regclass),
+  id_correspondencia character varying,
+  adjunto character varying,
+  fecha timestamp without time zone NOT NULL DEFAULT now(),
+  CONSTRAINT tbladjunto_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tbladjunto
+  OWNER TO postgres;
+
