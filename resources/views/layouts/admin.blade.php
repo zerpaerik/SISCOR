@@ -21,8 +21,6 @@
     <link rel="stylesheet" href="{{asset('assets/js/Lightweight-Chart/cssCharts.css')}}"> 
     <!--toasts notification-->
     <link href="{{asset('assets/css/toastr.css')}}" rel="stylesheet" />
-    <!--summernote-->
-    <link href="{{asset('assets/css/summernote.css')}}" rel="stylesheet" />
 
 
 </head>
@@ -317,10 +315,7 @@
     
      <script src="{{asset('assets/js/Lightweight-Chart/jquery.chart.js')}}"></script>
 
-     <script src="{{asset('assets/js/summernote.js')}}"></script>
-     <!--CKEDITOR INCLUSION JS -->
-
-     <script src="{{asset('assets/js/ckeditor.js')}}"></script>
+     <script src="{{asset('vendors/ckeditor/ckeditor.js')}}"></script>
     
     <!-- Custom Js -->
     <script src="{{asset('assets/js/custom-scripts.js')}}"></script> 
@@ -344,6 +339,7 @@
         })
 
     </script>
+
 </body>
 
 </html>

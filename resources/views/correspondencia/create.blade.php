@@ -5,8 +5,6 @@
           <div class="card-action">
               <b>Redactar Correspondencias</b>
           </div>
-
-          <link rel="stylesheet" href="css/summernote.css">
     
           <div class="card-content">
           <!-- Aqui es donde va el form-->
@@ -87,22 +85,11 @@
                   </div>
                 </div>
 
-                
-                        <div class="panel-heading">Formulario con ckeditor</div>
- 
-                        <div class="panel-body">
-                        <form>
-                            <textarea class="ckeditor" name="editor1" id="editor1" rows="10" cols="80">
-                                Este es el textarea que es modificado por la clase ckeditor
-                            </textarea>
-                        </form>
-                        </div>
 
-
-               <!-- Custom Js -->
-
-
-                <!--<div id="summernote"></div> -->
+                <div class="form-group">
+                  <label for="asunto">Asunto</label>
+                    <textarea id="contenido" name="contenido"></textarea>
+                </div>
                
                 <button type="submit" class="waves-effect waves-light btn">Enviar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar">
@@ -114,7 +101,6 @@
         </div>          
       </div>
     </div>
-    <script src="assets/js/summernote.js"></script>
 
     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
@@ -183,11 +169,7 @@
 
     </script>
 
-    <script type="text/javascript">
-      $(document).ready(function() {
-       $('#summernote').summernote();
-       });
-    </script>
+
 
     <script type="text/javascript">
         $('#id_org').on('change',function(){
@@ -221,4 +203,6 @@
         });
     </script>
 
-    <script src="{{ asset('/vendors/ckeditor/ckeditor.js') }}"></script>
+    <script type="text/javascript">
+                      CKEDITOR.replace( 'contenido' );
+    </script>
