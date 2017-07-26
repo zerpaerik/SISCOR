@@ -88,7 +88,9 @@
 
                 <div class="form-group">
                   <label for="asunto">Asunto</label>
-                    <textarea id="contenido" name="contenido"></textarea>
+                    <textarea id="contenido" name="contenido">
+                      Prueba
+                    </textarea>
                 </div>
                
                 <button type="submit" class="waves-effect waves-light btn">Enviar</button>

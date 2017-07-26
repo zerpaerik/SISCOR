@@ -43,11 +43,12 @@ class correspondenciaController extends Controller
 
 
    
-
+/*
     public function prueba(){
     echo  Correspondencia::guardarAdjunto('M-DGI-0001-07-2017','adjunto prueba');
     
-}
+}*/
+
 
 
 
