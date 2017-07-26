@@ -6,7 +6,6 @@
               <b>Redactar Correspondencias</b>
           </div>
 
-          <link rel="stylesheet" href="css/summernote.css">
     
           <div class="card-content">
           <!-- Aqui es donde va el form-->
@@ -88,21 +87,12 @@
                 </div>
 
                 
-                        <div class="panel-heading">Formulario con ckeditor</div>
- 
-                        <div class="panel-body">
-                        <form>
-                            <textarea class="ckeditor" name="editor1" id="editor1" rows="10" cols="80">
-                                Este es el textarea que es modificado por la clase ckeditor
-                            </textarea>
-                        </form>
-                        </div>
+                  <label for="contenido">Contenido</label>
+                  <textarea type="text" class="ckeditor" id="contenido" name="contenido"
+                    placeholder="Introduzca las siglas de la dependencia" required autocomplete="off">
+                </textarea>
 
 
-               <!-- Custom Js -->
-
-
-                <!--<div id="summernote"></div> -->
                
                 <button type="submit" class="waves-effect waves-light btn">Enviar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar">
@@ -114,7 +104,7 @@
         </div>          
       </div>
     </div>
-    <script src="assets/js/summernote.js"></script>
+
 
     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
@@ -221,4 +211,3 @@
         });
     </script>
 
-    <script src="{{ asset('/vendors/ckeditor/ckeditor.js') }}"></script>
