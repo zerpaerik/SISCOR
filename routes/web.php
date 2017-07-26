@@ -17,7 +17,7 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 });
 
 Route::group(['middleware' => ['inside','HistoryBack']], function () {
-    //Rutas internas Módulo de usuarios
+    //Rutas internas Módulo de usuarios.
    	Route::get('/', function () {return view('user.panelAdmin');});
 	//Route::get('/user/panelAdmin', function () {return view('user.panelAdmin');});
 	Route::get('/logout','userController@logout');
@@ -28,6 +28,7 @@ Route::group(['middleware' => ['inside','HistoryBack']], function () {
 	Route::get('/user/update/{id}','userController@update');
 	Route::get('/user/destroy/{id}','userController@destroy');
 });
+
 Route::get('/user/panelAdmin', function () {return view('user.panelAdmin');});
 
 //**********************Rutas para usuarios regulares********************************
