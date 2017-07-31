@@ -387,7 +387,7 @@ COMMENT ON COLUMN public.tblhistorialcorrespondencia.emiorec IS 'Emitido o Recib
 
 CREATE TABLE public.tbladjunto
 (
-  id bigint NOT NULL DEFAULT nextval('tbladjunto_id_seq'::regclass),
+  id bigserial NOT NULL,
   id_correspondencia character varying,
   adjunto character varying,
   fecha timestamp without time zone NOT NULL DEFAULT now(),
