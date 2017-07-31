@@ -28,7 +28,7 @@
             	 $('#paginacion').empty();
             	 $.ajax({
                  	type: "get",
-                	url: "{{ asset('/correspondencia/bandejas/por aprobar/listPorAprobar') }}",
+                	url: "{{ asset('/correspondencia/bandejas/poraprobar/listPorAprobar') }}",
                  	success: function(a) {
                     	$('#paginacion').html(a);
                  	}

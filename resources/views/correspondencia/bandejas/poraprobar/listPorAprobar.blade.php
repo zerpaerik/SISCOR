@@ -1,48 +1,51 @@
 <div class="row">
 	<div id="paginacion">
-		<div class="col-md-8 col-sm-12 col-xs-12">
+		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="card">
 				<div class="card-action">
 				<div class="col s6">
 					<b>Correspondencias Por Aprobar</b>
 				</div>			
 				<div class="input-field col s6">
-                  @include('correspondencia.bandejas.por aprobar.search')
+                  @include('correspondencia.bandejas.poraprobar.search')
 				</div>
 				</div>
 				<table class="table">
 					<thead>
-					    <th>Tipo de Correspondencia</th>
 						<th>Número</th>
 						<th>Asunto</th>
-						<th>Org Emisor</th>
+						<th>Receptor</th>
+						<th>Fecha</th>
+						
 
 				</thead>
 				<tbody>
 					@foreach($data as $correspondencia)
 						<tr>
-							<td>{{$correspondencia->id_tipo_correspondencia}}</td>
 							<td>{{$correspondencia->id_correspondencia}}</td>
 							<td>{{$correspondencia->asunto}}</td>
-							<td>{{$correspondencia->id_org}}</td>
-             
+							<td>{{$correspondencia->descripcion}}</td>
+							<td>{{$correspondencia->fecha_emision}}</td>
+							
 							<td>
 								<input type="button" 
-							           class="btn btn-danger eliminar" 
-							           href="{{asset('correspondencia/bandejas/recibidas/recibidas-modal')}}/{{$correspondencia->id}}" 
+							           class=" waves-effect waves-light btn actualizar" 
+							           href="{{asset('correspondencia/bandejas/poraprobar/poraprobar-modal')}}/{{$correspondencia->id_correspondencia}}"  
 							           value="Ver"/>
 							</td>
+
 						</tr>
 					@endforeach
 
 				</tbody>
 				</table>
 
-				{{ $data->appends(array('searchText' => $searchText))->links() }}
-
+                
+                {{ $data->appends(array('searchText' => $searchText))->links() }}
+			
 			</div>
 		</div>
-			<div class="col-md-4 col-sm-12 col-xs-12 edit">
+			<div class="col-md-12 col-sm-12 col-xs-12 edit">
 
 			</div>
 	</div>

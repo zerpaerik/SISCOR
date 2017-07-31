@@ -59,6 +59,19 @@ class correspondenciaController extends Controller
       }
     }
 
+    public function poraprobar()
+    {
+      $searchText = Input::get('searchText');
+      $usuarioOrg = Input::get('id_org');
+      $usuarioDep = Input::get('id_dep');
+      $data= Correspondencia::bandejaporAprobar();
+      if ($data){
+        return view("correspondencia.bandejas.poraprobar.listPorAprobar",["data"=>$data,"searchText"=>$searchText]);
+      } else{
+        return view("layouts.nodata");
+      }
+    }
+
 
 
 
@@ -121,6 +134,12 @@ class correspondenciaController extends Controller
     {
       $recibidas=Correspondencia::findOrFail($id);
       return view("correspondencia.bandejas.recibidas.recibidas-modal",['recibidas'=>$recibidas]);
+    }
+
+    public function poraprobarModal($id)
+    {
+      $poraprobar=Correspondencia::findOrFail($id);
+      return view("correspondencia.bandejas.poraprobar.poraprobar-modal",['poraprobar'=>$poraprobar]);
     }
 
 }

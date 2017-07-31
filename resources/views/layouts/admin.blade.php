@@ -225,7 +225,7 @@
                         <ul class="nav nav-second-level">
                             <li>
                                 <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Recibidas</a>
-                                <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Por Aprobar</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/bandejas/poraprobar/listPorAprobar')}}">Por Aprobar</a>
                                 <a class="redireccion" href="{{asset('/correspondencia/bandejas/enviadas/ListEnviadas')}}">Enviadas</a>
                                 <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Asignadas</a>
                                 <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Borrador</a>
