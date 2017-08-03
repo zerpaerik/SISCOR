@@ -165,6 +165,69 @@
 
     </script>
 
+    <script type="text/javascript">
+            //Envio por ajax de formulario por id fijarse atributo id de form
+           // $('#create').submit(function (event) {
+              $('#borrador').on('click', function (event){
+                var formData = {
+                     //campo para controlador    //tipo de campo[name=namecampo]
+                    'ubic'                         : $('select[name=ubic]').val(),
+                    'id_tipo_correspondencia'      : $('select[name=id_tipo_correspondencia]').val(),
+                    'confidencialidad'             : $('select[name=confidencialidad]').val(),
+                    'id_org'                       : $('select[name=id_org]').val(),
+                    'id_dep'                       : $('select[name=id_dep]').val(),
+                    'asunto'                       : $('input[name=descripcion]').val(),
+                    'contenido'                    : $('input[name=contenido]').val(),
+                    'adjunto'                      : $('#adjunto').prop('files')[0],
+                };
+
+                //validaciones
+                var valido=1;
+                var mensaje="";
+                //si no se ha seleccionado un organismo select tiene valor 00
+              /* if (formData['asunto'].length <= 5 || formData['asunto'].length >=51){
+                  valido   = 0;
+                  mensaje = "Verifique la longitud del asunto";
+                  alert(mensaje); 
+                //si la longitud de la descripcion tiene menos de 7 o mas de 50 caracteres
+                }*/
+                //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
+                if (valido == 1) {
+                // procesamiento del  form
+                $.ajax({
+                          type        : 'POST',                               //metodo
+                          url         : '<?= asset('correspondencia/guardarBorrador') ?>', //controlador
+                          data: new FormData($("#create")[0]),
+                          dataType:'json',
+                          async:false,
+                          type:'post',
+                          processData: false,
+                          contentType: false,
+                }).done(function(data) {
+                    //ejecuta el y despliega el mensaje json obtenido
+                    //si respuesta del json es fail
+                    if (data.respuesta=="fail") {
+                      //mensaje rojo , dura 3 segs
+                      toastr.error(data.mensaje, {timeOut: 300}); 
+                    }else{
+                      //mensaje azul , dura 3 segs
+                      toastr.info(data.mensaje, {timeOut: 300});
+                      //limpia todos los campos del form
+                      $('#create')[0].reset();                
+                    }
+                 
+                });
+                //muestra mensaje de error si no se valida
+                }
+
+                // previene que se ejecute submit dando enter
+                event.preventDefault();
+            });
+
+    </script>
+
+
+
 
 
     <script type="text/javascript">

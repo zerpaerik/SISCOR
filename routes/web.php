@@ -215,13 +215,13 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 });
 
 
-//*************Rutas para Bandeja de Por Aprobar Correspondencia********************
+//*************Rutas para Bandeja de Borradores Correspondencia********************
 
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
     //Rutas externas módulo de usuarios regulares
 	
-	Route::get('/correspondencia/bandejas/por aprobar/ListPorAprobar','correspondenciaController@index');
-	Route::get('/correspondencia/bandejas/por aprobar/poraprobar-modal/{id}','correspondenciaController@recibidasModal');
+	Route::get('/correspondencia/bandejas/borrador/ListBorrador','correspondenciaController@borrador');
+	Route::get('/correspondencia/bandejas/borrador/borradores-modal/{id}','correspondenciaController@borradoresModal');
 });
 
 

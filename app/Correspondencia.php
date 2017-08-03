@@ -176,16 +176,16 @@ class Correspondencia extends Model
 
 
             If (Correspondencia::esAprobador()){
-            
+            $id_tipo_correlativo=2;
             $id_estatus_correspondencia=8;
             $adjunto = $data['adjunto'];
             $correspondencia = new Correspondencia;
-           // $correspondencia->id_correspondencia= Correspondencia::generarId($usuarioOrg,$usuarioDep,$tipo);
+            $correspondencia->id_correspondencia= Correspondencia::generarIdBorrador($usuarioOrg,$usuarioDep,$tipo,$id_tipo_correlativo);
             $correspondencia->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
 
             $emision = new Emision;
-           // $emision->id_correspondencia  =$correspondencia->id_correspondencia;
+            $emision->id_correspondencia  =$correspondencia->id_correspondencia;
            // $emision->id_org_emisor     =$data['id_org']; 
             //$emision->id_dep_emisor     =$data['id_dep']; 
             $emision->id_org_emisor     =$usuarioOrg; 
@@ -204,7 +204,7 @@ class Correspondencia extends Model
 
 
             $recepcion = new Recepcion;
-          //  $recepcion->id_correspondencia  =$correspondencia->id_correspondencia;
+            $recepcion->id_correspondencia  =$correspondencia->id_correspondencia;
             $recepcion->id_org_receptor = $id_org;
             $recepcion->id_dep_receptor = $id_dep;
             $recepcion->id_estatus_recepcion ='8';
@@ -216,22 +216,22 @@ class Correspondencia extends Model
         } else {
 
         
-            $id_estatus_correspondencia=7;
+           $id_estatus_correspondencia=8;
             $adjunto = $data['adjunto'];
             $correspondencia = new Correspondencia;
-            //$correspondencia->id_correspondencia= Correspondencia::generarId($usuarioOrg,$usuarioDep,$tipo);
+            $correspondencia->id_correspondencia= Correspondencia::generarIdBorrador($usuarioOrg,$usuarioDep,$id_tipo_correlativo,$tipo);
             $correspondencia->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
 
             $emision = new Emision;
-           //$emision->id_correspondencia  =$correspondencia->id_correspondencia;
+            $emision->id_correspondencia  =$correspondencia->id_correspondencia;
            // $emision->id_org_emisor     =$data['id_org']; 
             //$emision->id_dep_emisor     =$data['id_dep']; 
             $emision->id_org_emisor     =$usuarioOrg; 
             $emision->id_dep_emisor     =$usuarioDep; 
             $emision->id_tipo_correspondencia    =$data['id_tipo_correspondencia']; 
             $emision->id_usuario_emisor = $id_usuario;
-            //$emision->id_usuario_aprobador = $id_usuario;
+            $emision->id_usuario_aprobador = $id_usuario;
             $emision->ubic =$data['ubic'];
             $emision->confidencialidad =$data['confidencialidad'];
             $emision->asunto =$data['asunto'];
@@ -241,15 +241,15 @@ class Correspondencia extends Model
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$emision->id_estatus_emision);
             Correspondencia::guardarAdjunto($correspondencia->id_correspondencia,$adjunto);
 
-  
+
             $recepcion = new Recepcion;
-            //$recepcion->id_correspondencia  =$correspondencia->id_correspondencia;
+            $recepcion->id_correspondencia  =$correspondencia->id_correspondencia;
             $recepcion->id_org_receptor = $id_org;
             $recepcion->id_dep_receptor = $id_dep;
             $recepcion->id_estatus_recepcion ='8';
             $recepcion->save();
+            $id_estatus_correspondencia=8;
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
-
         }
              
             DB::commit();
@@ -473,6 +473,65 @@ class Correspondencia extends Model
     }
 
 
+    public static function bandejaBorrador(){
+
+         $id_usuario=Session::get('id');
+       
+        $searchUsuarioID = DB::table('users')
+                    ->select('*')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_usuario)
+                    ->get();
+
+                foreach ($searchUsuarioID as $usuario) {
+                    $usuarioOrg = $usuario->id_org;
+                    $usuarioDep = $usuario->id_dep;
+                }
+
+
+                  If (Correspondencia::esAprobador()){  ///// si el usuario es aprobador consulta las corresp enviadas, estatus 6 en la tabla tblrecepcion
+         
+
+         $borradores = DB::table('tblemision as a')
+            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
+            ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
+            ->join('tbldependencia as c','b.id_dep_receptor','c.id')
+            ->where('id_org_emisor','=',$usuarioOrg)
+            ->where('id_dep_emisor','=',$usuarioDep)
+            ->where('id_estatus_emision','=','8')
+            ->orderby('id_correspondencia')
+            ->paginate(5);
+        
+        
+        if(!is_null($borradores)){
+            return $borradores;
+         }else{
+            return false;
+         }
+     } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
+
+         $borradores = DB::table('tblemision as a')
+            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
+            ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
+            ->join('tbldependencia as c','b.id_dep_receptor','c.id')
+            ->where('id_org_emisor','=',$usuarioOrg)
+            ->where('id_dep_emisor','=',$usuarioDep)
+            ->where('id_estatus_recepcion','=','8')
+            ->orderby('id_correspondencia')
+            ->paginate(5);
+        
+        
+        if(!is_null($borradores)){
+            return $borradores;
+         }else{
+            return false;
+         }
+     }
+
+    }
+
+
+
     public static function aprobarCorrespondencia($id_correspondencia){
 
     try {
@@ -554,6 +613,7 @@ class Correspondencia extends Model
             $correlativo->id_org=$id_org;
             $correlativo->id_dep=$id_dep;
             $correlativo->id_tipo_correspondencia=$id_tipo_correspondencia;
+            $correlativo->tipo_correlativo='1';
             $correlativo->save();
 
           
@@ -573,4 +633,70 @@ class Correspondencia extends Model
     return $prefijo."-".$siglas."-".str_pad($contador, 4, "0", STR_PAD_LEFT)."-".$sufijo;
 
     }
+
+
+
+
+    public static function generarIdBorrador($id_org,$id_dep,$id_tipo_correlativo,$id_tipo_correspondencia){
+          
+         $id_tipo_correlativo=2; 
+
+         $prefijo = 'B';
+         $sufijo=date("m-Y");  //variable para alojar mes y año de la correspondencia
+
+         $searchSiglas = DB::table('tbldependencia')
+                    ->select('siglas')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_dep)
+                    ->where('id_org','=', $id_org)
+                    ->get();
+
+        foreach ($searchSiglas as $sigla) {
+            $siglas = $sigla->siglas;
+        } // arreglo de modelo que me devolvera las siglas de la dependencia
+  
+        $searchContador= DB::table('tblcorrelativo')
+                    ->select('*')
+                    ->where('id_dep','=',$id_dep)
+                    ->where('id_org','=', $id_org)
+                    ->where('tipo_correlativo','=', $id_tipo_correlativo)
+                    ->whereYear('fecha','2017')
+                    ->get();
+
+        $contador=1;
+          if(count($searchContador) ==0){
+            $contador=1;
+          
+            $correlativo = new Correlativo;
+            $correlativo->contador=$contador;
+            $correlativo->id_org=$id_org;
+            $correlativo->id_dep=$id_dep;
+            $correlativo->id_tipo_correspondencia=$id_tipo_correspondencia;
+            $correlativo->tipo_correlativo='2';
+            $correlativo->save();
+
+          
+        } else {
+         foreach ($searchContador as $correlativo){
+            $contador=$correlativo->contador+1;
+
+         
+            $correlativo=Correlativo::findOrFail($correlativo->id);
+            $correlativo->contador=$contador;
+            $correlativo->updated_at=date('Y-m-d H:i:s');
+            $correlativo->update();
+
+        } 
+    }
+
+    return $prefijo."-".$siglas."-".str_pad($contador, 4, "0", STR_PAD_LEFT)."-".$sufijo;
+
+    }
+
+
+
+
+
+
+
 }

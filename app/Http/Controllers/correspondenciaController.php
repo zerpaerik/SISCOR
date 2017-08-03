@@ -72,6 +72,20 @@ class correspondenciaController extends Controller
       }
     }
 
+    
+     public function borrador()
+    {
+      $searchText = Input::get('searchText');
+      $usuarioOrg = Input::get('id_org');
+      $usuarioDep = Input::get('id_dep');
+      $data= Correspondencia::bandejaBorrador();
+      if ($data){
+        return view("correspondencia.bandejas.borrador.listBorrador",["data"=>$data,"searchText"=>$searchText]);
+      } else{
+        return view("layouts.nodata");
+      }
+    }
+
 
 	public function create()
     {
@@ -82,11 +96,11 @@ class correspondenciaController extends Controller
     }
 
 
-
+/*
     public function prueba(){
-    echo  Correspondencia::aprobarCorrespondencia('M-DGI-0002-07-2017');
+    echo  Correspondencia::generarIdBorrador(1,1,2,10);
     }
-
+*/
 
     public function store ()
     {
@@ -174,6 +188,13 @@ class correspondenciaController extends Controller
     {
       $poraprobar=Correspondencia::findOrFail($id);
       return view("correspondencia.bandejas.poraprobar.poraprobar-modal",['poraprobar'=>$poraprobar]);
+    }
+
+
+    public function borradoresModal($id)
+    {
+      $borradores=Correspondencia::findOrFail($id);
+      return view("correspondencia.bandejas.borrador.borradores-modal",['borradores'=>$borradores]);
     }
 
 }
