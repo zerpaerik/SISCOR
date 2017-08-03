@@ -3,12 +3,12 @@
       <div class="col-md-8 col-sm-12 col-xs-12">
         <div class="card">
           <div class="card-action">
-              <b>Redactar Correspondencias</b>
+              <b>Correspondencia Recibida</b>
           </div>
     
           <div class="card-content">
           <!-- Aqui es donde va el form-->
-            <form role="form" id="create" method="POST">
+            <form role="form" id="mostrar" action="{{asset('correspondencia/bandejas/recibidas/mostrar')}}/{{$data->id}}" method="PUT">
 
                 <div class="form-group">
                   <label for="ubic">Ubicación</label>
@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="form-group">
-                    <div id="orgbydep"></div>
+                    <div id="orgbydep" value="{{$data->id_dep}}"></div>
                 </div>
 
 
@@ -71,7 +71,7 @@
                 <div class="form-group">
                   <label for="asunto">Asunto</label>
                   <input type="text" class="form-control" id="asunto" name="asunto"
-                    placeholder="Introduzca el asunto de la correspondencia" required autocomplete="off">
+                    placeholder="Introduzca el asunto de la correspondencia" required autocomplete="off" value="{{$data->asunto}}">
                 </div>
                 <div class="form-group">
                   <div class="file-field input-field">
@@ -80,7 +80,7 @@
                       <input type="file" name="adjunto" id="adjunto">
                     </div>
                     <div class="file-path-wrapper">
-                      <input class="file-path validate" type="text" placeholder="Adjuntar el archivo">
+                      <input class="file-path validate" type="text" placeholder="Adjuntar el archivo" value="{{$data->adjunto}}">
                     </div>
                   </div>
                 </div>
@@ -88,7 +88,7 @@
 
                 <div class="form-group">
                   <label for="asunto">Contenido</label>
-                    <textarea id="contenido" name="contenido">
+                    <textarea id="contenido" name="contenido" value="{{$data->contenido}}">
                     Ante todo reciba un caluroso saludo Bolivariano, Chavista y Antiimperialista, 
                     </textarea>
                 </div>
@@ -105,68 +105,69 @@
       </div>
     </div>
 
-    <script type="text/javascript">
+     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
-            $('#create').submit(function (event) {
-                var formData = {
+            $('#mostrar').submit(function (event) {
+              var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'ubic'                         : $('select[name=ubic]').val(),
                     'id_tipo_correspondencia'      : $('select[name=id_tipo_correspondencia]').val(),
                     'confidencialidad'             : $('select[name=confidencialidad]').val(),
                     'id_org'                       : $('select[name=id_org]').val(),
                     'id_dep'                       : $('select[name=id_dep]').val(),
-                    'id_dir'                       : $('select[name=id_dir]').val(),
-                    'id_div'                       : $('select[name=id_div]').val(),
                     'asunto'                       : $('input[name=descripcion]').val(),
                     'contenido'                    : $('input[name=contenido]').val(),
                     'adjunto'                      : $('#adjunto').prop('files')[0],
                 };
-
-                //validaciones
+                    //validaciones 
                 var valido=1;
                 var mensaje="";
                 //si no se ha seleccionado un organismo select tiene valor 00
-              /* if (formData['asunto'].length <= 5 || formData['asunto'].length >=51){
+               /* if (formData['descripcion'].length <= 7 || formData['descripcion'].length >=51){
                   valido   = 0;
-                  mensaje = "Verifique la longitud del asunto";
+                  mensaje = "Verifique la longitud del nombre de dependencia";
                   alert(mensaje);  
-                //si la longitud de la descripcion tiene menos de 7 o mas de 50 caracteres
                 }*/
-                //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
+
                 if (valido == 1) {
-                // procesamiento del  form
+                // process the form
                 $.ajax({
-                          type        : 'POST',                               //metodo
-                          url         : '<?= asset('correspondencia/store') ?>', //controlador
-                          data: new FormData($("#create")[0]),
-                          dataType:'json',
-                          async:false,
-                          type:'post',
-                          processData: false,
-                          contentType: false,
+                    type        : 'PUT',                              //metodo
+                    url         : $(this).attr("action"),             //controlador
+                    data        : formData,                           //array con nombres de campos
+                    dataType    : 'json',                             //tipo de salida
+                    encode      : true                                //decodificacion
                 }).done(function(data) {
                     //ejecuta el y despliega el mensaje json obtenido
                     //si respuesta del json es fail
                     if (data.respuesta=="fail") {
                       //mensaje rojo , dura 3 segs
-                      toastr.error(data.mensaje, {timeOut: 300});  
+                      toastr.danger(data.mensaje, {timeOut: 300});  
                     }else{
                       //mensaje azul , dura 3 segs
-                      toastr.info(data.mensaje, {timeOut: 300});
-                      //limpia todos los campos del form
-                      $('#create')[0].reset();                 
+                      toastr.info(data.mensaje, {timeOut: 300}); 
+                      //limpia todos los campos del form 
+                      $('.edit').empty();
+                      recargar();                 
                     }
-                  
                 });
-                //muestra mensaje de error si no se valida
-                }
 
+                }
                 // previene que se ejecute submit dando enter
                 event.preventDefault();
             });
 
+            function recargar(){
+               $('#paginacion').empty();
+               $.ajax({
+                  type: "get",
+                  url: "{{ asset('/correspondencia/bandejas/recibidas/listRecibidas') }}",
+                  success: function(a) {
+                      $('#paginacion').html(a);
+                  }
+                 });
+            }
     </script>
-
 
 
     <script type="text/javascript">

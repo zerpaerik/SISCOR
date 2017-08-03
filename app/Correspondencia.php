@@ -262,6 +262,14 @@ class Correspondencia extends Model
 
      }
 
+         
+    public static function mostrar(){
+
+
+
+    }
+
+
      
     public static function esAprobador(){
 

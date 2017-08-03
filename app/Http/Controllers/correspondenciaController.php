@@ -102,6 +102,49 @@ class correspondenciaController extends Controller
     }
 */
 
+    public function update($id)
+    {
+        $data= array(
+                  'id_org'     =>Input::get('id_org'), 
+                  'descripcion'=>Input::get('descripcion'),
+                  'siglas'=>Input::get('siglas')
+              );
+
+       $actualizar=Dependencias::actualizar($id,$data);
+        if ($actualizar) {
+          return response()->json(['respuesta' => 'success','mensaje' => 'Actualizado exitosamente']);
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al actualizar verifique']);
+        }
+
+    }
+    
+    public function mostrar($id)
+    {
+      $data= array(
+                  'id_correspondencia'=>Input::get('id_correspondencia'),
+                  'id_tipo_correspondencia'=>Input::get('id_tipo_correspondencia'),
+                  'confidencialidad'=>Input::get('confidencialidad'),
+                  'id_org'=>Input::get('id_org'),
+                  'id_dep'=>Input::get('id_dep'),
+                  'id_dir'=>Input::get('id_dir'),
+                  'id_div'=>Input::get('id_div'),
+                  'ubic'=>Input::get('ubic'),
+                  'confidencialidad'=>Input::get('confidencialidad'),
+                  'asunto'=>Input::get('asunto'),
+                  'contenido'=>Input::get('contenido')
+
+        );
+
+      $mostrar=Correspondencia::mostrar($id,$data);
+      if ($mostrar) {
+        return response()->json(['respuesta' => 'success','mensaje' => 'Correspondencia vista']);
+      }else{
+        return rresponse()->json(['respuesta' => 'success','mensaje' => 'Error mostrando Correspondencia']);
+      }
+      
+    }
+
     public function store ()
     {
     $data= array(
