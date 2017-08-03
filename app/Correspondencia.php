@@ -477,19 +477,14 @@ class Correspondencia extends Model
 
     try {
             DB::beginTransaction();
-             $id_usuario=Session::get('id');
+            $id_usuario=Session::get('id');
            
 
             If (Correspondencia::esAprobador()){
             
-            /// Inserto id_usuario del aprobador una vez que se aprueba.
-            $aprobarCorrespondencia= new Emision;
-            $aprobarCorrespondencia->id_usuario_aprobador=$id_usuario;
-            $aprobarCorrespondencia->save();
-
-            
             //// Actualizo los estatus en las tablad de emisión y recepción.
             $aprobarCorrespondencia=Emision::findOrFail($id_correspondencia);
+            $aprobarCorrespondencia->id_usuario_aprobador=$id_usuario;
             $aprobarCorrespondencia->id_estatus_emision='6';
             $aprobarCorrespondencia->update();
 
