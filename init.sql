@@ -202,7 +202,7 @@ ALTER TABLE public.users
   OWNER TO postgres;
 
 
-CREATE TABLE public.tblusuariosaprob
+CREATE TABLE tblusuariosaprob
 (
   id bigserial NOT NULL,
   id_usuario integer NOT NULL,
@@ -213,32 +213,37 @@ CREATE TABLE public.tblusuariosaprob
   id_dpt integer,
   fecha_inicio timestamp without time zone DEFAULT now(),
   fecha_fin timestamp without time zone,
+  estatus integer DEFAULT 1, -- estatus...
   CONSTRAINT tblusuariosaprob_pkey PRIMARY KEY (id),
   CONSTRAINT tblusuariosaprob_id_dep_fkey FOREIGN KEY (id_dep)
-      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      REFERENCES tbldependencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblusuariosaprob_id_dir_fkey FOREIGN KEY (id_dir)
-      REFERENCES public.tbldireccion (id) MATCH SIMPLE
+      REFERENCES tbldireccion (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblusuariosaprob_id_div_fkey FOREIGN KEY (id_div)
-      REFERENCES public.tbldivision (id) MATCH SIMPLE
+      REFERENCES tbldivision (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblusuariosaprob_id_org_fkey FOREIGN KEY (id_org)
-      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      REFERENCES tblorganismo (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblusuariosaprob_id_usuario_fkey FOREIGN KEY (id_usuario)
-      REFERENCES public.users (id) MATCH SIMPLE
+      REFERENCES users (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public.tblusuariosaprob
+ALTER TABLE tblusuariosaprob
   OWNER TO postgres;
+COMMENT ON COLUMN tblusuariosaprob.estatus IS 'estatus
+1: activo
+0:inactivo';
 
 
 
-CREATE TABLE public.tblcorrelativo
+
+CREATE TABLE tblcorrelativo
 (
   id bigserial NOT NULL,
   contador integer NOT NULL,
@@ -246,19 +251,19 @@ CREATE TABLE public.tblcorrelativo
   id_org integer,
   id_dep integer,
   id_tipo_correspondencia integer,
+  updated_at timestamp without time zone DEFAULT now(),
   CONSTRAINT tblcorrelativo_pkey PRIMARY KEY (id),
   CONSTRAINT tblcorrelativo_id_dep_fkey FOREIGN KEY (id_dep)
-      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      REFERENCES tbldependencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblcorrelativo_id_org_fkey FOREIGN KEY (id_org)
-      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      REFERENCES tblorganismo (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
-
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public.tblcorrelativo
+ALTER TABLE tblcorrelativo
   OWNER TO postgres;
 
   
@@ -277,6 +282,7 @@ COMMENT ON COLUMN public.tbltipocorrespondencia.descripcion IS 'Tipos de Corresp
 -Oficios
 -Memorandum
 -Circulares';
+
 CREATE TABLE public.tblestatuscorrespondencia
 (
   id bigserial NOT NULL,
@@ -309,7 +315,7 @@ ALTER TABLE public.tblcorrespondencia
 COMMENT ON COLUMN public.tblcorrespondencia.id_correspondencia IS '--Númeración de correspondencia';
 
 
-CREATE TABLE public.tblemision
+CREATE TABLE tblemision
 (
   id bigserial NOT NULL,
   id_correspondencia character varying NOT NULL,
@@ -317,52 +323,64 @@ CREATE TABLE public.tblemision
   id_dep_emisor integer NOT NULL,
   id_tipo_correspondencia integer NOT NULL,
   id_usuario_emisor integer NOT NULL,
-  id_usuario_aprobador integer NOT NULL,
+  id_usuario_aprobador integer,
   fecha_emision timestamp without time zone NOT NULL DEFAULT now(),
   id_estatus_emision integer NOT NULL,
   esrespuesta boolean,
+  ubic integer, -- <option value="00">Seleccione</option>...
+  asunto character varying,
+  confidencialidad integer, -- <option value="10">Uso Público</option>...
+  contenido character varying,
   CONSTRAINT tblemision_pkey PRIMARY KEY (id),
   CONSTRAINT tblemision_id_dep_emisor_fkey FOREIGN KEY (id_dep_emisor)
-      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      REFERENCES tbldependencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblemision_id_estatus_emision_fkey FOREIGN KEY (id_estatus_emision)
-      REFERENCES public.tblestatuscorrespondencia (id) MATCH SIMPLE
+      REFERENCES tblestatuscorrespondencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblemision_id_org_emisor_fkey FOREIGN KEY (id_org_emisor)
-      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      REFERENCES tblorganismo (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblemision_id_tipo_correspondencia_fkey FOREIGN KEY (id_tipo_correspondencia)
-      REFERENCES public.tbltipocorrespondencia (id) MATCH SIMPLE
+      REFERENCES tbltipocorrespondencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public.tblemision
+ALTER TABLE tblemision
   OWNER TO postgres;
+COMMENT ON COLUMN tblemision.ubic IS '<option value="00">Seleccione</option>
+<option value="10">Interno</option>
+<option value="20">Externo</option>';
+COMMENT ON COLUMN tblemision.confidencialidad IS '<option value="10">Uso Público</option>
+<option value="20">Uso Confidencial</option>
+<option value="30">Ext Confidencial</option>';
 
-  CREATE TABLE public.tblrecepcion
+
+  CREATE TABLE tblrecepcion
 (
   id bigserial NOT NULL,
   id_correspondencia character varying NOT NULL,
   id_org_receptor integer NOT NULL,
   id_dep_receptor integer NOT NULL,
   id_estatus_recepcion integer NOT NULL,
+  fecha_recepcion timestamp without time zone DEFAULT now(),
   CONSTRAINT tblrecepcion_pkey PRIMARY KEY (id),
   CONSTRAINT tblrecepcion_id_dep_receptor_fkey FOREIGN KEY (id_dep_receptor)
-      REFERENCES public.tbldependencia (id) MATCH SIMPLE
+      REFERENCES tbldependencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblrecepcion_id_estatus_recepcion_fkey FOREIGN KEY (id_estatus_recepcion)
-      REFERENCES public.tblestatuscorrespondencia (id) MATCH SIMPLE
+      REFERENCES tblestatuscorrespondencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblrecepcion_id_org_receptor_fkey FOREIGN KEY (id_org_receptor)
-      REFERENCES public.tblorganismo (id) MATCH SIMPLE
+      REFERENCES tblorganismo (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public.tblrecepcion
+ALTER TABLE tblrecepcion
   OWNER TO postgres;
 
   CREATE TABLE public.tblhistorialcorrespondencia

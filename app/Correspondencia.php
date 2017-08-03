@@ -115,13 +115,10 @@ class Correspondencia extends Model
 
             $emision = new Emision;
             $emision->id_correspondencia  =$correspondencia->id_correspondencia;
-           // $emision->id_org_emisor     =$data['id_org']; 
-            //$emision->id_dep_emisor     =$data['id_dep']; 
             $emision->id_org_emisor     =$usuarioOrg; 
             $emision->id_dep_emisor     =$usuarioDep; 
             $emision->id_tipo_correspondencia    =$data['id_tipo_correspondencia']; 
             $emision->id_usuario_emisor = $id_usuario;
-            //$emision->id_usuario_aprobador = $id_usuario;
             $emision->ubic =$data['ubic'];
             $emision->confidencialidad =$data['confidencialidad'];
             $emision->asunto =$data['asunto'];
@@ -139,10 +136,6 @@ class Correspondencia extends Model
             $recepcion->id_estatus_recepcion ='3';
             $recepcion->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
-             
-
-
-
 
         }
              
@@ -156,6 +149,120 @@ class Correspondencia extends Model
 
      }
 
+
+     public static function guardarBorrador($data){
+       
+           try {
+            DB::beginTransaction();
+             $id_usuario=Session::get('id');
+             $tipo = $data['id_tipo_correspondencia'];
+             $id_tipo_correspondencia = $data['id_tipo_correspondencia'];
+             $usuarioOrg = $data['id_org'];
+             $usuarioDep = $data['id_dep'];
+             $id_org = $data['id_org'];
+             $id_dep = $data['id_dep'];
+             $adjunto = $data['adjunto'];
+
+             $searchUsuarioID = DB::table('users')
+                    ->select('*')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_usuario)
+                    ->get();
+
+                foreach ($searchUsuarioID as $usuario) {
+                    $usuarioOrg = $usuario->id_org;
+                    $usuarioDep = $usuario->id_dep;
+                }
+
+
+            If (Correspondencia::esAprobador()){
+            
+            $id_estatus_correspondencia=8;
+            $adjunto = $data['adjunto'];
+            $correspondencia = new Correspondencia;
+           // $correspondencia->id_correspondencia= Correspondencia::generarId($usuarioOrg,$usuarioDep,$tipo);
+            $correspondencia->save();
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+
+            $emision = new Emision;
+           // $emision->id_correspondencia  =$correspondencia->id_correspondencia;
+           // $emision->id_org_emisor     =$data['id_org']; 
+            //$emision->id_dep_emisor     =$data['id_dep']; 
+            $emision->id_org_emisor     =$usuarioOrg; 
+            $emision->id_dep_emisor     =$usuarioDep; 
+            $emision->id_tipo_correspondencia    =$data['id_tipo_correspondencia']; 
+            $emision->id_usuario_emisor = $id_usuario;
+            $emision->id_usuario_aprobador = $id_usuario;
+            $emision->ubic =$data['ubic'];
+            $emision->confidencialidad =$data['confidencialidad'];
+            $emision->asunto =$data['asunto'];
+            $emision->contenido =$data['contenido'];
+            $emision->id_estatus_emision='8';
+            $emision->save();
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$emision->id_estatus_emision);
+            Correspondencia::guardarAdjunto($correspondencia->id_correspondencia,$adjunto);
+
+
+            $recepcion = new Recepcion;
+          //  $recepcion->id_correspondencia  =$correspondencia->id_correspondencia;
+            $recepcion->id_org_receptor = $id_org;
+            $recepcion->id_dep_receptor = $id_dep;
+            $recepcion->id_estatus_recepcion ='8';
+            $recepcion->save();
+            $id_estatus_correspondencia=8;
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+
+
+        } else {
+
+        
+            $id_estatus_correspondencia=7;
+            $adjunto = $data['adjunto'];
+            $correspondencia = new Correspondencia;
+            //$correspondencia->id_correspondencia= Correspondencia::generarId($usuarioOrg,$usuarioDep,$tipo);
+            $correspondencia->save();
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+
+            $emision = new Emision;
+           //$emision->id_correspondencia  =$correspondencia->id_correspondencia;
+           // $emision->id_org_emisor     =$data['id_org']; 
+            //$emision->id_dep_emisor     =$data['id_dep']; 
+            $emision->id_org_emisor     =$usuarioOrg; 
+            $emision->id_dep_emisor     =$usuarioDep; 
+            $emision->id_tipo_correspondencia    =$data['id_tipo_correspondencia']; 
+            $emision->id_usuario_emisor = $id_usuario;
+            //$emision->id_usuario_aprobador = $id_usuario;
+            $emision->ubic =$data['ubic'];
+            $emision->confidencialidad =$data['confidencialidad'];
+            $emision->asunto =$data['asunto'];
+            $emision->contenido =$data['contenido'];
+            $emision->id_estatus_emision='8';
+            $emision->save();
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$emision->id_estatus_emision);
+            Correspondencia::guardarAdjunto($correspondencia->id_correspondencia,$adjunto);
+
+  
+            $recepcion = new Recepcion;
+            //$recepcion->id_correspondencia  =$correspondencia->id_correspondencia;
+            $recepcion->id_org_receptor = $id_org;
+            $recepcion->id_dep_receptor = $id_dep;
+            $recepcion->id_estatus_recepcion ='8';
+            $recepcion->save();
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+
+        }
+             
+            DB::commit();
+        }catch (\Exception $e) { //esto atrapa cualquier error y devuelve false al controller
+            DB::rollback();
+            echo $e->getMessage(); die(); //para probar si hay error
+            return false;
+        }
+        return true;
+
+     }
+
+     
     public static function esAprobador(){
 
         $searchUsuarioAprobador = DB::table('tblusuariosaprob')
@@ -199,6 +306,7 @@ class Correspondencia extends Model
         
         ///// Primero verifico el id_org y el id_dep del usuario logueado ///////
         $id_usuario=Session::get('id');
+       
        
         $searchUsuarioID = DB::table('users')
                     ->select('*')
@@ -363,7 +471,52 @@ class Correspondencia extends Model
          }
      }
     }
+
+
+    public static function aprobarCorrespondencia($id_correspondencia){
+
+    try {
+            DB::beginTransaction();
+             $id_usuario=Session::get('id');
+           
+
+            If (Correspondencia::esAprobador()){
+            
+            /// Inserto id_usuario del aprobador una vez que se aprueba.
+            $aprobarCorrespondencia= new Emision;
+            $aprobarCorrespondencia->id_usuario_aprobador=$id_usuario;
+            $aprobarCorrespondencia->save();
+
+            
+            //// Actualizo los estatus en las tablad de emisión y recepción.
+            $aprobarCorrespondencia=Emision::findOrFail($id_correspondencia);
+            $aprobarCorrespondencia->id_estatus_emision='6';
+            $aprobarCorrespondencia->update();
+
+            $aprobarCorrespondencia=Recepcion::findOrFail($id_correspondencia);
+            $aprobarCorrespondencia->id_estatus_emision='6';
+            $aprobarCorrespondencia->update();
+
+
+        } else {
+
+        
+           
+
+        }
+             
+            DB::commit();
+        }catch (\Exception $e) { //esto atrapa cualquier error y devuelve false al controller
+            DB::rollback();
+            echo $e->getMessage(); die(); //para probar si hay error
+            return false;
+        }
+        return true;
+
+     }
+
   
+
     public static function generarId($id_org,$id_dep,$id_tipo_correspondencia){
            $prefijo='';
 

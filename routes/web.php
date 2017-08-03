@@ -185,6 +185,7 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::get('/correspondencia', function () {return view('correspondencia.create');});
 	Route::get('/correspondencia/create','correspondenciaController@create');
 	Route::post('/correspondencia/store','correspondenciaController@store');
+	Route::post('/correspondencia/guardarBorrador','correspondenciaController@guardarBorrador');
 });
 
 
@@ -214,10 +215,6 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 });
 
 
-
-
-
-
 //*************Rutas para Bandeja de Por Aprobar Correspondencia********************
 
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
@@ -226,3 +223,9 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::get('/correspondencia/bandejas/por aprobar/ListPorAprobar','correspondenciaController@index');
 	Route::get('/correspondencia/bandejas/por aprobar/poraprobar-modal/{id}','correspondenciaController@recibidasModal');
 });
+
+
+
+//// REPORTES ////
+ 	
+//Route::get('pdf', 'PdfController@invoice');

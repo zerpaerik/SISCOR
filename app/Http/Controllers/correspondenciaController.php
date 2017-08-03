@@ -73,8 +73,6 @@ class correspondenciaController extends Controller
     }
 
 
-
-
 	public function create()
     {
       $organismos= Organismos::lista();
@@ -84,10 +82,11 @@ class correspondenciaController extends Controller
     }
 
 
+
     public function prueba(){
-    echo  Correspondencia::bandejaEnviadas();
-    
-}
+    echo  Correspondencia::aprobarCorrespondencia('M-DGI-0002-07-2017');
+    }
+
 
     public function store ()
     {
@@ -122,6 +121,41 @@ class correspondenciaController extends Controller
           return response()->json(['respuesta' => 'fail','mensaje' => 'Error al guardar verifique']);
         }
     }
+
+    
+     public function guardarBorrador ()
+        {
+         $data= array(
+                  'id_correspondencia'=>Input::get('id_correspondencia'),
+                  'id_tipo_correspondencia'=>Input::get('id_tipo_correspondencia'),
+                  'confidencialidad'=>Input::get('confidencialidad'),
+                  'id_org'=>Input::get('id_org'),
+                  'id_dep'=>Input::get('id_dep'),
+                  'id_dir'=>Input::get('id_dir'),
+                  'id_div'=>Input::get('id_div'),
+                  'ubic'=>Input::get('ubic'),
+                  'confidencialidad'=>Input::get('confidencialidad'),
+                  'asunto'=>Input::get('asunto'),
+                  'contenido'=>Input::get('contenido')
+                );
+
+            if(Input::hasFile('adjunto')){
+            $file=Input::file('adjunto');
+            $file->move(public_path().'/imagenes/correspondencia',$file->getClientOriginalName());
+            $file->getClientOriginalName(); 
+            $data['adjunto']=$file->getClientOriginalName();          
+        }
+         
+        $guardarBorrador=Correspondencia::guardarBorrador($data);
+
+        if ($guardarBorrador) {
+          return response()->json(['respuesta' => 'success','mensaje' => 'Guardado exitosamente']);
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al guardar verifique']);
+        }
+    }
+
+    
 
      public function usrbyorg($id)
     {
