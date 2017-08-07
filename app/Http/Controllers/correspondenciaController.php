@@ -119,16 +119,17 @@ class correspondenciaController extends Controller
 
     }
     
-   public function ver($id) {
+  
+
+   public function verPorAprobar($id) {
      
-     $correspondencia=Correspondencia::findOrFail($id);  
-     return view("correspondencia.bandejas.recibidas.mostrar",['data'=>$correspondencia]);
+     $correspondencia=Correspondencia::where("id_correspondencia",'=',$id);  
+     return view("correspondencia.bandejas.poraprobar.mostrar",['data'=>$correspondencia]);
 
    }
 
 
-
-    public function mostrar($id)
+    public function mostrarPorAprobar($id)
     {
       $data= array(
                   'id_correspondencia'=>Input::get('id_correspondencia'),
@@ -145,7 +146,7 @@ class correspondenciaController extends Controller
 
         );
 
-      $mostrar=Correspondencia::mostrar($id,$data);
+      $mostrar=Correspondencia::mostrarPorAprobar($id,$data);
       if ($mostrar) {
         return response()->json(['respuesta' => 'success','mensaje' => 'Correspondencia vista']);
       }else{

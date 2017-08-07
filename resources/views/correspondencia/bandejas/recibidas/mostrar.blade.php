@@ -8,7 +8,7 @@
     
           <div class="card-content">
           <!-- Aqui es donde va el form-->
-            <form role="form" id="mostrar" action="{{asset('correspondencia/mostrar')}}/{{$data->id}}">
+            <form role="form" id="mostrar" action="{{asset('correspondencia/mostrar')}}/{{$data->id_correspondencia}}">
 
                 <div class="form-group">
                   <label for="ubic">Ubicación</label>

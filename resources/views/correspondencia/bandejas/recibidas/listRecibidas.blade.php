@@ -27,12 +27,12 @@
 							<td>{{$correspondencia->descripcion}}</td>
 							<td>{{$correspondencia->fecha_recepcion}}</td>
 							
-							<td>
-								<input type="button" 
-							           class=" waves-effect waves-light btn actualizar" 
-							           href="{{asset('correspondencia/edit')}}/{{$correspondencia->id}}" 
-							           value="Ver"/>
-							</td>
+							  <td>
+                                <input type="button"
+                                       class=" waves-effect waves-light btn ver"
+                                       href="{{asset('/correspondencia/ver')}}/{{$correspondencia->id_correspondencia}}"  
+                                       value="Ver"/>
+                            </td>
 
 						</tr>
 					@endforeach

@@ -263,7 +263,7 @@ class Correspondencia extends Model
      }
 
          
-    public static function mostrar(){
+    public static function mostrarPorAprobar(){
 
       $mostrarCorrespondencia = DB::table('tblemision as a')
             ->select('a.id_correspondencia','a.ubic','a.confidencialidad','a.asunto','a.contenido','e.descripcion','c.descripcion','d.descripcion','f.adjunto')

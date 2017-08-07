@@ -21,7 +21,28 @@
 
 //permite la recarga de actualización ajax no modificar
 
-	$(".actualizar").on("click",function(e)
+	$(".verPorAprobar").on("click",function(e)
+	{
+		e.preventDefault();
+		var urlEdit= $(this).attr('href');
+		$.ajax({
+			url: urlEdit,
+			type: "get",
+			success: function(data)
+			{
+				$("#contenidoppal").empty().html(data);
+			},
+			error: function()
+			{
+				alert('Error obteniendo respuesta del servidor, prueba más tarde.');
+			}
+		});
+	});
+
+
+	// permite mostrar el contenido de las correspondencias
+
+$(".actualizar").on("click",function(e)
 	{
 		e.preventDefault();
 		var urlEdit= $(this).attr('href');
@@ -38,6 +59,11 @@
 			}
 		});
 	});
+
+
+
+
+
 
 //permite ejecutar boton eliminar con ajax no modificar
 	$(".eliminar").on("click",function(e)

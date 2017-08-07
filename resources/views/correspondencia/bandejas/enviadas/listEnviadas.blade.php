@@ -28,11 +28,11 @@
 							<td>{{$correspondencia->fecha_emision}}</td>
 							
 							<td>
-								<input type="button" 
-							           class=" waves-effect waves-light btn actualizar" 
-							           href="{{asset('correspondencia/bandejas/enviadas/enviadas-modal')}}/{{$correspondencia->id_correspondencia}}"  
-							           value="Ver"/>
-							</td>
+                                <input type="button"
+                                       class=" waves-effect waves-light btn ver"
+                                       href="{{asset('/correspondencia/ver')}}/{{$correspondencia->id_correspondencia}}"  
+                                       value="Ver"/>
+                            </td>
 
 						</tr>
 					@endforeach

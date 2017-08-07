@@ -195,7 +195,8 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
   
 	Route::get('/correspondencia/bandejas/recibidas/ListRecibidas','correspondenciaController@recibidas');
 	Route::get('/correspondencia/bandejas/recibidas/recibidas-modal/{id}','correspondenciaController@recibidasModal');
-	Route::get('/correspondencia/bandejas/recibidas/mostrar/{id}','correspondenciaController@mostrar');
+	Route::get('/correspondencia/bandejas/recibidas/mostrar/{id}','correspondenciaController@mostrarPorAprobar');
+	Route::get('/correspondencia/verPorAprobar/{id}','correspondenciaController@verPorAprobar');
 });
 
 
@@ -214,6 +215,10 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
   
 	Route::get('/correspondencia/bandejas/poraprobar/listPorAprobar','correspondenciaController@poraprobar');
 	Route::get('/correspondencia/bandejas/poraprobar/poraprobar-modal/{id}','correspondenciaController@eporaprobarModal');
+	Route::get('/correspondencia/bandejas/poraprobar/mostrar/{id}','correspondenciaController@mostrarPorAprobar');
+	Route::get('/correspondencia/verPorAprobar/{id}','correspondenciaController@verPorAprobar');
+
+
 });
 
 
