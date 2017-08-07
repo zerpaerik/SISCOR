@@ -265,8 +265,24 @@ class Correspondencia extends Model
          
     public static function mostrar(){
 
+      $mostrarCorrespondencia = DB::table('tblemision as a')
+            ->select('a.id_correspondencia','a.ubic','a.confidencialidad','a.asunto','a.contenido','e.descripcion','c.descripcion','d.descripcion','f.adjunto')
+            ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
+            ->join('tblorganismo as c','b.id_org_receptor','c.id')
+            ->join('tbldependencia as d','b.id_dep_receptor','d.id')
+            ->join('tbltipocorrespondencia as e','a.id_tipo_correspondencia','e.id')
+            ->join('tbladjunto as f','a.id_correspondencia','f.id_correspondencia')
+            ->orderby('id_correspondencia')
+            ->get();
+        
+        
+        if(!is_null($mostrarCorrespondencia)){
+            return $mostrarCorrespondencia;
+         }else{
+            return false;
+         }
 
-
+  
     }
 
 

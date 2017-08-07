@@ -8,7 +8,7 @@
     
           <div class="card-content">
           <!-- Aqui es donde va el form-->
-            <form role="form" id="mostrar" action="{{asset('correspondencia/bandejas/recibidas/mostrar')}}/{{$data->id}}" method="PUT">
+            <form role="form" id="mostrar" action="{{asset('correspondencia/mostrar')}}/{{$data->id}}">
 
                 <div class="form-group">
                   <label for="ubic">Ubicación</label>
@@ -147,7 +147,7 @@
                       //mensaje azul , dura 3 segs
                       toastr.info(data.mensaje, {timeOut: 300}); 
                       //limpia todos los campos del form 
-                      $('.edit').empty();
+                      $('.ver').empty();
                       recargar();                 
                     }
                 });

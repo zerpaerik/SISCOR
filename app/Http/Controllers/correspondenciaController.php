@@ -98,7 +98,7 @@ class correspondenciaController extends Controller
 
 /*
     public function prueba(){
-    echo  Correspondencia::generarIdBorrador(1,1,2,10);
+    echo  Correspondencia::mostrar();
     }
 */
 
@@ -119,6 +119,15 @@ class correspondenciaController extends Controller
 
     }
     
+   public function ver($id) {
+     
+     $correspondencia=Correspondencia::findOrFail($id);  
+     return view("correspondencia.bandejas.recibidas.mostrar",['data'=>$correspondencia]);
+
+   }
+
+
+
     public function mostrar($id)
     {
       $data= array(

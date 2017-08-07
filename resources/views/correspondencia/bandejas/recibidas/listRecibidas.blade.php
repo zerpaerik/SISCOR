@@ -30,7 +30,7 @@
 							<td>
 								<input type="button" 
 							           class=" waves-effect waves-light btn actualizar" 
-							           href="{{asset('correspondencia/bandejas/recibidas/recibidas-modal')}}/{{$correspondencia->id_correspondencia}}"  
+							           href="{{asset('correspondencia/edit')}}/{{$correspondencia->id}}" 
 							           value="Ver"/>
 							</td>
 
