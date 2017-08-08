@@ -263,26 +263,24 @@ class Correspondencia extends Model
      }
 
          
-    public static function mostrarPorAprobar(){
 
-      $mostrarCorrespondencia = DB::table('tblcorrespondencia as a')
-             ->select('a.id','a.id_correspondencia','b.ubic','b.confidencialidad','b.asunto','b.contenido','d.adjunto','e.descripcion','f.descripcion','g.descripcion')
-             ->join('tblemision as b','a.id','b.id_correspondencia')
-             ->join('tblrecepcion as c','a.id','c.id_correspondencia')
-             ->join('tbladjunto as d','a.id','d.id_correspondencia')
-             ->join('tblorganismo as e','c.id_org_receptor','e.id')
-             ->join('tbldependencia as f','c.id_dep_receptor','f.id')
-             ->join('tbltipocorrespondencia as g','b.id_tipo_correspondencia','g.id')
-             ->get();  
-        
-        
-        if(!is_null($mostrarCorrespondencia)){
-            return $mostrarCorrespondencia;
+    public static function mostrarCorrespondencia($id){
+
+      $correspondencia = DB::table('tblcorrespondencia as a ')
+                    ->select('a.id_correspondencia','b.asunto','b.contenido','d.descripcion','e.descripcion')
+                    ->join('tblemision as b','a.id','b.id_correspondencia')
+                    ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+                    ->join('tblorganismo as d','c.id_org_receptor','d.id')
+                    ->join('tbldependencia as e','c.id_dep_receptor','e.id')
+                    ->where('a.id','=', $id)
+                    ->get();
+
+         if(!is_null($correspondencia)){
+            return $correspondencia;
          }else{
             return false;
-         }
+         }   
 
-  
     }
 
      
@@ -555,44 +553,25 @@ class Correspondencia extends Model
 
 
 
-    public static function aprobarCorrespondencia($id_correspondencia){
-
-    try {
-            DB::beginTransaction();
-            $id_usuario=Session::get('id');
-           
-
-            If (Correspondencia::esAprobador()){
-            
-            //// Actualizo los estatus en las tablad de emisión y recepción.
-            $aprobarCorrespondencia=Emision::findOrFail($id_correspondencia);
-            $aprobarCorrespondencia->id_usuario_aprobador=$id_usuario;
+    public static function aprobarCorrespondencia($id,$data){
+         
+            $aprobarCorrespondencia=Emision::findOrFail($id);
             $aprobarCorrespondencia->id_estatus_emision='6';
             $aprobarCorrespondencia->update();
 
-            $aprobarCorrespondencia=Recepcion::findOrFail($id_correspondencia);
-            $aprobarCorrespondencia->id_estatus_emision='6';
+            $aprobarCorrespondencia=Recepcion::findOrFail($id);
+            $aprobarCorrespondencia->id_estatus_recepcion='1';
             $aprobarCorrespondencia->update();
 
 
-        } else {
-
-        
-           
-
-        }
-             
-            DB::commit();
-        }catch (\Exception $e) { //esto atrapa cualquier error y devuelve false al controller
-            DB::rollback();
-            echo $e->getMessage(); die(); //para probar si hay error
+         if(!is_null($aprobarCorrespondencia)){
+            return true;
+         }else{
             return false;
-        }
-        return true;
+         } 
+             
 
-     }
-
-  
+   }
 
     public static function generarId($id_org,$id_dep,$id_tipo_correspondencia){
            $prefijo='';

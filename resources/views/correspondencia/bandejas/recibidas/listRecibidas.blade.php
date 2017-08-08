@@ -26,11 +26,11 @@
 							<td>{{$correspondencia->asunto}}</td>
 							<td>{{$correspondencia->descripcion}}</td>
 							<td>{{$correspondencia->fecha_recepcion}}</td>
-							
-							  <td>
+				
+							 <td>
                                 <input type="button"
-                                       class=" waves-effect waves-light btn ver"
-                                       href="{{asset('/correspondencia/ver')}}/{{$correspondencia->id_correspondencia}}"  
+                                       class=" waves-effect waves-light btn verRecibidas"
+                                       href="{{asset('/correspondencia/verRecibidas')}}/{{$correspondencia->id_correspondencia}}"  
                                        value="Ver"/>
                             </td>
 

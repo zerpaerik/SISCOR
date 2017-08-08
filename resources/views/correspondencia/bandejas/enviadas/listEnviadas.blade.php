@@ -29,8 +29,8 @@
 							
 							<td>
                                 <input type="button"
-                                       class=" waves-effect waves-light btn ver"
-                                       href="{{asset('/correspondencia/ver')}}/{{$correspondencia->id_correspondencia}}"  
+                                       class=" waves-effect waves-light btn verEnviadas"
+                                       href="{{asset('/correspondencia/verEnviadas')}}/{{$correspondencia->id_correspondencia}}"  
                                        value="Ver"/>
                             </td>
 

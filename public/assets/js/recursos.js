@@ -40,6 +40,45 @@
 	});
 
 
+	$(".verRecibidas").on("click",function(e)
+	{
+		e.preventDefault();
+		var urlEdit= $(this).attr('href');
+		$.ajax({
+			url: urlEdit,
+			type: "get",
+			success: function(data)
+			{
+				$("#contenidoppal").empty().html(data);
+			},
+			error: function()
+			{
+				alert('Error obteniendo respuesta del servidor, prueba más tarde.');
+			}
+		});
+	});
+
+
+	$(".verEnviadas").on("click",function(e)
+	{
+		e.preventDefault();
+		var urlEdit= $(this).attr('href');
+		$.ajax({
+			url: urlEdit,
+			type: "get",
+			success: function(data)
+			{
+				$("#contenidoppal").empty().html(data);
+			},
+			error: function()
+			{
+				alert('Error obteniendo respuesta del servidor, prueba más tarde.');
+			}
+		});
+	});
+	
+
+
 	// permite mostrar el contenido de las correspondencias
 
 $(".actualizar").on("click",function(e)

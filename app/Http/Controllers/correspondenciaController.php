@@ -119,44 +119,40 @@ class correspondenciaController extends Controller
 
     }
     
-  
+  public function verEnviadas($id) {
+     
+     $correspondencia=Correspondencia::mostrarCorrespondencia($id);
+     return view("correspondencia.bandejas.enviadas.mostrar",['data'=>$correspondencia]);
+
+   }
+
+  public function verRecibidas($id) {
+     
+     $correspondencia=Correspondencia::mostrarCorrespondencia($id);
+     return view("correspondencia.bandejas.recibidas.mostrar",['data'=>$correspondencia]);
+
+   }
 
    public function verPorAprobar($id) {
      
-      //$correspondencia=Correspondencia::where("id_correspondencia",'=',$id);  
-     $correspondencia=Correspondencia::findOrFail($id);
-     
+     $correspondencia=Correspondencia::mostrarCorrespondencia($id);
      return view("correspondencia.bandejas.poraprobar.mostrar",['data'=>$correspondencia]);
 
    }
 
 
-    public function mostrarPorAprobar($id)
-    {
-      $data= array(
-                  'id'=>Input::get('id'),
-                  'id_correspondencia'=>Input::get('id_correspondencia'),
-                  'id_tipo_correspondencia'=>Input::get('id_tipo_correspondencia'),
-                  'confidencialidad'=>Input::get('confidencialidad'),
-                  'id_org'=>Input::get('id_org'),
-                  'id_dep'=>Input::get('id_dep'),
-                  'id_dir'=>Input::get('id_dir'),
-                  'id_div'=>Input::get('id_div'),
-                  'ubic'=>Input::get('ubic'),
-                  'confidencialidad'=>Input::get('confidencialidad'),
-                  'asunto'=>Input::get('asunto'),
-                  'contenido'=>Input::get('contenido')
+   public function aprobarCorrespondencia($id){
+        
+       
+       $aprobarCorrespondencia=Correspondencia::aprobarCorrespondencia($id,$data);
+        if ($aprobarCorrespondencia) {
+          return response()->json(['respuesta' => 'success','mensaje' => 'Aprobado Exitosamente']);
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al actualizar verifique']);
+        }
 
-        );
+   }
 
-      $mostrar=Correspondencia::mostrarPorAprobar($id,$data);
-      if ($mostrar) {
-        return response()->json(['respuesta' => 'success','mensaje' => 'Correspondencia vista']);
-      }else{
-        return rresponse()->json(['respuesta' => 'success','mensaje' => 'Error mostrando Correspondencia']);
-      }
-      
-    }
 
     public function store ()
     {

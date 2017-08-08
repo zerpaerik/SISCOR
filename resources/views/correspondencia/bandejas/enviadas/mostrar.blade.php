@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-action">
         <div class="">
-          <b>Correspondencia Recibida</b>
+          <b>Correspondencia Enviada</b>
         </div>      
         </div>
 
@@ -59,23 +59,16 @@
           @endforeach
           <td>
                 <input type="button" 
-                         class=" waves-effect waves-light btn ver" 
-                         href="{{asset('correspondencia/verRecibidas')}}/{{$correspondencia->id_correspondencia}}" 
+                         class=" waves-effect waves-light btn verEnviadas" 
+                         href="{{asset('correspondencia/verEnviadas')}}/{{$correspondencia->id_correspondencia}}" 
                          value="Archivar"/>
               </td>
 
               <td>
                 <input type="button" 
-                         class=" waves-effect waves-light btn ver" 
-                         href="{{asset('correspondencia/verRecibidas')}}/{{$correspondencia->id_correspondencia}}" 
-                         value="Responder"/>
-              </td>
-
-              <td>
-                <input type="button" 
-                         class=" waves-effect waves-light btn ver" 
-                         href="{{asset('correspondencia/verRecibidas')}}/{{$correspondencia->id_correspondencia}}" 
-                         value="Asignar"/>
+                         class=" waves-effect waves-light btn verEnviadas" 
+                         href="{{asset('correspondencia/verEnviadas')}}/{{$correspondencia->id_correspondencia}}" 
+                         value="Imprimir"/>
               </td>
 
               

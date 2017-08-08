@@ -195,8 +195,7 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
   
 	Route::get('/correspondencia/bandejas/recibidas/ListRecibidas','correspondenciaController@recibidas');
 	Route::get('/correspondencia/bandejas/recibidas/recibidas-modal/{id}','correspondenciaController@recibidasModal');
-	Route::get('/correspondencia/bandejas/recibidas/mostrar/{id}','correspondenciaController@mostrarPorAprobar');
-	Route::get('/correspondencia/verPorAprobar/{id}','correspondenciaController@verPorAprobar');
+	Route::get('/correspondencia/verRecibidas/{id}','correspondenciaController@verRecibidas');
 });
 
 
@@ -206,7 +205,9 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
   
 	Route::get('/correspondencia/bandejas/enviadas/ListEnviadas','correspondenciaController@enviadas');
 	Route::get('/correspondencia/bandejas/enviadas/enviadas-modal/{id}','correspondenciaController@enviadasModal');
+	Route::get('/correspondencia/verEnviadas/{id}','correspondenciaController@verEnviadas');
 });
+
 
 
 //*************Rutas para Bandeja de Por Aprobar de Correspondencia********************
@@ -215,7 +216,6 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
   
 	Route::get('/correspondencia/bandejas/poraprobar/listPorAprobar','correspondenciaController@poraprobar');
 	Route::get('/correspondencia/bandejas/poraprobar/poraprobar-modal/{id}','correspondenciaController@eporaprobarModal');
-	Route::get('/correspondencia/bandejas/poraprobar/mostrar/{id}','correspondenciaController@mostrarPorAprobar');
 	Route::get('/correspondencia/verPorAprobar/{id}','correspondenciaController@verPorAprobar');
 
 
@@ -229,6 +229,8 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	
 	Route::get('/correspondencia/bandejas/borrador/ListBorrador','correspondenciaController@borrador');
 	Route::get('/correspondencia/bandejas/borrador/borradores-modal/{id}','correspondenciaController@borradoresModal');
+	Route::get('/correspondencia/verBorrador/{id}','correspondenciaController@verBorrador');
+
 });
 
 

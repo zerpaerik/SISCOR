@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{asset('assets/js/Lightweight-Chart/cssCharts.css')}}"> 
     <!--toasts notification-->
     <link href="{{asset('assets/css/toastr.css')}}" rel="stylesheet" />
+      <!--sweetalert notification-->
+     <link href="{{asset('assets/css/sweetalert.css')}}" rel="stylesheet" />
 
 
 </head>
@@ -321,6 +323,8 @@
     <script src="{{asset('assets/js/custom-scripts.js')}}"></script> 
     <!-- toaster notifications Js -->
     <script src="{{asset('assets/js/toastr.js')}}"></script> 
+
+    <script src="{{asset('assets/js/sweetalert.min.js')}}"></script> 
 
 
  
