@@ -72,7 +72,7 @@ class Correspondencia extends Model
             $correspondencia = new Correspondencia;
             $correspondencia->id_correspondencia= Correspondencia::generarId($usuarioOrg,$usuarioDep,$tipo);
             $correspondencia->save();
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
 
             $emision = new Emision;
             $emision->id_correspondencia  =$correspondencia->id;
@@ -89,18 +89,18 @@ class Correspondencia extends Model
             $emision->contenido =$data['contenido'];
             $emision->id_estatus_emision='6';
             $emision->save();
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$emision->id_estatus_emision);
-            Correspondencia::guardarAdjunto($correspondencia->id_correspondencia,$adjunto);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$emision->id_estatus_emision);
+            Correspondencia::guardarAdjunto($correspondencia->id,$adjunto);
 
 
             $recepcion = new Recepcion;
-            $recepcion->id_correspondencia  =$correspondencia->id_correspondencia;
+            $recepcion->id_correspondencia  =$correspondencia->id;
             $recepcion->id_org_receptor = $id_org;
             $recepcion->id_dep_receptor = $id_dep;
             $recepcion->id_estatus_recepcion ='1';
             $recepcion->save();
             $id_estatus_correspondencia=1;
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
 
 
         } else {
@@ -111,10 +111,10 @@ class Correspondencia extends Model
             $correspondencia = new Correspondencia;
             $correspondencia->id_correspondencia= Correspondencia::generarId($usuarioOrg,$usuarioDep,$tipo);
             $correspondencia->save();
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
 
             $emision = new Emision;
-            $emision->id_correspondencia  =$correspondencia->id_correspondencia;
+            $emision->id_correspondencia  =$correspondencia->id;
             $emision->id_org_emisor     =$usuarioOrg; 
             $emision->id_dep_emisor     =$usuarioDep; 
             $emision->id_tipo_correspondencia    =$data['id_tipo_correspondencia']; 
@@ -125,17 +125,17 @@ class Correspondencia extends Model
             $emision->contenido =$data['contenido'];
             $emision->id_estatus_emision='3';
             $emision->save();
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$emision->id_estatus_emision);
-            Correspondencia::guardarAdjunto($correspondencia->id_correspondencia,$adjunto);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$emision->id_estatus_emision);
+            Correspondencia::guardarAdjunto($correspondencia->id,$adjunto);
 
   
             $recepcion = new Recepcion;
-            $recepcion->id_correspondencia  =$correspondencia->id_correspondencia;
+            $recepcion->id_correspondencia  =$correspondencia->id;
             $recepcion->id_org_receptor = $id_org;
             $recepcion->id_dep_receptor = $id_dep;
             $recepcion->id_estatus_recepcion ='3';
             $recepcion->save();
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
 
         }
              
@@ -182,10 +182,10 @@ class Correspondencia extends Model
             $correspondencia = new Correspondencia;
             $correspondencia->id_correspondencia= Correspondencia::generarIdBorrador($usuarioOrg,$usuarioDep,$tipo,$id_tipo_correlativo);
             $correspondencia->save();
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
 
             $emision = new Emision;
-            $emision->id_correspondencia  =$correspondencia->id_correspondencia;
+            $emision->id_correspondencia  =$correspondencia->id;
            // $emision->id_org_emisor     =$data['id_org']; 
             //$emision->id_dep_emisor     =$data['id_dep']; 
             $emision->id_org_emisor     =$usuarioOrg; 
@@ -199,18 +199,18 @@ class Correspondencia extends Model
             $emision->contenido =$data['contenido'];
             $emision->id_estatus_emision='8';
             $emision->save();
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$emision->id_estatus_emision);
-            Correspondencia::guardarAdjunto($correspondencia->id_correspondencia,$adjunto);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$emision->id_estatus_emision);
+            Correspondencia::guardarAdjunto($correspondencia->id,$adjunto);
 
 
             $recepcion = new Recepcion;
-            $recepcion->id_correspondencia  =$correspondencia->id_correspondencia;
+            $recepcion->id_correspondencia  =$correspondencia->id;
             $recepcion->id_org_receptor = $id_org;
             $recepcion->id_dep_receptor = $id_dep;
             $recepcion->id_estatus_recepcion ='8';
             $recepcion->save();
             $id_estatus_correspondencia=8;
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
 
 
         } else {
@@ -221,10 +221,10 @@ class Correspondencia extends Model
             $correspondencia = new Correspondencia;
             $correspondencia->id_correspondencia= Correspondencia::generarIdBorrador($usuarioOrg,$usuarioDep,$id_tipo_correlativo,$tipo);
             $correspondencia->save();
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
 
             $emision = new Emision;
-            $emision->id_correspondencia  =$correspondencia->id_correspondencia;
+            $emision->id_correspondencia  =$correspondencia->id;
            // $emision->id_org_emisor     =$data['id_org']; 
             //$emision->id_dep_emisor     =$data['id_dep']; 
             $emision->id_org_emisor     =$usuarioOrg; 
@@ -238,18 +238,18 @@ class Correspondencia extends Model
             $emision->contenido =$data['contenido'];
             $emision->id_estatus_emision='8';
             $emision->save();
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$emision->id_estatus_emision);
-            Correspondencia::guardarAdjunto($correspondencia->id_correspondencia,$adjunto);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$emision->id_estatus_emision);
+            Correspondencia::guardarAdjunto($correspondencia->id,$adjunto);
 
 
             $recepcion = new Recepcion;
-            $recepcion->id_correspondencia  =$correspondencia->id_correspondencia;
+            $recepcion->id_correspondencia  =$correspondencia->id;
             $recepcion->id_org_receptor = $id_org;
             $recepcion->id_dep_receptor = $id_dep;
             $recepcion->id_estatus_recepcion ='8';
             $recepcion->save();
             $id_estatus_correspondencia=8;
-            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
         }
              
             DB::commit();
@@ -265,15 +265,15 @@ class Correspondencia extends Model
          
     public static function mostrarPorAprobar(){
 
-      $mostrarCorrespondencia = DB::table('tblemision as a')
-            ->select('a.id_correspondencia','a.ubic','a.confidencialidad','a.asunto','a.contenido','e.descripcion','c.descripcion','d.descripcion','f.adjunto')
-            ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
-            ->join('tblorganismo as c','b.id_org_receptor','c.id')
-            ->join('tbldependencia as d','b.id_dep_receptor','d.id')
-            ->join('tbltipocorrespondencia as e','a.id_tipo_correspondencia','e.id')
-            ->join('tbladjunto as f','a.id_correspondencia','f.id_correspondencia')
-            ->orderby('id_correspondencia')
-            ->get();
+      $mostrarCorrespondencia = DB::table('tblcorrespondencia as a')
+             ->select('a.id','a.id_correspondencia','b.ubic','b.confidencialidad','b.asunto','b.contenido','d.adjunto','e.descripcion','f.descripcion','g.descripcion')
+             ->join('tblemision as b','a.id','b.id_correspondencia')
+             ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+             ->join('tbladjunto as d','a.id','d.id_correspondencia')
+             ->join('tblorganismo as e','c.id_org_receptor','e.id')
+             ->join('tbldependencia as f','c.id_dep_receptor','f.id')
+             ->join('tbltipocorrespondencia as g','b.id_tipo_correspondencia','g.id')
+             ->get();  
         
         
         if(!is_null($mostrarCorrespondencia)){
@@ -284,7 +284,6 @@ class Correspondencia extends Model
 
   
     }
-
 
      
     public static function esAprobador(){

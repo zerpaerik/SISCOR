@@ -123,8 +123,9 @@ class correspondenciaController extends Controller
 
    public function verPorAprobar($id) {
      
-      $correspondencia=Correspondencia::where("id_correspondencia",'=',$id);  
-    //$correspondencia=Correspondencia::findOrFail($id_correspondencia);
+      //$correspondencia=Correspondencia::where("id_correspondencia",'=',$id);  
+     $correspondencia=Correspondencia::findOrFail($id);
+     
      return view("correspondencia.bandejas.poraprobar.mostrar",['data'=>$correspondencia]);
 
    }
@@ -133,6 +134,7 @@ class correspondenciaController extends Controller
     public function mostrarPorAprobar($id)
     {
       $data= array(
+                  'id'=>Input::get('id'),
                   'id_correspondencia'=>Input::get('id_correspondencia'),
                   'id_tipo_correspondencia'=>Input::get('id_tipo_correspondencia'),
                   'confidencialidad'=>Input::get('confidencialidad'),

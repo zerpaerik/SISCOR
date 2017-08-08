@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-action">
         <div class="col s6">
-          <b>Lista de Dependencias</b>
+          <b>Correspondencia Por Aprobar</b>
         </div>      
         <div class="input-field col s6">
              
@@ -21,22 +21,8 @@
         <tbody>
           @foreach($data as $correspondencia)
             <tr>
-              <td>{{$dependencia->id_correspondencia}}</td>
-              <td>{{$dependencia->asunto}}</td>
-              <td>{{$dependencia->asunto}}</td>
-
-              <td>
-                <input type="button" 
-                         class=" waves-effect waves-light btn ver" 
-                         href="{{asset('dependencias/edit')}}/{{$dependencia->id}}" 
-                         value="Actualizar"/>
-              </td>
-              <td>
-                <input type="button" 
-                         class="btn btn-danger eliminar" 
-                         href="{{asset('dependencias/dependenciamodal')}}/{{$dependencia->id}}" 
-                         value="Eliminar"/>
-              </td>
+             {{var_dump($correspondencia)}}
+              
             </tr>
           @endforeach
 
