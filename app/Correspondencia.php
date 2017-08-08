@@ -75,7 +75,7 @@ class Correspondencia extends Model
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$id_estatus_correspondencia);
 
             $emision = new Emision;
-            $emision->id_correspondencia  =$correspondencia->id_correspondencia;
+            $emision->id_correspondencia  =$correspondencia->id;
            // $emision->id_org_emisor     =$data['id_org']; 
             //$emision->id_dep_emisor     =$data['id_dep']; 
             $emision->id_org_emisor     =$usuarioOrg; 

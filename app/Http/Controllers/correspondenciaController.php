@@ -96,11 +96,11 @@ class correspondenciaController extends Controller
     }
 
 
-/*
+
     public function prueba(){
-    echo  Correspondencia::mostrar();
+    echo  Correspondencia::mostrarPorAprobar();
     }
-*/
+
 
     public function update($id)
     {
@@ -123,7 +123,8 @@ class correspondenciaController extends Controller
 
    public function verPorAprobar($id) {
      
-     $correspondencia=Correspondencia::where("id_correspondencia",'=',$id);  
+      $correspondencia=Correspondencia::where("id_correspondencia",'=',$id);  
+    //$correspondencia=Correspondencia::findOrFail($id_correspondencia);
      return view("correspondencia.bandejas.poraprobar.mostrar",['data'=>$correspondencia]);
 
    }
