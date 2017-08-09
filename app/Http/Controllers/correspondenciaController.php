@@ -111,7 +111,7 @@ class correspondenciaController extends Controller
 
 
     public function prueba(){
-    echo  Correspondencia::bandejaArchivadas();
+    echo  Correspondencia::buscarDestinatario(1);
     }
 
 
@@ -266,6 +266,12 @@ class correspondenciaController extends Controller
     {
       $destinatario = Usuarios::usrbyorg($id);
       return view("correspondencia.usrbyorg",['destinatario'=>$destinatario]);
+    }
+
+    public function buscarDestinatario($id)
+    {
+      $destinatario = Correspondencia::buscarDestinatario($id);
+      return view("correspondencia.bandejas.recibidas.asignar",['destinatario'=>$destinatario]);
     }
 
 
