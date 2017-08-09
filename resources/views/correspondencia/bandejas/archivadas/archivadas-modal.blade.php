@@ -28,7 +28,7 @@
             	 $('#paginacion').empty();
             	 $.ajax({
                  	type: "get",
-                	url: "{{ asset('/correspondencia/bandejas/borrador/listBorrador') }}",
+                	url: "{{ asset('/correspondencia/bandejas/archivadas/listArchivadas') }}",
                  	success: function(a) {
                     	$('#paginacion').html(a);
                  	}

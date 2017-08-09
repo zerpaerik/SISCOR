@@ -406,7 +406,7 @@ class Correspondencia extends Model
             ->where('id_estatus_emision','=','6')
             ->orderby('id_correspondencia')
             ->paginate(5);
-        
+
         
         if(!is_null($enviadas)){
             return $enviadas;
@@ -550,6 +550,63 @@ class Correspondencia extends Model
 
     }
 
+     public static function bandejaArchivadas(){
+
+         $id_usuario=Session::get('id');
+       
+        $searchUsuarioID = DB::table('users')
+                    ->select('*')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_usuario)
+                    ->get();
+
+                foreach ($searchUsuarioID as $usuario) {
+                    $usuarioOrg = $usuario->id_org;
+                    $usuarioDep = $usuario->id_dep;
+                }
+
+
+                  If (Correspondencia::esAprobador()){  ///// si el usuario es aprobador consulta las corresp enviadas, estatus 6 en la tabla tblrecepcion
+         
+
+         $archivadas = DB::table('tblemision as a')
+            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor','b.fecha_recepcion')
+            ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
+            ->join('tbldependencia as c','b.id_dep_receptor','c.id')
+            //->where('id_org_emisor','=',$usuarioOrg)
+            //->where('id_dep_emisor','=',$usuarioDep)
+            ->where('id_estatus_emision','=','2')
+            ->orderby('id_correspondencia')
+            ->paginate(5);
+        
+        
+        if(!is_null($archivadas)){
+            return $archivadas;
+         }else{
+            return false;
+         }
+     } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
+
+         $archivadas = DB::table('tblemision as a')
+            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
+            ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
+            ->join('tbldependencia as c','b.id_dep_receptor','c.id')
+            ->where('id_org_emisor','=',$usuarioOrg)
+            ->where('id_dep_emisor','=',$usuarioDep)
+            ->where('id_estatus_recepcion','=','2')
+            ->orderby('id_correspondencia')
+            ->paginate(5);
+        
+        
+        if(!is_null($archivadas)){
+            return $archivadas;
+         }else{
+            return false;
+         }
+     }
+
+    }
+
 
 
     public static function aprobarCorrespondencia($id){
@@ -567,6 +624,24 @@ class Correspondencia extends Model
             return false;
          }              
    }
+
+   
+    public static function archivarCorrespondencia($id){
+         
+          
+           $archivarCorrespondencia1=Emision::where("id_correspondencia","=",$id)
+                                          ->update(['id_estatus_emision' => 2]);
+
+           $archivarCorrespondencia2=Recepcion::where("id_correspondencia","=",$id)
+                                          ->update(['id_estatus_recepcion' => 2]);
+
+         if(!is_null($archivarCorrespondencia1) &&  !is_null($archivarCorrespondencia2)){
+            return true;
+         }else{
+            return false;
+         }              
+   }
+
 
     public static function generarId($id_org,$id_dep,$id_tipo_correspondencia){
            $prefijo='';

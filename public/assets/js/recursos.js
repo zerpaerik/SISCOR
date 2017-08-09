@@ -76,6 +76,43 @@
 			}
 		});
 	});
+
+
+	$(".verBorrador").on("click",function(e)
+	{
+		e.preventDefault();
+		var urlEdit= $(this).attr('href');
+		$.ajax({
+			url: urlEdit,
+			type: "get",
+			success: function(data)
+			{
+				$("#contenidoppal").empty().html(data);
+			},
+			error: function()
+			{
+				alert('Error obteniendo respuesta del servidor, prueba más tarde.');
+			}
+		});
+	});
+
+		$(".verArchivadas").on("click",function(e)
+	{
+		e.preventDefault();
+		var urlEdit= $(this).attr('href');
+		$.ajax({
+			url: urlEdit,
+			type: "get",
+			success: function(data)
+			{
+				$("#contenidoppal").empty().html(data);
+			},
+			error: function()
+			{
+				alert('Error obteniendo respuesta del servidor, prueba más tarde.');
+			}
+		});
+	});
 	
 
 

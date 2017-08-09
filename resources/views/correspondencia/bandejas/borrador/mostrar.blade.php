@@ -3,7 +3,7 @@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
       <div class="card">
         <div class="card-action">
-          <b>Correspondencia Enviada</b>
+          <b>Correspondencia En Borrador</b>
         </div>
 
        @foreach($data as $correspondencia)

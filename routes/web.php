@@ -196,6 +196,7 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::get('/correspondencia/bandejas/recibidas/ListRecibidas','correspondenciaController@recibidas');
 	Route::get('/correspondencia/bandejas/recibidas/recibidas-modal/{id}','correspondenciaController@recibidasModal');
 	Route::get('/correspondencia/verRecibidas/{id}','correspondenciaController@verRecibidas');
+	Route::get('/correspondencia/archivarCorrespondencia/{id}','correspondenciaController@archivarCorrespondencia');
 });
 
 
@@ -228,6 +229,17 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::get('/correspondencia/bandejas/borrador/ListBorrador','correspondenciaController@borrador');
 	Route::get('/correspondencia/bandejas/borrador/borradores-modal/{id}','correspondenciaController@borradoresModal');
 	Route::get('/correspondencia/verBorrador/{id}','correspondenciaController@verBorrador');
+
+});
+
+//*************Rutas para Bandeja de Archivadas Correspondencia********************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	
+	Route::get('/correspondencia/bandejas/archivadas/ListArchivadas','correspondenciaController@archivadas');
+	Route::get('/correspondencia/bandejas/archivadas/archivadas-modal/{id}','correspondenciaController@archivadasModal');
+	Route::get('/correspondencia/verArchivadas/{id}','correspondenciaController@verArchivadas');
 
 });
 

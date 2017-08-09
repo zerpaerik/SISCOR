@@ -3,7 +3,7 @@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
       <div class="card">
         <div class="card-action">
-          <b>Correspondencia Enviada</b>
+          <b>Correspondencia Archivada</b>
         </div>
 
        @foreach($data as $correspondencia)
@@ -36,14 +36,14 @@
           <div class="panel-footer">
             <div class="row">
                 <div class="pull-right">
-                  <button href="{{asset('correspondencia/aprobarCorrespondencia')}}/{{$correspondencia->id}}" 
-                  id="aprobar" class="waves-effect waves-light btn">Aprobar</button>
+                  <button href="{{asset('correspondencia/archivarCorrespondencia')}}/{{$correspondencia->id}}" 
+                  id="archivar" class="waves-effect waves-light btn">Archivar</button>
          
-                  <a href="" class="waves-effect waves-light btn">Rechazar</a>
+                  <a href="" class="waves-effect waves-light btn">Asignar</a>
 
-                  <a href="" class="waves-effect waves-light btn">Vista Previa</a>
+                  <a href="" class="waves-effect waves-light btn">Responder</a>
 
-                  <a href="" class="waves-effect waves-light btn">Editar</a>
+                  <a href="" class="waves-effect waves-light btn">Imprimir</a>
                   &nbsp;
                 </div>
             </div>
@@ -60,13 +60,13 @@
 <script src="{{asset('assets/js/recursos.js')}}"></script> 
 
 <script type="text/javascript">
-    $('#aprobar').on('click',function(event){
+    $('#archivar').on('click',function(event){
           //variable que obtiene el atributo del campo que ejecuta el click
           var url = $(this).attr('href');
           //implementación del plugin
           swal({
                 //configuración del plugin
-                title: "¿Desea Aprobar la Correspondencia?",
+                title: "¿Desea Archivar la Correspondencia?",
                 text: "¡Presione Aceptar!",
                 type: "info",
                 confirmButtonText: "Aceptar",
@@ -82,7 +82,7 @@
                               type: "get",
                               //si la respuesta del controlador es true
                               success: function(data){
-                                swal("Correspondencia Aprobada con Éxito");
+                                swal("Correspondencia Archivada con Éxito");
                                 setTimeout(function(){location.reload();}, 2000);
                               },
                               //si no

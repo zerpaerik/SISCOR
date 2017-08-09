@@ -86,6 +86,19 @@ class correspondenciaController extends Controller
       }
     }
 
+      public function archivadas()
+    {
+      $searchText = Input::get('searchText');
+      $usuarioOrg = Input::get('id_org');
+      $usuarioDep = Input::get('id_dep');
+      $data= Correspondencia::bandejaArchivadas();
+      if ($data){
+        return view("correspondencia.bandejas.archivadas.listArchivadas",["data"=>$data,"searchText"=>$searchText]);
+      } else{
+        return view("layouts.nodata");
+      }
+    }
+
 
 	public function create()
     {
@@ -98,7 +111,7 @@ class correspondenciaController extends Controller
 
 
     public function prueba(){
-    echo  Correspondencia::mostrarPorAprobar();
+    echo  Correspondencia::bandejaArchivadas();
     }
 
 
@@ -140,6 +153,20 @@ class correspondenciaController extends Controller
 
    }
 
+    public function verBorrador($id) {
+     
+     $correspondencia=Correspondencia::mostrarCorrespondencia($id);
+     return view("correspondencia.bandejas.borrador.mostrar",['data'=>$correspondencia]);
+
+   }
+
+   public function verArchivadas($id) {
+     
+     $correspondencia=Correspondencia::mostrarCorrespondencia($id);
+     return view("correspondencia.bandejas.archivadas.mostrar",['data'=>$correspondencia]);
+
+   }
+
 
    public function aprobarCorrespondencia($id){
         
@@ -149,6 +176,18 @@ class correspondenciaController extends Controller
           return response()->json(['respuesta' => 'success','mensaje' => 'Aprobado Exitosamente']);
         }else{
           return response()->json(['respuesta' => 'fail','mensaje' => 'Error al actualizar verifique']);
+        }
+
+   }
+
+   public function archivarCorrespondencia($id){
+        
+       
+       $archivarCorrespondencia=Correspondencia::archivarCorrespondencia($id);
+        if ($archivarCorrespondencia) {
+          return response()->json(['respuesta' => 'success','mensaje' => 'Archivado Exitosamente']);
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al archivar verifique']);
         }
 
    }
@@ -247,6 +286,12 @@ class correspondenciaController extends Controller
     {
       $borradores=Correspondencia::findOrFail($id);
       return view("correspondencia.bandejas.borrador.borradores-modal",['borradores'=>$borradores]);
+    }
+
+    public function archivadasModal($id)
+    {
+      $archivadas=Correspondencia::findOrFail($id);
+      return view("correspondencia.bandejas.archivadas.archivadas-modal",['archivadas'=>$archivadas]);
     }
 
 }

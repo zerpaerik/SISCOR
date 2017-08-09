@@ -4,17 +4,17 @@
 			<div class="card">
 				<div class="card-action">
 				<div class="col s6">
-					<b>Correspondencias en Borrador</b>
+					<b>Correspondencias Archivadas</b>
 				</div>			
 				<div class="input-field col s6">
-                  @include('correspondencia.bandejas.borrador.search')
+                  @include('correspondencia.bandejas.archivadas.search')
 				</div>
 				</div>
 				<table class="table">
 					<thead>
-						<th>Borrador</th>
+						<th>Número</th>
 						<th>Asunto</th>
-						<th>Receptor</th>
+						<th>Emisor</th>
 						<th>Fecha</th>
 						
 
@@ -25,12 +25,12 @@
 							<td>{{$correspondencia->id_correspondencia}}</td>
 							<td>{{$correspondencia->asunto}}</td>
 							<td>{{$correspondencia->descripcion}}</td>
-							<td>{{$correspondencia->fecha_emision}}</td>
-							
-							<td>
+							<td>{{$correspondencia->fecha_recepcion}}</td>
+				
+							 <td>
                                 <input type="button"
-                                       class=" waves-effect waves-light btn verBorrador"
-                                       href="{{asset('/correspondencia/verBorrador')}}/{{$correspondencia->id_correspondencia}}"  
+                                       class=" waves-effect waves-light btn verArchivadas"
+                                       href="{{asset('/correspondencia/verArchivadas')}}/{{$correspondencia->id_correspondencia}}"  
                                        value="Ver"/>
                             </td>
 

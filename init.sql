@@ -417,3 +417,32 @@ WITH (
 ALTER TABLE public.tbladjunto
   OWNER TO postgres;
 
+CREATE TABLE tblinstrucciones
+(
+  id bigserial NOT NULL,
+  descripcion character varying,
+  estatus integer DEFAULT 1,
+  CONSTRAINT tblinstrucciones_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE tblinstrucciones
+  OWNER TO postgres;
+
+CREATE TABLE tblasignacorrespondencia
+(
+  id bigint NOT NULL DEFAULT nextval('tblasignacorrespondencias_id_seq'::regclass),
+  id_recepcion_correspondencia integer,
+  id_usuario_asigna integer,
+  id_usuario_asignado integer,
+  CONSTRAINT tblasignacorrespondencias_pkey PRIMARY KEY (id),
+  CONSTRAINT tblasignacorrespondencias_id_recepcion_correspondencia_fkey FOREIGN KEY (id_recepcion_correspondencia)
+      REFERENCES tblrecepcion (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE tblasignacorrespondencia
+  OWNER TO postgres;
