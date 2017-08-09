@@ -144,7 +144,7 @@ class correspondenciaController extends Controller
    public function aprobarCorrespondencia($id){
         
        
-       $aprobarCorrespondencia=Correspondencia::aprobarCorrespondencia($id,$data);
+       $aprobarCorrespondencia=Correspondencia::aprobarCorrespondencia($id);
         if ($aprobarCorrespondencia) {
           return response()->json(['respuesta' => 'success','mensaje' => 'Aprobado Exitosamente']);
         }else{

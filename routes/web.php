@@ -213,12 +213,10 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 //*************Rutas para Bandeja de Por Aprobar de Correspondencia********************
 
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
-  
 	Route::get('/correspondencia/bandejas/poraprobar/listPorAprobar','correspondenciaController@poraprobar');
 	Route::get('/correspondencia/bandejas/poraprobar/poraprobar-modal/{id}','correspondenciaController@eporaprobarModal');
 	Route::get('/correspondencia/verPorAprobar/{id}','correspondenciaController@verPorAprobar');
-
-
+    Route::get('/correspondencia/aprobarCorrespondencia/{id}','correspondenciaController@aprobarCorrespondencia');
 });
 
 

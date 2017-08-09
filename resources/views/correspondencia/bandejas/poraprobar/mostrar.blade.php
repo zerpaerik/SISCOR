@@ -1,92 +1,55 @@
 <div class="row">
   <div id="paginacion">
-    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-action">
-        <div class="">
           <b>Correspondencia Por Aprobar</b>
-        </div>      
         </div>
 
        @foreach($data as $correspondencia)
-              
-         <div class="panel panel-default">
-         <div class="panel-heading">
-         <h3 class="panel-title">Número de Correspondencia</h3>
-         </div>
-         <div class="panel-body">
-         <td>{{$correspondencia->id_correspondencia}}</td>
-         </div>
-         </div>
+        
+        <div class="panel panel-success">
+            
+          <div class="panel-heading">
+            <div class="row">
+                <div class="pull-right"><b>Correspondencia N°:</b> {{$correspondencia->id_correspondencia}}  &nbsp;</div>
+            </div>
+            <div class="row">
+                <div class="pull-right"><b>Fecha:</b> {{date("d-m-Y g:i A",strtotime($correspondencia->fecha_emision))}}  &nbsp;</div>
+            </div>
+            <div class="row">
+                <div>&nbsp;<b>Asunto:</b> {{$correspondencia->asunto}}</div>
+            </div>
+            <div class="row">
+                <div>&nbsp;<b>Organismo:</b> {{$correspondencia->descripcion}}</div>
+            </div>
+            <div class="row">
+                <div>&nbsp;<b>Dependencia:</b> {{$correspondencia->descripcion}}</div>
+            </div>
+            <div class="row">
+                <div >&nbsp;<b>Contenido:</b></div>
+            </div>
+          </div>
+          <div class="panel-body" id="contenido">
+             {{$correspondencia->contenido}}
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+                <div class="pull-right">
+                  <button href="{{asset('correspondencia/aprobarCorrespondencia')}}/{{$correspondencia->id}}" 
+                  id="aprobar" class="waves-effect waves-light btn">Aprobar</button>
+         
+                  <a href="" class="waves-effect waves-light btn">Rechazar</a>
 
-         <div class="panel panel-default">
-         <div class="panel-heading">
-         <h3 class="panel-title">Asunto</h3>
-         </div>
-         <div class="panel-body">
-         <td>{{$correspondencia->asunto}}</td>
-         </div>
-         </div>
+                  <a href="" class="waves-effect waves-light btn">Vista Previa</a>
 
-         <div class="panel panel-default">
-         <div class="panel-heading">
-         <h3 class="panel-title">Organismo</h3>
-         </div>
-         <div class="panel-body">
-         <td>{{$correspondencia->descripcion}}</td>
-         </div>
-         </div>
-
-
-         <div class="panel panel-default">
-         <div class="panel-heading">
-         <h3 class="panel-title">Dependencia</h3>
-         </div>
-         <div class="panel-body">
-         <td>{{$correspondencia->descripcion}}</td>
-         </div>
-         </div>
-
-         <div class="panel panel-default">
-         <div class="panel-heading">
-         <h3 class="panel-title">Contenido</h3>
-         </div>
-         <div class="panel-body">
-         <td>{{$correspondencia->contenido}}</td>
-         </div>
-         </div>
-
-          @endforeach
-          <td>
-                <input type="button" 
-                         class=" waves-effect waves-light btn " 
-                         href="{{asset('correspondencia/aprobarCorrespondencia')}}/{{$correspondencia->id_correspondencia}}" id="aprobar"
-                         value="Aprobar"/>
-              </td>
-
-              <td>
-                <input type="button" 
-                         class=" waves-effect waves-light btn ver" 
-                         href="{{asset('correspondencia/verPorAprobar')}}/{{$correspondencia->id_correspondencia}}" 
-                         value="Rechazar"/>
-              </td>
-
-              <td>
-                <input type="button" 
-                         class=" waves-effect waves-light btn ver" 
-                         href="{{asset('correspondencia/verPorAprobar')}}/{{$correspondencia->id_correspondencia}}" 
-                         value="Vista Previa"/>
-              </td>
-
-              <td>
-                <input type="button" 
-                         class=" waves-effect waves-light btn ver" 
-                         href="{{asset('correspondencia/verPorAprobar')}}/{{$correspondencia->id_correspondencia}}" 
-                         value="Editar"/>
-              </td>
-
-
-
+                  <a href="" class="waves-effect waves-light btn">Editar</a>
+                  &nbsp;
+                </div>
+            </div>
+          </div>
+        </div>
+      @endforeach
       </div>
     </div>
   </div>
@@ -97,6 +60,42 @@
 <script src="{{asset('assets/js/recursos.js')}}"></script> 
 
 <script type="text/javascript">
-    $('#aprobar').on('click',function(){  swal("Buen Trabajo!", "DAVID MAMAGUEVO!", "success") });
+    $('#aprobar').on('click',function(event){
+          //variable que obtiene el atributo del campo que ejecuta el click
+          var url = $(this).attr('href');
+          //implementación del plugin
+          swal({
+                //configuración del plugin
+                title: "¿Desea Aprobar la Correspondencia?",
+                text: "¡Presione Aceptar!",
+                type: "info",
+                confirmButtonText: "Aceptar",
+                cancelButtonText: "Cancelar",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true,
+              },
+              function(){
+                    //ajax que hace la peticion por get a la url
+                    $.ajax({
+                              url: url,
+                              type: "get",
+                              //si la respuesta del controlador es true
+                              success: function(data){
+                                swal("Correspondencia Aprobada con Éxito");
+                                setTimeout(function(){location.reload();}, 2000);
+                              },
+                              //si no
+                              error: function()
+                              {
+                                swal("Error obteniendo respuesta del servidor");
+                              }
+                            });        
+              });
+    });
+
+    CKEDITOR.replace( 'contenido' );
+    CKEDITOR.config.readOnly = true;
+
 </script>
 

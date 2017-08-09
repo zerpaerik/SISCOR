@@ -267,7 +267,7 @@ class Correspondencia extends Model
     public static function mostrarCorrespondencia($id){
 
       $correspondencia = DB::table('tblcorrespondencia as a ')
-                    ->select('a.id_correspondencia','b.asunto','b.contenido','d.descripcion','e.descripcion')
+                    ->select('a.id','a.id_correspondencia','b.asunto','b.contenido','b.fecha_emision','d.descripcion','e.descripcion')
                     ->join('tblemision as b','a.id','b.id_correspondencia')
                     ->join('tblrecepcion as c','a.id','c.id_correspondencia')
                     ->join('tblorganismo as d','c.id_org_receptor','d.id')
@@ -280,7 +280,6 @@ class Correspondencia extends Model
          }else{
             return false;
          }   
-
     }
 
      
@@ -553,24 +552,20 @@ class Correspondencia extends Model
 
 
 
-    public static function aprobarCorrespondencia($id,$data){
+    public static function aprobarCorrespondencia($id){
          
-            $aprobarCorrespondencia=Emision::findOrFail($id);
-            $aprobarCorrespondencia->id_estatus_emision='6';
-            $aprobarCorrespondencia->update();
+          
+           $aprobarCorrespondencia1=Emision::where("id_correspondencia","=",$id)
+                                          ->update(['id_estatus_emision' => 6]);
 
-            $aprobarCorrespondencia=Recepcion::findOrFail($id);
-            $aprobarCorrespondencia->id_estatus_recepcion='1';
-            $aprobarCorrespondencia->update();
+           $aprobarCorrespondencia2=Recepcion::where("id_correspondencia","=",$id)
+                                          ->update(['id_estatus_recepcion' => 6]);
 
-
-         if(!is_null($aprobarCorrespondencia)){
+         if(!is_null($aprobarCorrespondencia1) &&  !is_null($aprobarCorrespondencia2)){
             return true;
          }else{
             return false;
-         } 
-             
-
+         }              
    }
 
     public static function generarId($id_org,$id_dep,$id_tipo_correspondencia){
