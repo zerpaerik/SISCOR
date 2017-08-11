@@ -90,13 +90,8 @@ class Correspondencia extends Model
             //$emision->id_dep_emisor     =$data['id_dep']; 
             $emision->id_org_emisor     =$usuarioOrg; 
             $emision->id_dep_emisor     =$usuarioDep; 
-            $emision->id_tipo_correspondencia    =$data['id_tipo_correspondencia']; 
             $emision->id_usuario_emisor = $id_usuario;
             $emision->id_usuario_aprobador = $id_usuario;
-            $emision->ubic =$data['ubic'];
-            $emision->confidencialidad =$data['confidencialidad'];
-            $emision->asunto =$data['asunto'];
-            $emision->contenido =$data['contenido'];
             $emision->id_estatus_emision='6';
             $emision->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$emision->id_estatus_emision);
@@ -136,12 +131,7 @@ class Correspondencia extends Model
             $emision->id_correspondencia  =$correspondencia->id;
             $emision->id_org_emisor     =$usuarioOrg; 
             $emision->id_dep_emisor     =$usuarioDep; 
-            $emision->id_tipo_correspondencia    =$data['id_tipo_correspondencia']; 
             $emision->id_usuario_emisor = $id_usuario;
-            $emision->ubic =$data['ubic'];
-            $emision->confidencialidad =$data['confidencialidad'];
-            $emision->asunto =$data['asunto'];
-            $emision->contenido =$data['contenido'];
             $emision->id_estatus_emision='3';
             $emision->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$emision->id_estatus_emision);
@@ -218,13 +208,8 @@ class Correspondencia extends Model
             //$emision->id_dep_emisor     =$data['id_dep']; 
             $emision->id_org_emisor     =$usuarioOrg; 
             $emision->id_dep_emisor     =$usuarioDep; 
-            $emision->id_tipo_correspondencia    =$data['id_tipo_correspondencia']; 
             $emision->id_usuario_emisor = $id_usuario;
             $emision->id_usuario_aprobador = $id_usuario;
-            $emision->ubic =$data['ubic'];
-            $emision->confidencialidad =$data['confidencialidad'];
-            $emision->asunto =$data['asunto'];
-            $emision->contenido =$data['contenido'];
             $emision->id_estatus_emision='8';
             $emision->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$emision->id_estatus_emision);
@@ -266,13 +251,8 @@ class Correspondencia extends Model
             //$emision->id_dep_emisor     =$data['id_dep']; 
             $emision->id_org_emisor     =$usuarioOrg; 
             $emision->id_dep_emisor     =$usuarioDep; 
-            $emision->id_tipo_correspondencia    =$data['id_tipo_correspondencia']; 
             $emision->id_usuario_emisor = $id_usuario;
             $emision->id_usuario_aprobador = $id_usuario;
-            $emision->ubic =$data['ubic'];
-            $emision->confidencialidad =$data['confidencialidad'];
-            $emision->asunto =$data['asunto'];
-            $emision->contenido =$data['contenido'];
             $emision->id_estatus_emision='8';
             $emision->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$emision->id_estatus_emision);
@@ -303,14 +283,15 @@ class Correspondencia extends Model
 
     public static function mostrarCorrespondencia($id){
 
-      $correspondencia = DB::table('tblcorrespondencia as a ')
-                    ->select('a.id','a.id_correspondencia','b.asunto','b.contenido','b.fecha_emision','d.descripcion','e.descripcion')
+        $correspondencia = DB::table('tblcorrespondencia as a ')
+                    ->select('a.id','a.id_correspondencia','f.asunto','f.contenido','b.fecha_emision','d.descripcion','e.descripcion')
                     ->join('tblemision as b','a.id','b.id_correspondencia')
                     ->join('tblrecepcion as c','a.id','c.id_correspondencia')
                     ->join('tblorganismo as d','c.id_org_receptor','d.id')
                     ->join('tbldependencia as e','c.id_dep_receptor','e.id')
-                    ->where('a.id','=', $id)
-                    ->get();
+                    ->join('tbldetallecorrespondencia as f','a.id','f.id_correspondencia')
+                    ->where('a.id_correspondencia','=', $id)
+                    ->get();            
 
          if(!is_null($correspondencia)){
             return $correspondencia;
@@ -379,15 +360,17 @@ class Correspondencia extends Model
         If (Correspondencia::esAprobador()){  ///// si el usuario es aprobador consulta las corresp recibidas, estatus 1 en la tabla tblrecepcion
          
 
-         $recibidas = DB::table('tblrecepcion as a')
-            ->select('a.id_correspondencia','a.id_org_receptor','a.id_dep_receptor','a.fecha_recepcion','b.asunto','c.descripcion','b.id_dep_emisor')
-            ->join('tblemision as b','a.id_correspondencia','b.id_correspondencia')
-            ->join('tbldependencia as c','b.id_dep_emisor','c.id')
+            $recibidas = DB::table('tblcorrespondencia as a')
+            ->select('a.id','a.id_correspondencia','c.id_org_receptor','c.id_dep_receptor','c.fecha_recepcion','d.asunto','e.descripcion','b.id_dep_emisor')
+            ->join('tblemision as b','a.id','b.id_correspondencia')
+            ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+            ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+            ->join('tbldependencia as e','b.id_dep_emisor','e.id')
             ->where('id_org_receptor','=',$usuarioOrg)
             ->where('id_dep_receptor','=',$usuarioDep)
             ->where('id_estatus_recepcion','=','1')
             ->orderby('id_correspondencia')
-            ->paginate(5);
+            ->paginate(5);  
         
         
         if(!is_null($recibidas)){
@@ -397,14 +380,17 @@ class Correspondencia extends Model
          }
      } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
 
-         $recibidas = DB::table('tblrecepcion as a')
-            ->select('a.id_correspondencia','a.id_org_receptor','a.id_dep_receptor','b.asunto')
-            ->join('tblemision as b','a.id_correspondencia','b.id_correspondencia')
+         $recibidas = DB::table('tblcorrespondencia as a')
+            ->select('a.id','a.id_correspondencia','c.id_org_receptor','c.id_dep_receptor','c.fecha_recepcion','d.asunto','e.descripcion','b.id_dep_emisor')
+            ->join('tblemision as b','a.id','b.id_correspondencia')
+            ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+            ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+            ->join('tbldependencia as e','b.id_dep_emisor','e.id')
             ->where('id_org_receptor','=',$usuarioOrg)
             ->where('id_dep_receptor','=',$usuarioDep)
-            ->where('id_estatus_recepcion','=','3')
+            ->where('id_estatus_recepcion','=','1')
             ->orderby('id_correspondencia')
-            ->paginate(5);
+            ->paginate(5); 
         
         
         if(!is_null($recibidas)){
@@ -434,7 +420,7 @@ class Correspondencia extends Model
                   If (Correspondencia::esAprobador()){  ///// si el usuario es aprobador consulta las corresp enviadas, estatus 6 en la tabla tblrecepcion
          
 
-         $enviadas = DB::table('tblemision as a')
+        /* $enviadas = DB::table('tblemision as a')
             ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
             ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
             ->join('tbldependencia as c','b.id_dep_receptor','c.id')
@@ -442,7 +428,20 @@ class Correspondencia extends Model
             ->where('id_dep_emisor','=',$usuarioDep)
             ->where('id_estatus_emision','=','6')
             ->orderby('id_correspondencia')
-            ->paginate(5);
+            ->paginate(5);*/
+
+
+             $enviadas = DB::table('tblcorrespondencia as a')
+                 ->select('a.id','a.id_correspondencia','b.id_dep_receptor','c.fecha_emision','e.descripcion','d.asunto')
+                 ->join('tblrecepcion as b','a.id','b.id_correspondencia')
+                 ->join('tblemision as c','a.id','c.id_correspondencia')
+                 ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+                 ->join('tbldependencia as e','b.id_dep_receptor','e.id')
+                 ->where('id_org_emisor','=',$usuarioOrg)
+                 ->where('id_dep_emisor','=',$usuarioDep)
+                 ->where('id_estatus_emision','=','6')
+                 ->orderby('id_correspondencia')
+                 ->paginate(5);     
 
         
         if(!is_null($enviadas)){
@@ -452,15 +451,17 @@ class Correspondencia extends Model
          }
      } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
 
-         $enviadas = DB::table('tblemision as a')
-            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
-            ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
-            ->join('tbldependencia as c','b.id_dep_receptor','c.id')
-            ->where('id_org_emisor','=',$usuarioOrg)
-            ->where('id_dep_emisor','=',$usuarioDep)
-            ->where('id_estatus_recepcion','=','3')
-            ->orderby('id_correspondencia')
-            ->paginate(5);
+         $enviadas = DB::table('tblcorrespondencia as a')
+                 ->select('a.id','a.id_correspondencia','b.id_dep_receptor','c.fecha_emision','e.descripcion','d.asunto')
+                 ->join('tblrecepcion as b','a.id','b.id_correspondencia')
+                 ->join('tblemision as c','a.id','c.id_correspondencia')
+                 ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+                 ->join('tbldependencia as e','b.id_dep_receptor','e.id')
+                 ->where('id_org_emisor','=',$usuarioOrg)
+                 ->where('id_dep_emisor','=',$usuarioDep)
+                 ->where('id_estatus_emision','=','6')
+                 ->orderby('id_correspondencia')
+                 ->paginate(5);  
         
         
         if(!is_null($enviadas)){
@@ -492,7 +493,7 @@ class Correspondencia extends Model
                   If (Correspondencia::esAprobador()){  ///// si el usuario es aprobador consulta las corresp enviadas, estatus 6 en la tabla tblrecepcion
          
 
-         $poraprobar = DB::table('tblemision as a')
+        /* $poraprobar = DB::table('tblemision as a')
             ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
             ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
             ->join('tbldependencia as c','b.id_dep_receptor','c.id')
@@ -501,7 +502,18 @@ class Correspondencia extends Model
             ->where('id_estatus_emision','=','3')
             ->orderby('id_correspondencia')
             ->paginate(5);
-        
+        */
+            $poraprobar = DB::table('tblcorrespondencia as a')
+             ->select('a.id','a.id_correspondencia','b.fecha_emision','c.id_dep_receptor','d.asunto','d.contenido','e.descripcion')  
+             ->join('tblemision as b','a.id','b.id_correspondencia')
+             ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+             ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+             ->join('tbldependencia as e','c.id_dep_receptor','e.id')
+             ->where('id_org_emisor','=',$usuarioOrg)
+             ->where('id_dep_emisor','=',$usuarioDep)
+             ->where('id_estatus_emision','=','3')
+             ->orderby('id_correspondencia')
+             ->paginate(5);    
         
         if(!is_null($poraprobar)){
             return $poraprobar;
@@ -510,7 +522,7 @@ class Correspondencia extends Model
          }
      } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
 
-         $poraprobar = DB::table('tblemision as a')
+         /*$poraprobar = DB::table('tblemision as a')
             ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
             ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
             ->join('tbldependencia as c','b.id_dep_receptor','c.id')
@@ -518,7 +530,19 @@ class Correspondencia extends Model
             ->where('id_dep_emisor','=',$usuarioDep)
             ->where('id_estatus_recepcion','=','3')
             ->orderby('id_correspondencia')
-            ->paginate(5);
+            ->paginate(5);*/
+
+            $poraprobar = DB::table('tblcorrespondencia as a')
+             ->select('a.id','a.id_correspondencia','b.fecha_emision','c.id_dep_receptor','d.asunto','d.contenido','e.descripcion')  
+             ->join('tblemision as b','a.id','b.id_correspondencia')
+             ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+             ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+             ->join('tbldependencia as e','c.id_dep_receptor','e.id')
+             ->where('id_org_emisor','=',$usuarioOrg)
+             ->where('id_dep_emisor','=',$usuarioDep)
+             ->where('id_estatus_emision','=','3')
+             ->orderby('id_correspondencia')
+             ->paginate(5);   
         
         
         if(!is_null($poraprobar)){
@@ -549,7 +573,7 @@ class Correspondencia extends Model
                   If (Correspondencia::esAprobador()){  ///// si el usuario es aprobador consulta las corresp enviadas, estatus 6 en la tabla tblrecepcion
          
 
-         $borradores = DB::table('tblemision as a')
+         /*$borradores = DB::table('tblemision as a')
             ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
             ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
             ->join('tbldependencia as c','b.id_dep_receptor','c.id')
@@ -557,7 +581,20 @@ class Correspondencia extends Model
             ->where('id_dep_emisor','=',$usuarioDep)
             ->where('id_estatus_emision','=','8')
             ->orderby('id_correspondencia')
-            ->paginate(5);
+            ->paginate(5);*/
+
+            $borradores = DB::table('tblcorrespondencia as a')
+            ->select('a.id','a.id_correspondencia','c.id_org_receptor','c.id_dep_receptor','b.fecha_emision','d.asunto','e.descripcion','c.id_dep_receptor')
+            ->join('tblemision as b','a.id','b.id_correspondencia')
+            ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+            ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+            ->join('tbldependencia as e','b.id_dep_emisor','e.id')
+            ->where('id_org_emisor','=',$usuarioOrg)
+            ->where('id_dep_emisor','=',$usuarioDep)
+            ->where('b.id_estatus_emision','=','8')
+            ->orderby('id_correspondencia')
+            ->paginate(5);         
+
         
         
         if(!is_null($borradores)){
@@ -567,15 +604,18 @@ class Correspondencia extends Model
          }
      } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
 
-         $borradores = DB::table('tblemision as a')
-            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
-            ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
-            ->join('tbldependencia as c','b.id_dep_receptor','c.id')
+         $borradores = DB::table('tblcorrespondencia as a')
+            ->select('a.id','a.id_correspondencia','c.id_org_receptor','c.id_dep_receptor','b.fecha_emision','d.asunto','e.descripcion','c.id_dep_receptor')
+            ->join('tblemision as b','a.id','b.id_correspondencia')
+            ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+            ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+            ->join('tbldependencia as e','b.id_dep_emisor','e.id')
             ->where('id_org_emisor','=',$usuarioOrg)
             ->where('id_dep_emisor','=',$usuarioDep)
-            ->where('id_estatus_recepcion','=','8')
+            ->where('b.id_estatus_emision','=','8')
             ->orderby('id_correspondencia')
-            ->paginate(5);
+            ->paginate(5);         
+
         
         
         if(!is_null($borradores)){
@@ -607,9 +647,10 @@ class Correspondencia extends Model
          
 
          $archivadas = DB::table('tblemision as a')
-            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor','b.fecha_recepcion')
+            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','d.asunto','c.descripcion','b.id_dep_receptor','b.fecha_recepcion')
             ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
             ->join('tbldependencia as c','b.id_dep_receptor','c.id')
+            ->join('tbldetallecorrespondencia as d','a.id_correspondencia','d.id_correspondencia')
             //->where('id_org_emisor','=',$usuarioOrg)
             //->where('id_dep_emisor','=',$usuarioDep)
             ->where('id_estatus_emision','=','2')
@@ -625,12 +666,13 @@ class Correspondencia extends Model
      } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
 
          $archivadas = DB::table('tblemision as a')
-            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
+            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','d.asunto','c.descripcion','b.id_dep_receptor','b.fecha_recepcion')
             ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
             ->join('tbldependencia as c','b.id_dep_receptor','c.id')
-            ->where('id_org_emisor','=',$usuarioOrg)
-            ->where('id_dep_emisor','=',$usuarioDep)
-            ->where('id_estatus_recepcion','=','2')
+            ->join('tbldetallecorrespondencia as d','a.id_correspondencia','d.id_correspondencia')
+            //->where('id_org_emisor','=',$usuarioOrg)
+            //->where('id_dep_emisor','=',$usuarioDep)
+            ->where('id_estatus_emision','=','2')
             ->orderby('id_correspondencia')
             ->paginate(5);
         
@@ -682,8 +724,61 @@ class Correspondencia extends Model
 
     public static function asignarCorrespondencia($id){
 
-    
-     
+       $id_usuario=Session::get('id');
+       
+            $searchUsuarioID = DB::table('users')
+                    ->select('*')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_usuario)
+                    ->get();
+
+                foreach ($searchUsuarioID as $usuario) {
+                    $usuarioOrg = $usuario->id_org;
+                    $usuarioDep = $usuario->id_dep;
+                }
+
+      
+            $searchRecibidas = DB::table('tblcorrespondencia as a')
+            ->select('a.id','a.id_correspondencia','c.id_org_receptor','c.id','c.id_dep_receptor','c.fecha_recepcion','d.asunto','e.descripcion','b.id_dep_emisor')
+            ->join('tblemision as b','a.id','b.id_correspondencia')
+            ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+            ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+            ->join('tbldependencia as e','b.id_dep_emisor','e.id')
+            ->where('id_org_receptor','=',$usuarioOrg)
+            ->where('id_dep_receptor','=',$usuarioDep)
+            ->where('id_estatus_recepcion','=','1')
+            ->get();
+
+            foreach ($searchRecibidas as $recibidas){
+
+                $id_recepcion_correspondencia = $recibidas->id;
+                $id_correspondencia = $recibidas->id_correspondencia;
+
+
+            } 
+
+            If (Correspondencia::esAprobador()){ 
+
+       $asignar = new AsignaCorrespondencia;
+       $asignar->id_correspondencia = $id_recepcion_correspondencia;
+       $asignar->id_recepcion_correspondencia = $id_recepcion_correspondencia;
+       $asignar->id_usuario_asigna = $id_usuario;
+       $asignar->id_usuario_asignado = $id_usuario;
+       $asignar->save();
+
+       $asignar=Emision::findOrFail($id);
+       $asignar->id_estatus_emision='4';
+       $asignar->update();
+
+       $asignar=Recepcion::findOrFail($id);
+       $asignar->id_estatus_recepcion='4';
+       $asignar->update();
+
+     }else{
+
+
+      
+     }
 
 
     }

@@ -318,20 +318,18 @@ COMMENT ON COLUMN public.tblcorrespondencia.id_correspondencia IS '--Númeració
 CREATE TABLE tblemision
 (
   id bigserial NOT NULL,
-  id_correspondencia character varying NOT NULL,
   id_org_emisor integer NOT NULL,
   id_dep_emisor integer NOT NULL,
-  id_tipo_correspondencia integer NOT NULL,
   id_usuario_emisor integer NOT NULL,
   id_usuario_aprobador integer,
   fecha_emision timestamp without time zone NOT NULL DEFAULT now(),
   id_estatus_emision integer NOT NULL,
   esrespuesta boolean,
-  ubic integer, -- <option value="00">Seleccione</option>...
-  asunto character varying,
-  confidencialidad integer, -- <option value="10">Uso Público</option>...
-  contenido character varying,
+  id_correspondencia integer,
   CONSTRAINT tblemision_pkey PRIMARY KEY (id),
+  CONSTRAINT tblemision_id_correspondencia_fkey FOREIGN KEY (id_correspondencia)
+      REFERENCES tblcorrespondencia (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblemision_id_dep_emisor_fkey FOREIGN KEY (id_dep_emisor)
       REFERENCES tbldependencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -340,9 +338,6 @@ CREATE TABLE tblemision
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT tblemision_id_org_emisor_fkey FOREIGN KEY (id_org_emisor)
       REFERENCES tblorganismo (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT tblemision_id_tipo_correspondencia_fkey FOREIGN KEY (id_tipo_correspondencia)
-      REFERENCES tbltipocorrespondencia (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
@@ -350,12 +345,7 @@ WITH (
 );
 ALTER TABLE tblemision
   OWNER TO postgres;
-COMMENT ON COLUMN tblemision.ubic IS '<option value="00">Seleccione</option>
-<option value="10">Interno</option>
-<option value="20">Externo</option>';
-COMMENT ON COLUMN tblemision.confidencialidad IS '<option value="10">Uso Público</option>
-<option value="20">Uso Confidencial</option>
-<option value="30">Ext Confidencial</option>';
+
 
 
   CREATE TABLE tblrecepcion
