@@ -261,7 +261,6 @@ class correspondenciaController extends Controller
     }
 
     
-
      public function usrbyorg($id)
     {
       $destinatario = Usuarios::usrbyorg($id);
@@ -286,7 +285,6 @@ class correspondenciaController extends Controller
       $poraprobar=Correspondencia::findOrFail($id);
       return view("correspondencia.bandejas.poraprobar.poraprobar-modal",['poraprobar'=>$poraprobar]);
     }
-
 
     public function borradoresModal($id)
     {

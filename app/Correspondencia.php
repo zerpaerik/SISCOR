@@ -74,6 +74,16 @@ class Correspondencia extends Model
             $correspondencia->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
 
+            $detalle = New DetalleCorrespondencia;
+            $detalle->id_correspondencia =$correspondencia->id;
+            $detalle->id_tipo_confidencialidad=$data['confidencialidad'];
+            $detalle->id_tipo_correspondencia=$data['id_tipo_correspondencia'];
+            $detalle->asunto=$data['asunto'];
+            $detalle->ubic=$data['ubic'];
+            $detalle->contenido=$data['contenido'];
+            $detalle->save();
+
+
             $emision = new Emision;
             $emision->id_correspondencia  =$correspondencia->id;
            // $emision->id_org_emisor     =$data['id_org']; 
@@ -112,6 +122,15 @@ class Correspondencia extends Model
             $correspondencia->id_correspondencia= Correspondencia::generarId($usuarioOrg,$usuarioDep,$tipo);
             $correspondencia->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
+
+            $detalle = New DetalleCorrespondencia;
+            $detalle->id_correspondencia =$correspondencia->id;
+            $detalle->id_tipo_confidencialidad=$data['confidencialidad'];
+            $detalle->id_tipo_correspondencia=$data['id_tipo_correspondencia'];
+            $detalle->asunto=$data['asunto'];
+            $detalle->ubic=$data['ubic'];
+            $detalle->contenido=$data['contenido'];
+            $detalle->save();
 
             $emision = new Emision;
             $emision->id_correspondencia  =$correspondencia->id;
@@ -184,6 +203,15 @@ class Correspondencia extends Model
             $correspondencia->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
 
+            $detalle = New DetalleCorrespondencia;
+            $detalle->id_correspondencia =$correspondencia->id;
+            $detalle->id_tipo_confidencialidad=$data['confidencialidad'];
+            $detalle->id_tipo_correspondencia=$data['id_tipo_correspondencia'];
+            $detalle->asunto=$data['asunto'];
+            $detalle->ubic=$data['ubic'];
+            $detalle->contenido=$data['contenido'];
+            $detalle->save();
+
             $emision = new Emision;
             $emision->id_correspondencia  =$correspondencia->id;
            // $emision->id_org_emisor     =$data['id_org']; 
@@ -222,6 +250,15 @@ class Correspondencia extends Model
             $correspondencia->id_correspondencia= Correspondencia::generarIdBorrador($usuarioOrg,$usuarioDep,$id_tipo_correlativo,$tipo);
             $correspondencia->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
+
+            $detalle = New DetalleCorrespondencia;
+            $detalle->id_correspondencia =$correspondencia->id;
+            $detalle->id_tipo_confidencialidad=$data['confidencialidad'];
+            $detalle->id_tipo_correspondencia=$data['id_tipo_correspondencia'];
+            $detalle->asunto=$data['asunto'];
+            $detalle->ubic=$data['ubic'];
+            $detalle->contenido=$data['contenido'];
+            $detalle->save();
 
             $emision = new Emision;
             $emision->id_correspondencia  =$correspondencia->id;
@@ -641,6 +678,15 @@ class Correspondencia extends Model
             return false;
          }              
    }
+
+
+    public static function asignarCorrespondencia($id){
+
+    
+     
+
+
+    }
 
 
    public static function buscarDestinatario($id){

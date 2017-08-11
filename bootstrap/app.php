@@ -41,6 +41,8 @@ $app->singleton(
     SISCOR\Exceptions\Handler::class
 );
 
+ 
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

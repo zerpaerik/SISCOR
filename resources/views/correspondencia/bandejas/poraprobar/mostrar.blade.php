@@ -41,9 +41,9 @@
          
                   <a href="" class="waves-effect waves-light btn">Rechazar</a>
 
-                  <a href="" class="waves-effect waves-light btn">Vista Previa</a>
-
                   <a href="" class="waves-effect waves-light btn">Editar</a>
+
+                  <button return back() class="waves-effect waves-light btn">Regresar</button>
                   &nbsp;
                 </div>
             </div>

@@ -14,9 +14,9 @@
                   <label for="id">Destinatario</label>
                   <select name="id" id="id" class="form-control" placeholder="Seleccione el Destinatario">
                     <option value="00">Seleccione</option>
-                    @foreach ($destinatario as $dest)
-                      <option value="{{$dest->id}}">{{$dest->nombres}}</option>
-                    @endforeach
+                    <option value="4">Juleisa Toledo</option>
+                    <option value="00">Pedro Perez</option>
+                   
                   </select>
                 </div>
 
