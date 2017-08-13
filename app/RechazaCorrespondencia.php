@@ -4,10 +4,9 @@ namespace SISCOR;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AsignaCorrespondencia extends Model
+class RechazaCorrespondencia extends Model
 {
-
-	protected $table='tblasignacorrespondencia';
+	protected $table='tblrechazacorrespondencia';
     protected $primaryKey='id';
 
 
@@ -15,9 +14,9 @@ class AsignaCorrespondencia extends Model
 
     protected $fillable =[
         'id_correspondencia',
-        'id_recepcion_correspondencia',
-        'id_usuario_asigna',
-        'id_usuario_asignado'
+        'descripcion',
+        'id_usuario_rechaza',
+        'id_usuario_recibe'
         ];
     //
 }

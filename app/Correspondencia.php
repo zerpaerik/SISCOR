@@ -783,6 +783,65 @@ class Correspondencia extends Model
 
     }
 
+    public static function rechazarCorrespondencia($id){
+
+       $id_usuario=Session::get('id');
+       
+            $searchUsuarioID = DB::table('users')
+                    ->select('*')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_usuario)
+                    ->get();
+
+                foreach ($searchUsuarioID as $usuario) {
+                    $usuarioOrg = $usuario->id_org;
+                    $usuarioDep = $usuario->id_dep;
+                }
+
+      
+            $searchPorAprobar = DB::table('tblcorrespondencia as a')
+             ->select('a.id','a.id_correspondencia','b.fecha_emision','c.id_dep_receptor','d.asunto','d.contenido','e.descripcion')  
+             ->join('tblemision as b','a.id','b.id_correspondencia')
+             ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+             ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+             ->join('tbldependencia as e','c.id_dep_receptor','e.id')
+             ->where('id_org_emisor','=',$usuarioOrg)
+             ->where('id_dep_emisor','=',$usuarioDep)
+             ->where('id_estatus_emision','=','3')
+             ->get();
+
+            foreach ($searchPorAprobar as $poraprobar){
+
+                $id_correspondencia = $poraprobar->id_correspondencia;
+                $id_recepcion_correspondencia = $poraprobar->id;
+            } 
+
+               If (Correspondencia::esAprobador()){ 
+
+       $asignar = new RechazaCorrespondencia;
+       $asignar->id_correspondencia = $id_recepcion_correspondencia;
+       $asignar->id_usuario_rechaza = $id_usuario;
+       $asignar->id_usuario_recibe = $id_usuario;
+       $asignar->save();
+
+       $asignar=Emision::findOrFail($id);
+       $asignar->id_estatus_emision='5';
+       $asignar->update();
+
+       $asignar=Recepcion::findOrFail($id);
+       $asignar->id_estatus_recepcion='5';
+       $asignar->update();
+
+     }else{
+
+
+      }
+
+
+
+
+    }
+
 
    public static function buscarDestinatario($id){
            

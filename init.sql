@@ -436,3 +436,22 @@ WITH (
 );
 ALTER TABLE tblasignacorrespondencia
   OWNER TO postgres;
+
+
+
+ CREATE TABLE public.tblrechazacorrespondencia
+(
+  id bigint NOT NULL DEFAULT nextval('tblrechazacorrespondencia_id_seq'::regclass),
+  id_correspondencia integer,
+  descripcion character varying,
+  fecha timestamp without time zone,
+  id_usuario_rechaza integer,
+  id_usuario_recibe integer,
+  CONSTRAINT tblrechazacorrespondencia_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.tblrechazacorrespondencia
+  OWNER TO postgres;
+ 

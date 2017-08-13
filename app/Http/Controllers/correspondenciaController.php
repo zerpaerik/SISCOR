@@ -193,6 +193,29 @@ class correspondenciaController extends Controller
    }
 
 
+   public function asignarCorrespondencia($id){
+        
+       $asignarCorrespondencia=Correspondencia::asignarCorrespondencia($id);
+        if ($asignarCorrespondencia) {
+          return response()->json(['respuesta' => 'success','mensaje' => 'Asignado Exitosamente']);
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al archivar verifique']);
+        }
+
+   }
+
+    public function rechazarCorrespondencia($id){
+        
+       $rechazarCorrespondencia=Correspondencia::rechazarCorrespondencia($id);
+        if ($rechazarCorrespondencia) {
+          return response()->json(['respuesta' => 'success','mensaje' => 'Rechazado Exitosamente']);
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al rechazar verifique']);
+        }
+
+   }
+
+
     public function store ()
     {
     $data= array(

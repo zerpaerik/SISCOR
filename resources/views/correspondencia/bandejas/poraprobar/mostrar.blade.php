@@ -39,7 +39,7 @@
                   <button href="{{asset('correspondencia/aprobarCorrespondencia')}}/{{$correspondencia->id}}" 
                   id="aprobar" class="waves-effect waves-light btn">Aprobar</button>
          
-                  <a href="" class="waves-effect waves-light btn">Rechazar</a>
+                  <button data-toggle="modal" data-target="#myModal" class="waves-effect waves-light btn">Rechazar</button>
 
                   <a href="" class="waves-effect waves-light btn">Editar</a>
 
@@ -47,6 +47,9 @@
                   &nbsp;
                 </div>
             </div>
+            <div class="row">
+        @include('correspondencia.bandejas.poraprobar.rechazar')
+      </div>
           </div>
         </div>
       @endforeach
@@ -98,4 +101,6 @@
     CKEDITOR.config.readOnly = true;
 
 </script>
+
+
 
