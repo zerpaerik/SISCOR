@@ -192,7 +192,7 @@ class correspondenciaController extends Controller
 
    }
 
-
+/*
    public function asignarCorrespondencia($id){
         
        $asignarCorrespondencia=Correspondencia::asignarCorrespondencia($id);
@@ -202,7 +202,7 @@ class correspondenciaController extends Controller
           return response()->json(['respuesta' => 'fail','mensaje' => 'Error al archivar verifique']);
         }
 
-   }
+   }*/
 
     public function rechazarCorrespondencia($id){
         
@@ -214,6 +214,25 @@ class correspondenciaController extends Controller
         }
 
    }
+
+
+     public function asignarCorrespondencia ($id){
+        {
+         $data= array(
+                  'id_instruccion'=>Input::get('id_instruccion'),
+                  'id_usuario_asignado'=>Input::get('id_usuario_asignado'),
+                  'comentario'=>Input::get('comentario')
+                );        
+        }
+         
+        $asignarCorrespondencia=Correspondencia::asignarCorrespondencia($data);
+
+        if ($asignarCorrespondencia) {
+          return response()->json(['respuesta' => 'success','mensaje' => 'Asignado exitosamente']);
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al guardar verifique']);
+        }
+    }
 
 
     public function store ()

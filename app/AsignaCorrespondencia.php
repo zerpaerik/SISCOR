@@ -14,10 +14,11 @@ class AsignaCorrespondencia extends Model
     public $timestamps=false;
 
     protected $fillable =[
-        'id_correspondencia',
         'id_recepcion_correspondencia',
         'id_usuario_asigna',
-        'id_usuario_asignado'
+        'id_usuario_asignado',
+        'id_instruccion',
+        'comentario'
         ];
     //
 }

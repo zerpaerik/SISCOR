@@ -722,7 +722,7 @@ class Correspondencia extends Model
    }
 
 
-    public static function asignarCorrespondencia($id){
+    public static function asignarCorrespondencia($id,$data){
 
        $id_usuario=Session::get('id');
        
@@ -760,10 +760,11 @@ class Correspondencia extends Model
             If (Correspondencia::esAprobador()){ 
 
        $asignar = new AsignaCorrespondencia;
-       $asignar->id_correspondencia = $id_recepcion_correspondencia;
        $asignar->id_recepcion_correspondencia = $id_recepcion_correspondencia;
        $asignar->id_usuario_asigna = $id_usuario;
-       $asignar->id_usuario_asignado = $id_usuario;
+       $asignar->id_usuario_asignado =$data['id_usuario_asignado'];
+       $asignar->id_instruccion =$data['id_instruccion'];
+       $asignar->comentario =$data['comentario'];
        $asignar->save();
 
        $asignar=Emision::findOrFail($id);

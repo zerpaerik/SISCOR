@@ -197,7 +197,7 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::get('/correspondencia/bandejas/recibidas/recibidas-modal/{id}','correspondenciaController@recibidasModal');
 	Route::get('/correspondencia/verRecibidas/{id}','correspondenciaController@verRecibidas');
 	Route::get('/correspondencia/archivarCorrespondencia/{id}','correspondenciaController@archivarCorrespondencia');
-	Route::get('/correspondencia/asignarCorrespondencia/{id}','correspondenciaController@asignarCorrespondencia');
+	Route::post('/correspondencia/asignarCorrespondencia/{id}','correspondenciaController@asignarCorrespondencia');
 });
 
 
