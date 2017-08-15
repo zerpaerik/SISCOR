@@ -1,4 +1,3 @@
-<div class="row">
   <div id="paginacion">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
       <div class="card">
@@ -49,9 +48,8 @@
                 </div>
             </div>
 
-      <div class="row">
         @include('correspondencia.bandejas.recibidas.asignar')
-      </div>
+      
           </div>
         </div>
       @endforeach
@@ -59,7 +57,6 @@
     </div>
   </div>
 
-</div>
 
 <!-- Recursos javascript-ajax -->
 <script src="{{asset('assets/js/recursos.js')}}"></script> 
