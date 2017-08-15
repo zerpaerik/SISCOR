@@ -204,7 +204,7 @@ class correspondenciaController extends Controller
 
    }*/
 
-    public function rechazarCorrespondencia($id){
+  /*  public function rechazarCorrespondencia($id){
         
        $rechazarCorrespondencia=Correspondencia::rechazarCorrespondencia($id);
         if ($rechazarCorrespondencia) {
@@ -213,26 +213,48 @@ class correspondenciaController extends Controller
           return response()->json(['respuesta' => 'fail','mensaje' => 'Error al rechazar verifique']);
         }
 
+   }*/
+
+
+     public function rechazarCorrespondencia($id){
+        
+      $data= array(
+           'comentario'=>Input::get('comentario')
+        );
+
+       $rechazarCorrespondencia=Correspondencia::rechazarCorrespondencia($id,$data);
+
+        if ($rechazarCorrespondencia) {
+          //return response()->json(['respuesta' => 'success','mensaje' => 'Rechazada exitosamente']);
+          //$request->session()->flash('mensaje', '¡El usuario fue eliminado!');
+          Session::flash('message', 'My message');
+          return Redirect::to('mensaje/page');
+
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al guardar verifique']);
+        }
+
    }
+     
 
-
-     public function asignarCorrespondencia ($id){
+     public function asignarCorrespondencia($id)
         {
          $data= array(
                   'id_instruccion'=>Input::get('id_instruccion'),
                   'id_usuario_asignado'=>Input::get('id_usuario_asignado'),
                   'comentario'=>Input::get('comentario')
                 );        
-        }
+        
          
-        $asignarCorrespondencia=Correspondencia::asignarCorrespondencia($data);
+        $asignarCorrespondencia=Correspondencia::asignarCorrespondencia($id,$data);
 
         if ($asignarCorrespondencia) {
-          return response()->json(['respuesta' => 'success','mensaje' => 'Asignado exitosamente']);
+          return response()->json(['respuesta' => 'success','mensaje' => 'Asignada exitosamente']);
         }else{
           return response()->json(['respuesta' => 'fail','mensaje' => 'Error al guardar verifique']);
         }
-    }
+      }
+    
 
 
     public function store ()

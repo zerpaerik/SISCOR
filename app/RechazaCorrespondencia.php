@@ -14,7 +14,7 @@ class RechazaCorrespondencia extends Model
 
     protected $fillable =[
         'id_correspondencia',
-        'descripcion',
+        'comentario',
         'id_usuario_rechaza',
         'id_usuario_recibe'
         ];

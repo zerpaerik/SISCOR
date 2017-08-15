@@ -18,6 +18,10 @@
                 <div class="pull-right"><b>Fecha:</b> {{date("d-m-Y g:i A",strtotime($correspondencia->fecha_emision))}}  &nbsp;</div>
             </div>
             <div class="row">
+                <div class="pull-right"><b>Comentario:</b> {{$correspondencia->comentario}}  &nbsp;</div>
+            </div>
+
+            <div class="row">
                 <div>&nbsp;<b>Asunto:</b> {{$correspondencia->asunto}}</div>
             </div>
             <div class="row">
@@ -39,7 +43,7 @@
                   <button href="{{asset('correspondencia/archivarCorrespondencia')}}/{{$correspondencia->id}}" 
                   id="archivar" class="waves-effect waves-light btn">Archivar</button>
 
-                  <button data-toggle="modal" data-target="#myModal" class="waves-effect waves-light btn">Asignar</button>
+                  <button data-toggle="modal" data-target="#myModal" class="waves-effect waves-light btn asignar">Asignar</button>
 
                   <a href="" class="waves-effect waves-light btn">Responder</a>
 

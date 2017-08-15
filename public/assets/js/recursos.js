@@ -139,6 +139,29 @@ $(".actualizar").on("click",function(e)
 
 
 
+//
+
+$(".asignar").on("click",function(e)
+	{
+		e.preventDefault();
+		var urlEdit= $(this).attr('href');
+		$.ajax({
+			url: urlEdit,
+			type: "get",
+			success: function(data)
+			{
+				$(".edit").empty().html(data);
+			},
+			error: function()
+			{
+				alert('Error obteniendo respuesta del servidor, prueba más tarde.');
+			}
+		});
+	});
+
+
+
+
 
 
 //permite ejecutar boton eliminar con ajax no modificar
