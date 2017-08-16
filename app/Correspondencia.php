@@ -467,6 +467,69 @@ class Correspondencia extends Model
      }
     }
 
+    public static function bandejaRechazadas(){
+        
+        ///// Primero verifico el id_org y el id_dep del usuario logueado ///////
+        $id_usuario=Session::get('id');
+       
+       
+        $searchUsuarioID = DB::table('users')
+                    ->select('*')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_usuario)
+                    ->get();
+
+                foreach ($searchUsuarioID as $usuario) {
+                    $usuarioOrg = $usuario->id_org;
+                    $usuarioDep = $usuario->id_dep;
+                }
+        
+        If (Correspondencia::esAprobador()){  ///// si el usuario es aprobador consulta las corresp recibidas, estatus 1 en la tabla tblrecepcion
+         
+
+            $rechazadas = DB::table('tblcorrespondencia as a')
+            ->select('a.id','a.id_correspondencia','c.id_org_receptor','c.id_dep_receptor','c.fecha_recepcion','d.asunto','e.descripcion','b.id_dep_emisor','c.id_estatus_recepcion','f.id_correspondencia')
+            ->join('tblemision as b','a.id','b.id_correspondencia')
+            ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+            ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+            ->join('tbldependencia as e','b.id_dep_emisor','e.id')
+            ->join('tblrechazacorrespondencia as f','a.id','f.id_correspondencia')
+            ->where('a.id','=','f.id_correspondencia')
+            ->where('id_org_receptor','=',$usuarioOrg)
+            ->where('id_dep_receptor','=',$usuarioDep)
+            ->where('id_estatus_recepcion','=','5')
+            ->orderby('fecha_recepcion')
+            ->paginate(5);  
+        
+        
+        if(!is_null($rechazadas)){
+            return $rechazadas;
+         }else{
+            return false;
+         }
+     } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
+
+         $rechazadas = DB::table('tblcorrespondencia as a')
+            ->select('a.id','a.id_correspondencia','c.id_org_receptor','c.id_dep_receptor','c.fecha_recepcion','d.asunto','e.descripcion','b.id_dep_emisor')
+            ->join('tblemision as b','a.id','b.id_correspondencia')
+            ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+            ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+            ->join('tbldependencia as e','b.id_dep_emisor','e.id')
+            ->where('id_org_receptor','=',$usuarioOrg)
+            ->where('id_dep_receptor','=',$usuarioDep)
+            ->where('id_estatus_recepcion','=','5')
+            ->orderby('fecha_recepcion')
+            ->paginate(5); 
+        
+        
+        if(!is_null($rechazadas)){
+            return $rechazadas;
+         }else{
+            return false;
+         }
+     }
+    }
+
     public static function bandejaEnviadas(){
 
          $id_usuario=Session::get('id');

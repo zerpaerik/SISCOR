@@ -254,6 +254,17 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 
 });
 
+//*************Rutas para Bandeja de Rechazadas ********************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+    //Rutas externas módulo de usuarios regulares
+	
+	Route::get('/correspondencia/bandejas/rechazadas/ListRechazadas','correspondenciaController@rechazadas');
+	Route::get('/correspondencia/bandejas/rechazadas/rechazadas-modal/{id}','correspondenciaController@rechazadasModal');
+	Route::get('/correspondencia/verRechazadas/{id}','correspondenciaController@verRechazadas');
+
+});
+
 
 
 //// REPORTES ////

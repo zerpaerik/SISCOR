@@ -58,6 +58,19 @@ class correspondenciaController extends Controller
       }
     }
 
+     public function rechazadas()
+    {
+      $searchText = Input::get('searchText');
+      $usuarioOrg = Input::get('id_org');
+      $usuarioDep = Input::get('id_dep');
+      $data = correspondencia::bandejaRechazadas();
+      if ($data){
+        return view("correspondencia.bandejas.rechazadas.listRechazadas",["data"=>$data,"searchText"=>$searchText]);
+      } else{
+        return view("layouts.nodata");
+      }
+    }
+
 
     public function enviadas()
     {
@@ -124,7 +137,7 @@ class correspondenciaController extends Controller
 
 
     public function prueba(){
-    echo  Correspondencia::mostrarCorrespondencia(25);
+    echo  Correspondencia::bandejaRechazadas();
     }
 
 
@@ -184,6 +197,13 @@ class correspondenciaController extends Controller
      
      $correspondencia=Correspondencia::mostrarCorrespondencia($id);
      return view("correspondencia.bandejas.archivadas.mostrar",['data'=>$correspondencia]);
+
+   }
+
+   public function verRechazadas($id) {
+     
+     $correspondencia=Correspondencia::mostrarCorrespondencia($id);
+     return view("correspondencia.bandejas.rechazadas.mostrar",['data'=>$correspondencia]);
 
    }
 
