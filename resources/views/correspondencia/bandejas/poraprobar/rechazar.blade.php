@@ -5,6 +5,7 @@
     
       <!-- Modal content-->
       <div class="modal-content">
+      <form role="form" action="{{asset('correspondencia/rechazarCorrespondencia')}}/{{$correspondencia->id}}" id="rechazarCorrespondencia">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Rechazar Correspondencia</h4>
@@ -12,8 +13,8 @@
         <div class="modal-body">
                
                 <div class="form-group">
-                  <label for="comment">Ingrese la razon del rechazo:</label>
-                  <textarea class="form-control" rows="5" id="comment"></textarea>
+                  <label for="comentario">Ingrese la razon del rechazo:</label>
+                  <textarea class="form-control" rows="5" id="comentario" name="comentario"></textarea>
               </div> 
 
         </div>
@@ -22,6 +23,7 @@
           <button href="{{asset('correspondencia/rechazarCorrespondencia')}}/{{$correspondencia->id}}" 
                   id="rechazar" class="waves-effect waves-light btn">Guardar</button>
           <button type="reset"  class="btn btn-info" data-dismiss="modal">Limpiar</button>
+          </form>
         </div>
         
       </div>
@@ -49,19 +51,10 @@
               },
               function(){
                     //ajax que hace la peticion por get a la url
-                    $.ajax({
-                              url: url,
-                              type: "get",
-                              //si la respuesta del controlador es true
-                              success: function(data){
-                                swal("Correspondencia Rechazada con Éxito");
-                                setTimeout(function(){location.reload();}, 2000);
-                              },
-                              //si no
-                              error: function()
-                              {
-                                swal("Error obteniendo respuesta del servidor");
-                              }
+                   
+                           $("#rechazarCorrespondencia").submit();
+ 
+
                             });        
               });
     });

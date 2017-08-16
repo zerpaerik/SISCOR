@@ -5,7 +5,7 @@
               <b>Actualizar Usuarios</b>
           </div>
           <div class="card-content">
-          <form role="form" action="{{asset('usuarios/update')}}/{{$data->id}}" id="update">
+          <form role="form" action="{{asset('usuarios/update')}}/{{$usuarios->id}}" id="update">
               <div class="form-group">
                   <label for="cedula">Cédula de Identidad</label>
                   <input type="text" class="form-control" id="cedula" name="cedula" value="{{$data->cedula}}"

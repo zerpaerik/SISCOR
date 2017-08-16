@@ -1,6 +1,6 @@
 <div class="row">
 	<div id="paginacion">
-		<div class="col-md-8 col-sm-12 col-xs-12">
+		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="card">
 				<div class="card-action">
 				<div class="col s6">
@@ -48,7 +48,7 @@
 
 			</div>
 		</div>
-			<div class="col-md-4 col-sm-12 col-xs-12 edit">
+			<div class="col-md-12 col-sm-12 col-xs-12 edit">
 
 			</div>
 	</div>

@@ -3,7 +3,7 @@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
       <div class="card">
         <div class="card-action">
-          <b>Correspondencia Recibida</b>
+          <b>Correspondencia Asignada</b>
         </div>
 
        @foreach($data as $correspondencia)
@@ -37,13 +37,8 @@
             <div class="row">
                 <div class="pull-right">
                   <button href="{{asset('correspondencia/archivarCorrespondencia')}}/{{$correspondencia->id}}" 
-                  id="archivar" class="waves-effect waves-light btn">Archivar</button>
+                  id="archivar" class="waves-effect waves-light btn">Responder</button>
 
-                  <button data-toggle="modal" data-target="#myModal" class="waves-effect waves-light btn">Asignar</button>
-
-                   <button data-toggle="modal" data-target="#myModal1" class="waves-effect waves-light btn">Responder</button>
-
-                  <a href="" class="waves-effect waves-light btn">Imprimir</a>
                   &nbsp;
                
                 </div>
@@ -51,7 +46,6 @@
 
       <div class="row">
         @include('correspondencia.bandejas.recibidas.asignar')
-        @include('correspondencia.bandejas.recibidas.responder')
       </div>
           </div>
         </div>

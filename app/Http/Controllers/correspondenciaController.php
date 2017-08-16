@@ -45,6 +45,19 @@ class correspondenciaController extends Controller
       }
     }
 
+    public function asignadas()
+    {
+      $searchText = Input::get('searchText');
+      $usuarioOrg = Input::get('id_org');
+      $usuarioDep = Input::get('id_dep');
+      $data = correspondencia::bandejaAsignadas();
+      if ($data){
+        return view("correspondencia.bandejas.asignadas.listAsignadas",["data"=>$data,"searchText"=>$searchText]);
+      } else{
+        return view("layouts.nodata");
+      }
+    }
+
 
     public function enviadas()
     {
@@ -111,7 +124,7 @@ class correspondenciaController extends Controller
 
 
     public function prueba(){
-    echo  Correspondencia::bandejaRecibidas();
+    echo  Correspondencia::mostrarCorrespondencia(25);
     }
 
 
@@ -143,6 +156,13 @@ class correspondenciaController extends Controller
      
      $correspondencia=Correspondencia::mostrarCorrespondencia($id);
      return view("correspondencia.bandejas.recibidas.mostrar",['data'=>$correspondencia]);
+
+   }
+
+    public function verAsignadas($id) {
+     
+     $correspondencia=Correspondencia::mostrarCorrespondencia($id);
+     return view("correspondencia.bandejas.asignadas.mostrar",['data'=>$correspondencia]);
 
    }
 
@@ -195,22 +215,32 @@ class correspondenciaController extends Controller
 
    public function asignarCorrespondencia($id){
         
-       $asignarCorrespondencia=Correspondencia::asignarCorrespondencia($id);
+       $data = array ('id_instruccion'     =>Input::get('id_instruccion'), 
+                      'id_usuario_asignado'=>Input::get('id_usuario_asignado'),
+                      'comentario'=>Input::get('comentario')
+                  );
+
+      $asignarCorrespondencia=Correspondencia::asignarCorrespondencia($id,$data);
         if ($asignarCorrespondencia) {
           return response()->json(['respuesta' => 'success','mensaje' => 'Asignado Exitosamente']);
         }else{
           return response()->json(['respuesta' => 'fail','mensaje' => 'Error al archivar verifique']);
         }
 
+       
+
    }
 
     public function rechazarCorrespondencia($id){
         
-       $rechazarCorrespondencia=Correspondencia::rechazarCorrespondencia($id);
+       $data = array ('comentario'=>Input::get('comentario')
+                  );
+
+      $rechazarCorrespondencia=Correspondencia::rechazarCorrespondencia($id,$data);
         if ($rechazarCorrespondencia) {
           return response()->json(['respuesta' => 'success','mensaje' => 'Rechazado Exitosamente']);
         }else{
-          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al rechazar verifique']);
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al archivar verifique']);
         }
 
    }

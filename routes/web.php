@@ -200,7 +200,16 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::get('/correspondencia/asignarCorrespondencia/{id}','correspondenciaController@asignarCorrespondencia');
 });
 
+///************Rutas para Bandeja de Asignadas de Correspondencia*****************
 
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+  
+	Route::get('/correspondencia/bandejas/asignadas/ListAsignadas','correspondenciaController@asignadas');
+	Route::get('/correspondencia/bandejas/asignadas/asignadas-modal/{id}','correspondenciaController@asignadasModal');
+	Route::get('/correspondencia/verAsignadas/{id}','correspondenciaController@verAsignadas');
+
+});
 //*************Rutas para Bandeja de Enviadas de Correspondencia********************
 
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {

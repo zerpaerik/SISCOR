@@ -4,10 +4,10 @@
 			<div class="card">
 				<div class="card-action">
 				<div class="col s6">
-					<b>Correspondencias Recibidas</b>
+					<b>Correspondencias Asignadas</b>
 				</div>			
 				<div class="input-field col s6">
-                  @include('correspondencia.bandejas.recibidas.search')
+                  @include('correspondencia.bandejas.asignadas.search')
 				</div>
 				</div>
 				<table class="table">
@@ -25,12 +25,12 @@
 							<td>{{$correspondencia->id_correspondencia}}</td>
 							<td>{{$correspondencia->asunto}}</td>
 							<td>{{$correspondencia->descripcion}}</td>
-							<td>{{date("d-m-Y g:i A",strtotime($correspondencia->fecha_recepcion))}}</td>
+							<td>{{$correspondencia->fecha_recepcion}}</td>
 				
 							 <td>
                                 <input type="button"
                                        class=" waves-effect waves-light btn verRecibidas"
-                                       href="{{asset('/correspondencia/verRecibidas')}}/{{$correspondencia->id_correspondencia}}"  
+                                       href="{{asset('/correspondencia/verAsignadas')}}/{{$correspondencia->id_correspondencia}}"  
                                        value="Ver"/>
                             </td>
 

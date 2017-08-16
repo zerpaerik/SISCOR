@@ -297,7 +297,9 @@ class Correspondencia extends Model
             return $correspondencia;
          }else{
             return false;
-         }   
+         }  
+
+
     }
 
      
@@ -369,7 +371,7 @@ class Correspondencia extends Model
             ->where('id_org_receptor','=',$usuarioOrg)
             ->where('id_dep_receptor','=',$usuarioDep)
             ->where('id_estatus_recepcion','=','1')
-            ->orderby('id_correspondencia')
+            ->orderby('c.fecha_recepcion')
             ->paginate(5);  
         
         
@@ -380,7 +382,8 @@ class Correspondencia extends Model
          }
      } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
 
-         $recibidas = DB::table('tblcorrespondencia as a')
+       
+            $recibidas = DB::table('tblcorrespondencia as a')
             ->select('a.id','a.id_correspondencia','c.id_org_receptor','c.id_dep_receptor','c.fecha_recepcion','d.asunto','e.descripcion','b.id_dep_emisor')
             ->join('tblemision as b','a.id','b.id_correspondencia')
             ->join('tblrecepcion as c','a.id','c.id_correspondencia')
@@ -388,13 +391,76 @@ class Correspondencia extends Model
             ->join('tbldependencia as e','b.id_dep_emisor','e.id')
             ->where('id_org_receptor','=',$usuarioOrg)
             ->where('id_dep_receptor','=',$usuarioDep)
-            ->where('id_estatus_recepcion','=','1')
+            ->where('id_estatus_recepcion','=','9')
             ->orderby('id_correspondencia')
-            ->paginate(5); 
+            ->paginate(5);  
         
         
         if(!is_null($recibidas)){
             return $recibidas;
+         }else{
+            return false;
+         }
+
+
+     }
+    }
+
+     public static function bandejaAsignadas(){
+        
+        ///// Primero verifico el id_org y el id_dep del usuario logueado ///////
+        $id_usuario=Session::get('id');
+       
+       
+        $searchUsuarioID = DB::table('users')
+                    ->select('*')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_usuario)
+                    ->get();
+
+                foreach ($searchUsuarioID as $usuario) {
+                    $usuarioOrg = $usuario->id_org;
+                    $usuarioDep = $usuario->id_dep;
+                }
+        
+        If (Correspondencia::esAprobador()){  ///// si el usuario es aprobador consulta las corresp recibidas, estatus 1 en la tabla tblrecepcion
+         
+
+            $asignadas = DB::table('tblcorrespondencia as a')
+            ->select('a.id','a.id_correspondencia','c.id_org_receptor','c.id_dep_receptor','c.fecha_recepcion','d.asunto','e.descripcion','b.id_dep_emisor')
+            ->join('tblemision as b','a.id','b.id_correspondencia')
+            ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+            ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+            ->join('tbldependencia as e','b.id_dep_emisor','e.id')
+            ->where('id_org_receptor','=',$usuarioOrg)
+            ->where('id_dep_receptor','=',$usuarioDep)
+            ->where('id_estatus_recepcion','=','4')
+            ->orderby('id_correspondencia')
+            ->paginate(5);  
+        
+        
+        if(!is_null($asignadas)){
+            return $asignadas;
+         }else{
+            return false;
+         }
+     } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
+
+         $asignadas = DB::table('tblcorrespondencia as a')
+            ->select('a.id','a.id_correspondencia','c.id_org_receptor','c.id_dep_receptor','c.fecha_recepcion','d.asunto','e.descripcion','b.id_dep_emisor')
+            ->join('tblemision as b','a.id','b.id_correspondencia')
+            ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+            ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+            ->join('tbldependencia as e','b.id_dep_emisor','e.id')
+            ->where('id_org_receptor','=',$usuarioOrg)
+            ->where('id_dep_receptor','=',$usuarioDep)
+            ->where('id_estatus_recepcion','=','4')
+            ->orderby('id_correspondencia')
+            ->paginate(5); 
+        
+        
+        if(!is_null($asignadas)){
+            return $asignadas;
          }else{
             return false;
          }
@@ -722,9 +788,13 @@ class Correspondencia extends Model
    }
 
 
-    public static function asignarCorrespondencia($id){
+    public static function asignarCorrespondencia($id,$data){
 
-       $id_usuario=Session::get('id');
+       
+      try {
+            DB::beginTransaction();
+            
+            $id_usuario=Session::get('id');
        
             $searchUsuarioID = DB::table('users')
                     ->select('*')
@@ -746,6 +816,7 @@ class Correspondencia extends Model
             ->join('tbldependencia as e','b.id_dep_emisor','e.id')
             ->where('id_org_receptor','=',$usuarioOrg)
             ->where('id_dep_receptor','=',$usuarioDep)
+            ->where('a.id','=',$id)
             ->where('id_estatus_recepcion','=','1')
             ->get();
 
@@ -760,10 +831,11 @@ class Correspondencia extends Model
             If (Correspondencia::esAprobador()){ 
 
        $asignar = new AsignaCorrespondencia;
-       $asignar->id_correspondencia = $id_recepcion_correspondencia;
        $asignar->id_recepcion_correspondencia = $id_recepcion_correspondencia;
        $asignar->id_usuario_asigna = $id_usuario;
-       $asignar->id_usuario_asignado = $id_usuario;
+       $asignar->id_usuario_asignado = $data['id_usuario_asignado'];
+       $asignar->id_instruccion =$data['id_instruccion'];
+       $asignar->comentario=$data['comentario'];
        $asignar->save();
 
        $asignar=Emision::findOrFail($id);
@@ -776,16 +848,26 @@ class Correspondencia extends Model
 
      }else{
 
-
-      
      }
-
+             
+            DB::commit();
+        }catch (\Exception $e) { //esto atrapa cualquier error y devuelve false al controller
+            DB::rollback();
+            echo $e->getMessage(); die(); //para probar si hay error
+            return false;
+        }
+        return true;
 
     }
 
-    public static function rechazarCorrespondencia($id){
 
-       $id_usuario=Session::get('id');
+    public static function rechazarCorrespondencia($id,$data){
+
+
+     try {
+            DB::beginTransaction();
+            
+           $id_usuario=Session::get('id');
        
             $searchUsuarioID = DB::table('users')
                     ->select('*')
@@ -807,6 +889,7 @@ class Correspondencia extends Model
              ->join('tbldependencia as e','c.id_dep_receptor','e.id')
              ->where('id_org_emisor','=',$usuarioOrg)
              ->where('id_dep_emisor','=',$usuarioDep)
+             ->where('a.id','=',$id)
              ->where('id_estatus_emision','=','3')
              ->get();
 
@@ -818,27 +901,33 @@ class Correspondencia extends Model
 
                If (Correspondencia::esAprobador()){ 
 
-       $asignar = new RechazaCorrespondencia;
-       $asignar->id_correspondencia = $id_recepcion_correspondencia;
-       $asignar->id_usuario_rechaza = $id_usuario;
-       $asignar->id_usuario_recibe = $id_usuario;
-       $asignar->save();
+       $rechazar = new RechazaCorrespondencia;
+       $rechazar->id_correspondencia = $id_recepcion_correspondencia;
+       $rechazar->id_usuario_rechaza = $id_usuario;
+       $rechazar->id_usuario_recibe = $id_usuario;
+       $rechazar->comentario=$data['comentario'];
+       $rechazar->save();
 
-       $asignar=Emision::findOrFail($id);
-       $asignar->id_estatus_emision='5';
-       $asignar->update();
+       $rechazar=Emision::findOrFail($id);
+       $rechazar->id_estatus_emision='5';
+       $rechazar->update();
 
-       $asignar=Recepcion::findOrFail($id);
-       $asignar->id_estatus_recepcion='5';
-       $asignar->update();
+       $rechazar=Recepcion::findOrFail($id);
+       $rechazar->id_estatus_recepcion='5';
+       $rechazar->update();
 
      }else{
 
 
       }
-
-
-
+             
+            DB::commit();
+        }catch (\Exception $e) { //esto atrapa cualquier error y devuelve false al controller
+            DB::rollback();
+            echo $e->getMessage(); die(); //para probar si hay error
+            return false;
+        }
+        return true;
 
     }
 

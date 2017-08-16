@@ -5,14 +5,15 @@
     
       <!-- Modal content-->
       <div class="modal-content">
+      <form role="form" action="{{asset('correspondencia/asignarCorrespondencia')}}/{{$correspondencia->id}}" id="asignarCorrespondencia">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Asignar Correspondencia</h4>
         </div>
         <div class="modal-body">
                 <div class="form-group">
-                  <label for="id">Destinatario</label>
-                  <select name="id" id="id" class="form-control" placeholder="Seleccione el Destinatario">
+                  <label for="id_usuario_asignado">Destinatario</label>
+                  <select name="id" id="id_usuario_asignado" name="id_usuario_asignado" class="form-control" placeholder="Seleccione el Destinatario">
                     <option value="00">Seleccione</option>
                     <option value="4">Juleisa Toledo</option>
                     <option value="00">Pedro Perez</option>
@@ -21,20 +22,20 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="ubic">Instrucción</label>
-                  <select name="ubic" id="ubic" class="form-control" placeholder="Seleccione la Instrucción">
+                  <label for="id_instruccion">Instrucción</label>
+                  <select  id="id_instruccion" name="id_instruccion" class="form-control" placeholder="Seleccione la Instrucción">
                     <option value="00">Seleccione</option>
-                    <option value="10">Elaborar Respuesta</option>
-                    <option value="20">Notificar</option>
-                    <option value="20">Asistir</option>
-                    <option value="20">Reasignar</option>
-                    <option value="20">Confirmar</option>
+                    <option value="1">Elaborar Respuesta</option>
+                    <option value="2">Notificar</option>
+                    <option value="3">Asistir</option>
+                    <option value="4">Reasignar</option>
+                    <option value="5">Confirmar</option>
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <label for="comment">Comentario:</label>
-                  <textarea class="form-control" rows="5" id="comment"></textarea>
+                  <label for="comentario">Comentario:</label>
+                  <textarea class="form-control" rows="5" id="comentario" name="comentario"></textarea>
               </div> 
 
         </div>
@@ -43,6 +44,7 @@
           <button href="{{asset('correspondencia/asignarCorrespondencia')}}/{{$correspondencia->id}}" 
                   id="asignar" class="waves-effect waves-light btn">Guardar</button>
           <button type="reset"  class="btn btn-info" data-dismiss="modal">Limpiar</button>
+          </form>
         </div>
         
       </div>
@@ -70,19 +72,11 @@
               },
               function(){
                     //ajax que hace la peticion por get a la url
-                    $.ajax({
-                              url: url,
-                              type: "get",
-                              //si la respuesta del controlador es true
-                              success: function(data){
-                                swal("Correspondencia Asignada con Éxito");
-                                setTimeout(function(){location.reload();}, 2000);
-                              },
-                              //si no
-                              error: function()
-                              {
-                                swal("Error obteniendo respuesta del servidor");
-                              }
+                   
+                     $("#asignarCorrespondencia").submit();
+
+
+
                             });        
               });
     });
