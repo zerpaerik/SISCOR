@@ -37,13 +37,8 @@
             <div class="row">
                 <div class="pull-right">
                   <button href="{{asset('correspondencia/aprobarCorrespondencia')}}/{{$correspondencia->id}}" 
-                  id="aprobar" class="waves-effect waves-light btn">Aprobar</button>
+                  id="aprobar" class="waves-effect waves-light btn">Imprimir</button>
          
-                  <a href="" class="waves-effect waves-light btn">Rechazar</a>
-
-                  <a href="" class="waves-effect waves-light btn">Vista Previa</a>
-
-                  <a href="" class="waves-effect waves-light btn">Editar</a>
                   &nbsp;
                 </div>
             </div>
