@@ -5,7 +5,7 @@
     
       <!-- Modal content-->
       <div class="modal-content">
-      <form role="form" action="{{asset('correspondencia/responderCorrespondencia')}}/{{$correspondencia->id}}" id="rechazarCorrespondencia">
+      <form role="form" action="{{asset('correspondencia/responderCorrespondencia')}}/{{$correspondencia->id}}" id="responderCorrespondencia">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Responder Correspondencia</h4>

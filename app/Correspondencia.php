@@ -69,6 +69,7 @@ class Correspondencia extends Model
             
             $id_estatus_correspondencia=7;
             $adjunto = $data['adjunto'];
+
             $correspondencia = new Correspondencia;
             $correspondencia->id_correspondencia= Correspondencia::generarId($usuarioOrg,$usuarioDep,$tipo);
             $correspondencia->save();
@@ -86,8 +87,6 @@ class Correspondencia extends Model
 
             $emision = new Emision;
             $emision->id_correspondencia  =$correspondencia->id;
-           // $emision->id_org_emisor     =$data['id_org']; 
-            //$emision->id_dep_emisor     =$data['id_dep']; 
             $emision->id_org_emisor     =$usuarioOrg; 
             $emision->id_dep_emisor     =$usuarioDep; 
             $emision->id_usuario_emisor = $id_usuario;
@@ -992,6 +991,110 @@ class Correspondencia extends Model
         }
         return true;
 
+    }
+
+    public static function responderCorrespondencia($id,$data){
+
+       try {
+            DB::beginTransaction();
+            
+           
+             $id_usuario=Session::get('id');
+             $searchUsuarioID = DB::table('users')
+                    ->select('*')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_usuario)
+                    ->get();
+
+                foreach ($searchUsuarioID as $usuario) {
+                    $usuarioOrg = $usuario->id_org;
+                    $usuarioDep = $usuario->id_dep;
+                }
+
+        
+         $searchRecibidasId = DB::table('tblcorrespondencia as a')
+            ->select('a.id','a.id_correspondencia','b.id_org_emisor','b.id_dep_emisor','c.id_org_receptor','c.id','c.id_dep_receptor','c.fecha_recepcion','d.asunto','e.descripcion','b.id_dep_emisor','d.id_tipo_confidencialidad','d.id_tipo_correspondencia','d.ubic')
+            ->join('tblemision as b','a.id','b.id_correspondencia')
+            ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+            ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+            ->join('tbldependencia as e','b.id_dep_emisor','e.id')
+            ->where('id_org_receptor','=',$usuarioOrg)
+            ->where('id_dep_receptor','=',$usuarioDep)
+            ->where('a.id','=',$id)
+            ->where('id_estatus_recepcion','=','1')
+            ->get();
+
+            foreach ($searchRecibidasId as $recibidas){
+
+                $id_recepcion_correspondencia = $recibidas->id;
+                $id_correspondencia = $recibidas->id_correspondencia;
+                $id_tipo_confidencialidad = $recibidas->id_tipo_confidencialidad;
+                $id_tipo_correspondencia = $recibidas->id_tipo_correspondencia;
+                $ubic = $recibidas->ubic;
+                $id_org_emisor = $recibidas->id_org_emisor;
+                $id_dep_emisor = $recibidas->id_dep_emisor;
+                $id_correspondencia_respuesta = $recibidas->id;
+
+            } 
+
+               If (Correspondencia::esAprobador()){ 
+
+            $correspondencia = new Correspondencia;
+            $correspondencia->id_correspondencia= Correspondencia::generarId($usuarioOrg,$usuarioDep,$id_tipo_correspondencia);
+            $correspondencia->save();
+            $id_estatus_correspondencia=10;
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
+
+            $detalle = New DetalleCorrespondencia;
+            $detalle->id_correspondencia =$correspondencia->id;
+            $detalle->id_tipo_confidencialidad= $id_tipo_confidencialidad;
+            $detalle->id_tipo_correspondencia = $id_tipo_correspondencia;
+            $detalle->asunto = $data['asunto'];
+            $detalle->ubic = $ubic;
+            $detalle->contenido = $data['contenido'];
+            $detalle->save();
+
+
+            $emision = new Emision;
+            $emision->id_correspondencia  =$correspondencia->id;
+            $emision->id_org_emisor     =$usuarioOrg; 
+            $emision->id_dep_emisor     =$usuarioDep; 
+            $emision->id_usuario_emisor = $id_usuario;
+            $emision->id_usuario_aprobador = $id_usuario;
+            $emision->id_estatus_emision='6';
+            $emision->esrespuesta='1';
+            $emision->id_correspondencia_respuesta = $id_correspondencia_respuesta;
+            $emision->save();
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$emision->id_estatus_emision);
+            //Correspondencia::guardarAdjunto($correspondencia->id,$adjunto);
+
+
+            $recepcion = new Recepcion;
+            $recepcion->id_correspondencia  =$correspondencia->id;
+            $recepcion->id_org_receptor = $id_org_emisor;
+            $recepcion->id_dep_receptor = $id_dep_emisor;
+            $recepcion->id_estatus_recepcion ='1';
+            $recepcion->save();
+            $id_estatus_correspondencia=1;
+            Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id,$id_estatus_correspondencia);
+
+
+     }else{
+
+
+
+      }
+             
+            DB::commit();
+        }catch (\Exception $e) { //esto atrapa cualquier error y devuelve false al controller
+            DB::rollback();
+            echo $e->getMessage(); die(); //para probar si hay error
+            return false;
+        }
+        return true;
+
+
+        
     }
 
 

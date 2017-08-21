@@ -198,6 +198,8 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::get('/correspondencia/verRecibidas/{id}','correspondenciaController@verRecibidas');
 	Route::get('/correspondencia/archivarCorrespondencia/{id}','correspondenciaController@archivarCorrespondencia');
 	Route::get('/correspondencia/asignarCorrespondencia/{id}','correspondenciaController@asignarCorrespondencia');
+	Route::get('/correspondencia/responderCorrespondencia/{id}','correspondenciaController@responderCorrespondencia');
+
 });
 
 ///************Rutas para Bandeja de Asignadas de Correspondencia*****************
