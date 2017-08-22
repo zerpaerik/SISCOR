@@ -256,6 +256,30 @@ class correspondenciaController extends Controller
       }
 
 
+    public function responderasignadasCorrespondencia($id){
+
+    $data = array ('asunto' =>Input::get('asunto'),
+                   'contenido' =>Input::get('contenido')
+                   );
+
+          if(Input::hasFile('adjunto')){
+            $file=Input::file('adjunto');
+            $file->move(public_path().'/imagenes/correspondencia',$file->getClientOriginalName());
+            $file->getClientOriginalName(); 
+            $data['adjunto']=$file->getClientOriginalName(); 
+
+   }
+
+       $responderasignadasCorrespondencia=Correspondencia::responderasignadasCorrespondencia($id,$data);
+        if ($responderasignadasCorrespondencia) {
+          return response()->json(['respuesta' => 'success','mensaje' => 'Respondido Exitosamente']);
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al responder verifique']);
+        }
+
+      }  
+
+
    public function asignarCorrespondencia($id){
         
        $data = array ('id_instruccion'     =>Input::get('id_instruccion'), 

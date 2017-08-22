@@ -26,6 +26,7 @@
 							<td>{{$correspondencia->asunto}}</td>
 							<td>{{$correspondencia->descripcion}}</td>
 							<td>{{$correspondencia->fecha_recepcion}}</td>
+							
 				
 							 <td>
                                 <input type="button"

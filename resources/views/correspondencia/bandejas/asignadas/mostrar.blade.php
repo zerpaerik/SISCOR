@@ -36,8 +36,8 @@
           <div class="panel-footer">
             <div class="row">
                 <div class="pull-right">
-                  <button href="{{asset('correspondencia/archivarCorrespondencia')}}/{{$correspondencia->id}}" 
-                  id="archivar" class="waves-effect waves-light btn">Responder</button>
+                  
+                  <button data-toggle="modal" data-target="#myModal2" class="waves-effect waves-light btn">Responder</button>
 
                   &nbsp;
                
@@ -45,7 +45,7 @@
             </div>
 
       <div class="row">
-        @include('correspondencia.bandejas.recibidas.asignar')
+        @include('correspondencia.bandejas.asignadas.responder')
       </div>
           </div>
         </div>
