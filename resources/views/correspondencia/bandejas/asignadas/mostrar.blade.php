@@ -14,14 +14,18 @@
             <div class="row">
                 <div class="pull-right"><b>Correspondencia N°:</b> {{$correspondencia->id_correspondencia}}  &nbsp;</div>
             </div>
+
             <div class="row">
                 <div class="pull-right"><b>Fecha:</b> {{date("d-m-Y g:i A",strtotime($correspondencia->fecha_emision))}}  &nbsp;</div>
             </div>
             <div class="row">
-                <div>&nbsp;<b>Asunto:</b> {{$correspondencia->asunto}}</div>
+                <div class="pull-right"><b>Observacion de Superior: </b> {{$correspondencia->comentario}}  &nbsp;</div>
             </div>
             <div class="row">
-                <div>&nbsp;<b>Organismo:</b> {{$correspondencia->descripcion}}</div>
+                <div class="pull-right"><b>Instruccion de Superior: </b> {{$correspondencia->instruccion}}  &nbsp;</div>
+            </div>
+            <div class="row">
+                <div>&nbsp;<b>Asunto:</b> {{$correspondencia->asunto}}</div>
             </div>
             <div class="row">
                 <div>&nbsp;<b>Dependencia:</b> {{$correspondencia->descripcion}}</div>

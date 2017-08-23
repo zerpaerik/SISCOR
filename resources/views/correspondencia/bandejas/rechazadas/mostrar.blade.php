@@ -18,10 +18,10 @@
                 <div class="pull-right"><b>Fecha:</b> {{date("d-m-Y g:i A",strtotime($correspondencia->fecha_emision))}}  &nbsp;</div>
             </div>
             <div class="row">
-                <div>&nbsp;<b>Asunto:</b> {{$correspondencia->asunto}}</div>
+                <div class="pull-right"><b>Comentario del Rechazo:</b> {{$correspondencia->comentario}}  &nbsp;</div>
             </div>
             <div class="row">
-                <div>&nbsp;<b>Organismo:</b> {{$correspondencia->descripcion}}</div>
+                <div>&nbsp;<b>Asunto:</b> {{$correspondencia->asunto}}</div>
             </div>
             <div class="row">
                 <div>&nbsp;<b>Dependencia:</b> {{$correspondencia->descripcion}}</div>
@@ -36,17 +36,13 @@
           <div class="panel-footer">
             <div class="row">
                 <div class="pull-right">
-                  <button href="{{asset('correspondencia/Correspondencia')}}/{{$correspondencia->id}}" 
-                  id="archivar" class="waves-effect waves-light btn">Corregir</button>
-
-                  &nbsp;
+                  <button data-toggle="modal" data-target="#myModal3" class="waves-effect waves-light btn">Corregir</button>
                
                 </div>
             </div>
 
       <div class="row">
-        @include('correspondencia.bandejas.recibidas.asignar')
-        @include('correspondencia.bandejas.recibidas.responder')
+        @include('correspondencia.bandejas.rechazadas.responder')
       </div>
           </div>
         </div>

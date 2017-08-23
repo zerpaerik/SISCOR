@@ -267,11 +267,15 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 	Route::get('/correspondencia/bandejas/rechazadas/ListRechazadas','correspondenciaController@rechazadas');
 	Route::get('/correspondencia/bandejas/rechazadas/rechazadas-modal/{id}','correspondenciaController@rechazadasModal');
 	Route::get('/correspondencia/verRechazadas/{id}','correspondenciaController@verRechazadas');
+	Route::get('/correspondencia/responderrechazadasCorrespondencia/{id}','correspondenciaController@responderrechazadasCorrespondencia');
+
 
 });
 
-
-
+///
 //// REPORTES ////
  	
-//Route::get('pdf', 'PdfController@invoice');
+ //Route::get('pdf','correspondenciaController@reporteEnviadas{'){
+ 	//$pdf = PDF::loadView('reportes.enviadas')
+ 	//return $pdf->download('archivo.pdf');
+// };

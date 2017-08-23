@@ -211,7 +211,7 @@
                    
                   
                     <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-envelope"></i> Correspondencia<span class="fa arrow"></span></a>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-envelope-o"></i> Correspondencia<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a class="redireccion" href="{{asset('/correspondencia/create')}}">Redactar Nueva</a>
@@ -223,7 +223,7 @@
 
 
                     <li>
-                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-envelope"></i> Bandejas<span class="fa arrow"></span></a>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-files-o"></i> Bandejas<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Recibidas</a>
@@ -239,6 +239,21 @@
                         </ul>
                     </li>
                 
+                     <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-print" aria-hidden="true"></i>Reportes Generales<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Listado de Recibidas</a>
+                            </li>
+                            <li>
+                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Listado de Enviadas</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
+
                 </ul>
 
             </div>

@@ -174,7 +174,7 @@ class correspondenciaController extends Controller
 
     public function verAsignadas($id) {
      
-     $correspondencia=Correspondencia::mostrarCorrespondencia($id);
+     $correspondencia=Correspondencia::mostrarCorrespondenciaAsignada($id);
      return view("correspondencia.bandejas.asignadas.mostrar",['data'=>$correspondencia]);
 
    }
@@ -202,10 +202,18 @@ class correspondenciaController extends Controller
 
    public function verRechazadas($id) {
      
-     $correspondencia=Correspondencia::mostrarCorrespondencia($id);
+     $correspondencia=Correspondencia::mostrarCorrespondenciaRechazada($id);
      return view("correspondencia.bandejas.rechazadas.mostrar",['data'=>$correspondencia]);
 
    }
+
+    public function reporteEnviadas($id)
+    {
+
+      $correspondencia=Correspondencia::mostrarCorrespondencia($id);
+      return view("reportes.enviadas",['data'=>$correspondencia]);
+     
+    }
 
 
    public function aprobarCorrespondencia($id){
@@ -278,6 +286,30 @@ class correspondenciaController extends Controller
         }
 
       }  
+
+
+   public function responderrechazadasCorrespondencia($id){
+
+    $data = array ('asunto' =>Input::get('asunto'),
+                   'contenido' =>Input::get('contenido')
+                   );
+
+          if(Input::hasFile('adjunto')){
+            $file=Input::file('adjunto');
+            $file->move(public_path().'/imagenes/correspondencia',$file->getClientOriginalName());
+            $file->getClientOriginalName(); 
+            $data['adjunto']=$file->getClientOriginalName(); 
+
+   }
+
+       $responderrechazadasCorrespondencia=Correspondencia::responderrechazadasCorrespondencia($id,$data);
+        if ($responderrechazadasCorrespondencia) {
+          return response()->json(['respuesta' => 'success','mensaje' => 'Corregido Exitosamente']);
+        }else{
+          return response()->json(['respuesta' => 'fail','mensaje' => 'Error al responder verifique']);
+        }
+
+      }     
 
 
    public function asignarCorrespondencia($id){
