@@ -243,10 +243,7 @@
                         <a href="#" class="waves-effect waves-dark"><i class="fa fa-print" aria-hidden="true"></i>Reportes Generales<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Listado de Recibidas</a>
-                            </li>
-                            <li>
-                                <a class="redireccion" href="{{asset('/correspondencia/create')}}">Listado de Enviadas</a>
+                                <a class="redireccion" href="{{asset('/reportes/listado')}}">Reportes</a>
                             </li>
                         </ul>
                     </li>

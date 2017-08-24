@@ -9,7 +9,22 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
+use DB;
+use SISCOR\Usuarios;
+use SISCOR\Dependencias;
+use SISCOR\Organismos;
+use SISCOR\Cargos;
+use SISCOR\Correspondencia;
 //*********************Rutas para administrador*********************************
+
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
     //Rutas externas módulo de usuarios
 	Route::get('/user', function () {return view('usuarios.loginUsuarios');});
@@ -275,7 +290,18 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 ///
 //// REPORTES ////
  	
- //Route::get('pdf','correspondenciaController@reporteEnviadas{'){
- 	//$pdf = PDF::loadView('reportes.enviadas')
- 	//return $pdf->download('archivo.pdf');
-// };
+  Route::get('reportes/listado','PdfController@index');
+  Route::get('listado_enviadas/{tipo}','PdfController@listado_enviadas');
+  Route::get('listado_recibidas/{tipo}','PdfController@listado_recibidas');
+
+
+//// Prueba de reporte sin usar controlador ////
+  
+  Route::get('listado_enviadas', function(){
+
+   $enviadas =Correspondencia::reporteListadoEnviadas();
+
+   $pdf = PDF::loadView('reportes.listado_enviadas', ['enviadas' => $enviadas]);
+   return $pdf->stream('enviada.pdf');
+  });
+ 	

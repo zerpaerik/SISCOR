@@ -137,7 +137,7 @@ class correspondenciaController extends Controller
 
 
     public function prueba(){
-    echo  Correspondencia::bandejaRechazadas();
+    echo  Correspondencia::reporteListadoEnviadas();
     }
 
 
