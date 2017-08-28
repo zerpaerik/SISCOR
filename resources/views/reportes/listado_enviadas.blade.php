@@ -1,54 +1,45 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
-<div class="row">
-	<div id="paginacion">
-		<div class="col-md-12 col-sm-12 col-xs-12">
-		<div class="box-header with-border"
-			<div class="card">
-				<div class="card-action">
-				<div class="col s6">
-					<b>Listado de Correspondencias Enviadas</b>
-				</div>			
-				<div class="input-field col s6">
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+     
+	<meta charset="UTF-8">
+	<title>Listado de Correspondencias Enviadas</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/pdf.css">
 
-				</div>
-				</div>
-				<table class="table">
-					<thead>
-						<th>Número</th>
-						<th>Asunto</th>
-						<th>Emisor</th>
-						<th>Fecha</th>
-						
+</head>
 
-				</thead>
+<body>
+
+
+		<h2><center>Listado de Correspondencias Enviadas</center></h2>
+
+		<table>
+
+			<thead>
+				<tr>
+					<th>Numero</th>
+					<th>Asunto</th>
+					<th>Emisor</th>
+					<th>Fecha</th>
+				</tr>
+
+			</thead>
 				<tbody>
-					@foreach($enviadas as $correspondencia)
-						<tr>
-							<td>{{$correspondencia->id_correspondencia}}</td>
-							<td>{{$correspondencia->asunto}}</td>
-							<td>{{$correspondencia->descripcion}}</td>
-							<td>{{date("d-m-Y g:i A",strtotime($correspondencia->fecha_recepcion))}}</td>
-				
-							 <td>
-                               
-                            </td>
+				 @foreach($enviadas as $correspondencia)
 
-						</tr>
-					@endforeach
+						 <tr>
+							 <td>{{ $correspondencia->id_correspondencia }}</td>
+							 <td>{{ $correspondencia->asunto }}</td>
+							 <td>{{ $correspondencia->descripcion }}</td>
+							 <td>{{date("d-m-Y g:i A",strtotime($correspondencia->fecha_recepcion))}}</td>
+						 </tr>
 
+		          @endforeach
 				</tbody>
-				</table>
-
+		</table>
 			
-			</div>
-		</div>
-		</div>
-			<div class="col-md-12 col-sm-12 col-xs-12 edit">
 
-			</div>
-	</div>
+</body>
 
-</div>
 
-<!-- Recursos javascript-ajax -->
-<script src="{{asset('assets/js/recursos.js')}}"></script> 
+</html>

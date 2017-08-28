@@ -19,7 +19,7 @@ body {
   width: 21cm;  
   height: 29.7cm; 
   margin: 0 auto; 
-  color: #555555;
+  color: #060001;
   background: #FFFFFF; 
   font-family: Arial, sans-serif; 
   font-size: 14px; 
@@ -27,7 +27,7 @@ body {
 }
 
 header {
-  padding: 10px 0;
+  padding: 15px 0;
   margin-bottom: 20px;
   border-bottom: 1px solid #AAAAAA;
 }
@@ -42,8 +42,8 @@ header {
 }
 
 #company {
-  float: right;
-  text-align: right;
+  float: center;
+  text-align: center;
 }
 
 
@@ -68,8 +68,8 @@ h2.name {
 }
 
 #invoice {
-  float: right;
-  text-align: right;
+  float: center;
+  text-align: center;
 }
 
 #invoice h1 {
@@ -86,7 +86,7 @@ h2.name {
 }
 
 table {
-  width: 100%;
+  width: 90%;
   border-collapse: collapse;
   border-spacing: 0;
   margin-bottom: 20px;
@@ -94,7 +94,7 @@ table {
 
 table th,
 table td {
-  padding: 20px;
+  padding: 5px;
   background: #EEEEEE;
   text-align: center;
   border-bottom: 1px solid #FFFFFF;
@@ -106,7 +106,7 @@ table th {
 }
 
 table td {
-  text-align: right;
+  text-align: center;
 }
 
 table td h3{

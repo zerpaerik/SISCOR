@@ -27,14 +27,14 @@
 							 <td>
                                 <input type="button"
                                        class=" waves-effect waves-light btn verRecibidas"
-                                       href="{{asset('/listado_enviadas/1')}}"  
+                                       href="{{asset('listado_enviadas')}}"  
                                        value="Ver"/>
                             </td>
 
                              <td>
                                 <input type="button"
                                        class=" waves-effect waves-light btn verRecibidas"
-                                       href="{{asset('/listado_enviadas/2')}}"  
+                                       href="{{asset('listado_enviadas_descargar')}}"  
                                        value="Descargar"/>
                             </td>
 
@@ -47,7 +47,7 @@
 							 <td>
                                 <input type="button"
                                        class=" waves-effect waves-light btn verRecibidas"
-                                       href="{{asset('/Pdf/listado_recibidas/1')}}"  
+                                       href="{{asset('listado_enviadas_ver')}}"  
                                        value="Ver"/>
                             </td>
 

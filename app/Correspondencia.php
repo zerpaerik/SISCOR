@@ -362,6 +362,44 @@ class Correspondencia extends Model
 
     }
 
+     public static function reporteListadoRecibidas(){
+
+    $id_usuario=Session::get('id');
+       
+       
+        $searchUsuarioID = DB::table('users')
+                    ->select('*')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_usuario)
+                    ->get();
+
+                foreach ($searchUsuarioID as $usuario) {
+                    $usuarioOrg = $usuario->id_org;
+                    $usuarioDep = $usuario->id_dep;
+                }
+
+
+        $recibidas = DB::table('tblcorrespondencia as a')
+            ->select('a.id','a.id_correspondencia','c.id_org_receptor','c.id_dep_receptor','c.fecha_recepcion','d.asunto','e.descripcion','b.id_dep_emisor')
+            ->join('tblemision as b','a.id','b.id_correspondencia')
+            ->join('tblrecepcion as c','a.id','c.id_correspondencia')
+            ->join('tbldetallecorrespondencia as d','a.id','d.id_correspondencia')
+            ->join('tbldependencia as e','b.id_dep_emisor','e.id')
+            ->where('id_org_receptor','=',$usuarioOrg)
+            ->where('id_dep_receptor','=',$usuarioDep)
+            ->where('id_estatus_recepcion','=','1')
+            ->orderby('c.fecha_recepcion')
+            ->get();   
+
+        
+        if(!is_null($recibidas)){
+            return $recibidas;
+         }else{
+            return false;
+         }
+
+    }
+
     public static function mostrarCorrespondenciaRechazada($id){
 
        $correspondencia = DB::table('tblcorrespondencia as a ')

@@ -45,22 +45,30 @@ class PdfController extends Controller
 
     }
 
-    public function listado_enviadas($tipo){
+   /* public function listado_enviadas($tipo){
 
       $vistaurl = "reportes.listado_enviadas";
       $enviadas = Correspondencia::reporteListadoEnviadas();
 
       return $this->crearPDF($enviadas,$vistaurl,$tipo);
 
+    }*/
+
+
+    public function listado_enviadas_ver(){
+
+       $enviadas =Correspondencia::reporteListadoEnviadas();
+       $pdf = \PDF::loadView('reportes.listado_enviadas', ['enviadas' => $enviadas]);
+       //$pdf = \View::make('reportes.listado_enviadas', compact('enviadas'))->render();
+       
+        return $pdf->stream('enviadas.pdf');
     }
 
-     public function listado_recibidas($tipo){
+    public function listado_enviadas_descargar(){
 
-      $vistaurl = "reportes.listado_recibidas";
-      $recibidas = Correspondencia::bandejaRecibidas();
-
-      return $this->crearPDF($recibidas,$vistaurl,$tipo);
-
+       $enviadas =Correspondencia::reporteListadoEnviadas();
+       $pdf = \PDF::loadView('reportes.listado_enviadas', ['enviadas' => $enviadas]);
+       return $pdf->download('enviadas.pdf');
     }
 
 

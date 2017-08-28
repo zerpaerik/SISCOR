@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
-use DB;
 use SISCOR\Usuarios;
 use SISCOR\Dependencias;
 use SISCOR\Organismos;
@@ -291,7 +290,8 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 //// REPORTES ////
  	
   Route::get('reportes/listado','PdfController@index');
-  Route::get('listado_enviadas/{tipo}','PdfController@listado_enviadas');
+  Route::get('listado_enviadas_ver','PdfController@listado_enviadas_ver');
+  Route::get('listado_enviadas_descargar','PdfController@listado_enviadas_descargar');
   Route::get('listado_recibidas/{tipo}','PdfController@listado_recibidas');
 
 
@@ -303,5 +303,15 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 
    $pdf = PDF::loadView('reportes.listado_enviadas', ['enviadas' => $enviadas]);
    return $pdf->stream('enviada.pdf');
+  });
+
+
+
+  Route::get('listado_recibidas', function(){
+
+   $recibidas =Correspondencia::reporteListadoRecibidas();
+
+   $pdf = PDF::loadView('reportes.listado_recibidas', ['recibidas' => $recibidas]);
+   return $pdf->stream('recibida.pdf');
   });
  	
