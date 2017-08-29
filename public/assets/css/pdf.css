@@ -43,7 +43,7 @@ header {
 
 #company {
   float: center;
-  text-align: center;
+  text-align: left;
 }
 
 
@@ -69,7 +69,7 @@ h2.name {
 
 #invoice {
   float: center;
-  text-align: center;
+  text-align: left;
 }
 
 #invoice h1 {

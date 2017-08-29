@@ -25,17 +25,11 @@
 							<td>Correspondencias Enviadas</td>
 				
 							 <td>
-                                <input type="button"
-                                       class=" waves-effect waves-light btn verRecibidas"
-                                       href="{{asset('listado_enviadas')}}"  
-                                       value="Ver"/>
+                                <a href="{{asset('listado_enviadas_ver')}}" class=" waves-effect waves-light btn" target="_blank">Ver</a>
                             </td>
 
-                             <td>
-                                <input type="button"
-                                       class=" waves-effect waves-light btn verRecibidas"
-                                       href="{{asset('listado_enviadas_descargar')}}"  
-                                       value="Descargar"/>
+                              <td>
+                                <a href="{{asset('listado_enviadas_descargar')}}" class=" waves-effect waves-light btn">Descargar</a>
                             </td>
 
 						</tr>
@@ -44,18 +38,12 @@
 							<td>2</td>
 							<td>Correspondencias Recibidas</td>
 				
-							 <td>
-                                <input type="button"
-                                       class=" waves-effect waves-light btn verRecibidas"
-                                       href="{{asset('listado_enviadas_ver')}}"  
-                                       value="Ver"/>
+							<td>
+                                <a href="{{asset('listado_recibidas_ver')}}" class=" waves-effect waves-light btn" target="_blank">Ver</a>
                             </td>
 
-                             <td>
-                                <input type="button"
-                                       class=" waves-effect waves-light btn verRecibidas"
-                                       href="{{asset('/Pdf/listado_recibidas/2')}}"  
-                                       value="Descargar"/>
+                              <td>
+                                <a href="{{asset('listado_recibidas_descargar')}}" class=" waves-effect waves-light btn">Descargar</a>
                             </td>
 
 						</tr>
@@ -74,4 +62,3 @@
 </div>
 
 <!-- Recursos javascript-ajax -->
-<script src="{{asset('assets/js/recursos.js')}}"></script> 

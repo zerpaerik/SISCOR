@@ -287,31 +287,17 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 });
 
 ///
-//// REPORTES ////
+//// REPORTES listados ////
  	
   Route::get('reportes/listado','PdfController@index');
   Route::get('listado_enviadas_ver','PdfController@listado_enviadas_ver');
   Route::get('listado_enviadas_descargar','PdfController@listado_enviadas_descargar');
-  Route::get('listado_recibidas/{tipo}','PdfController@listado_recibidas');
+  Route::get('listado_recibidas_ver','PdfController@listado_recibidas_ver');
+  Route::get('listado_recibidas_descargar','PdfController@listado_recibidas_descargar');
 
-
-//// Prueba de reporte sin usar controlador ////
-  
-  Route::get('listado_enviadas', function(){
-
-   $enviadas =Correspondencia::reporteListadoEnviadas();
-
-   $pdf = PDF::loadView('reportes.listado_enviadas', ['enviadas' => $enviadas]);
-   return $pdf->stream('enviada.pdf');
-  });
+  ///REPORTES  correspondencias ///
+  Route::get('mostrarRecibidas/{id}','PdfController@mostrarRecibidas');
 
 
 
-  Route::get('listado_recibidas', function(){
 
-   $recibidas =Correspondencia::reporteListadoRecibidas();
-
-   $pdf = PDF::loadView('reportes.listado_recibidas', ['recibidas' => $recibidas]);
-   return $pdf->stream('recibida.pdf');
-  });
- 	

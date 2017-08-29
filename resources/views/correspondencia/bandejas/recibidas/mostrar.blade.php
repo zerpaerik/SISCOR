@@ -42,8 +42,9 @@
                   <button data-toggle="modal" data-target="#myModal" class="waves-effect waves-light btn">Asignar</button>
 
                    <button data-toggle="modal" data-target="#myModal1" class="waves-effect waves-light btn">Responder</button>
-
-                  <a href="" class="waves-effect waves-light btn">Imprimir</a>
+                   <td>
+                   <a href="{{asset('mostrarRecibidas/{id}')}}" class=" waves-effect waves-light btn" target="_blank">Imprimir</a>
+                   </td>
                   &nbsp;
                
                 </div>
@@ -63,7 +64,7 @@
 </div>
 
 <!-- Recursos javascript-ajax -->
-<script src="{{asset('assets/js/recursos.js')}}"></script> 
+<!-- <script src="{{asset('assets/js/recursos.js')}}"></script> -->
 
 <script type="text/javascript">
     $('#archivar').on('click',function(event){

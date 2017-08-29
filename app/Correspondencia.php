@@ -1598,6 +1598,7 @@ class Correspondencia extends Model
                      //->where('a.id_dep','=','14')
                      ->where('a.perfil','=','20')
                      ->get();
+                     
          if(!is_null($destinatario)){
             return $destinatario;
          }else{

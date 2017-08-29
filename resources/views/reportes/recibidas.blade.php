@@ -1,1 +1,0 @@
-recibidas.blade.php

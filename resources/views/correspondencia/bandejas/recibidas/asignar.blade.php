@@ -13,11 +13,10 @@
         <div class="modal-body">
                 <div class="form-group">
                   <label for="id_usuario_asignado">Destinatario</label>
-                  <select name="id" id="id_usuario_asignado" name="id_usuario_asignado" class="form-control" placeholder="Seleccione el Destinatario">
-                    <option value="00">Seleccione</option>
-                    <option value="4">Juleisa Toledo</option>
-                    <option value="00">Pedro Perez</option>
-                   
+                  <select  id="id_usuario_asignado" name="id_usuario_asignado" class="form-control" placeholder="Seleccione el Destinatario">
+                   @foreach ($destinatario as $desti)
+                      <option value="{{$desti->id}}">{{$desti->nombre}}</option>
+                    @endforeach
                   </select>
                 </div>
 

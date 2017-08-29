@@ -137,7 +137,7 @@ class correspondenciaController extends Controller
 
 
     public function prueba(){
-    echo  Correspondencia::reporteListadoEnviadas();
+    echo  Correspondencia::buscarDestinatario(1);
     }
 
 
@@ -422,7 +422,7 @@ class correspondenciaController extends Controller
     public function buscarDestinatario($id)
     {
       $destinatario = Correspondencia::buscarDestinatario($id);
-      return view("correspondencia.bandejas.recibidas.asignar",['destinatario'=>$destinatario]);
+      return view("correspondencia.bandejas.recibidas.asignar",['dest'=>$destinatario]);
     }
 
 

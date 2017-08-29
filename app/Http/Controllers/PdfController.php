@@ -71,8 +71,28 @@ class PdfController extends Controller
        return $pdf->download('enviadas.pdf');
     }
 
+     public function listado_recibidas_ver(){
 
+       $recibidas =Correspondencia::reporteListadoRecibidas();
+       $pdf = \PDF::loadView('reportes.listado_recibidas', ['recibidas' => $recibidas]);
+      
+        return $pdf->stream('recibidas.pdf');
+    }
 
+    public function listado_recibidas_descargar(){
+
+       $recibidas =Correspondencia::reporteListadoRecibidas();
+       $pdf = \PDF::loadView('reportes.listado_recibidas', ['recibidas' => $recibidas]);
+       return $pdf->download('recibidas.pdf');
+    }
+
+    public function mostrarRecibidas($id){
+
+       $recibidas = Correspondencia::mostrarCorrespondencia($id);
+       $pdf = \PDF::loadView('reportes.mostrarRecibidas', ['recibidas' => $recibidas]);
+       return $pdf->stream('recibida');
+
+    }
 
 
 }
