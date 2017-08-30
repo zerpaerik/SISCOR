@@ -43,7 +43,7 @@
 
                    <button data-toggle="modal" data-target="#myModal1" class="waves-effect waves-light btn">Responder</button>
                    <td>
-                   <a href="{{asset('mostrarRecibidas/{id}')}}" class=" waves-effect waves-light btn" target="_blank">Imprimir</a>
+                   <a href="{{asset('mostrarRecibidas')}}/{{$correspondencia->id_correspondencia}}" class=" waves-effect waves-light btn" target="_blank">Imprimir</a>
                    </td>
                   &nbsp;
                

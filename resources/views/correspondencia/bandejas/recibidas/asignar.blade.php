@@ -14,9 +14,8 @@
                 <div class="form-group">
                   <label for="id_usuario_asignado">Destinatario</label>
                   <select  id="id_usuario_asignado" name="id_usuario_asignado" class="form-control" placeholder="Seleccione el Destinatario">
-                   @foreach ($destinatario as $desti)
-                      <option value="{{$desti->id}}">{{$desti->nombre}}</option>
-                    @endforeach
+                
+                
                   </select>
                 </div>
 

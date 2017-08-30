@@ -88,8 +88,14 @@ class PdfController extends Controller
 
     public function mostrarRecibidas($id){
 
+       //configuracion del pdf
+
+
        $recibidas = Correspondencia::mostrarCorrespondencia($id);
-       $pdf = \PDF::loadView('reportes.mostrarRecibidas', ['recibidas' => $recibidas]);
+       $pdf = \PDF::loadView('reportes.mostrarRecibidas', ['recibidas' => $recibidas])
+       //se configuran opciones cada funcion en PDF.php es a una opcion.
+       //tamaño de papel y orientacion vertical: portrait , horizontal: landscape
+       ->setPaper('letter','portrait');
        return $pdf->stream('recibida');
 
     }
