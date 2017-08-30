@@ -283,12 +283,13 @@ class Correspondencia extends Model
     public static function mostrarCorrespondencia($id){
 
         $correspondencia = DB::table('tblcorrespondencia as a ')
-                    ->select('a.id','a.id_correspondencia','f.asunto','f.contenido','b.fecha_emision','d.descripcion','e.descripcion')
+                    ->select('a.id','a.id_correspondencia','f.asunto','f.contenido','b.fecha_emision','d.descripcion','e.descripcion','f.id_tipo_correspondencia','g.nombres','g.apellidos','g.iniciales','g.cargo')
                     ->join('tblemision as b','a.id','b.id_correspondencia')
                     ->join('tblrecepcion as c','a.id','c.id_correspondencia')
                     ->join('tblorganismo as d','c.id_org_receptor','d.id')
                     ->join('tbldependencia as e','c.id_dep_receptor','e.id')
                     ->join('tbldetallecorrespondencia as f','a.id','f.id_correspondencia')
+                    ->join('users as g','b.id_usuario_aprobador','g.id')
                     //->join('tblrechazacorrespondencia as g','a.id','g.id_correspondencia')
                     //->join('tblasignacorrespondencia as g','a.id','g.id_correspondencia')
                     ->where('a.id_correspondencia','=', $id)

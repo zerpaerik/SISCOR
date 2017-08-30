@@ -137,7 +137,7 @@ class correspondenciaController extends Controller
 
 
     public function prueba(){
-    echo  Correspondencia::buscarDestinatario(1);
+    echo  Correspondencia::mostrarCorrespondencia(4);
     }
 
 

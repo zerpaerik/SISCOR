@@ -3,6 +3,11 @@
 namespace SISCOR\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 use DB;
 use SISCOR\Usuarios;
 use SISCOR\Dependencias;
@@ -88,15 +93,71 @@ class PdfController extends Controller
 
     public function mostrarRecibidas($id){
 
-       //configuracion del pdf
-
-
        $recibidas = Correspondencia::mostrarCorrespondencia($id);
-       $pdf = \PDF::loadView('reportes.mostrarRecibidas', ['recibidas' => $recibidas])
+
+        foreach ($recibidas as $recibida) {
+                    $id_tipo_correspondencia = $recibida->id_tipo_correspondencia;
+                   
+                }
+      
+       if ($id_tipo_correspondencia ==10){ // SI el tipo de correspondencia es Oficio--
+       $pdf = \PDF::loadView('reportes.mostrarRecibidas', ['recibidas' => $recibidas,'id_tipo_correspondencia' => $id_tipo_correspondencia])
        //se configuran opciones cada funcion en PDF.php es a una opcion.
        //tamaño de papel y orientacion vertical: portrait , horizontal: landscape
        ->setPaper('letter','portrait');
        return $pdf->stream('recibida');
+
+       } else if($id_tipo_correspondencia ==20){ // SI el tipo de correspondencia es Memo--
+        $pdf = \PDF::loadView('reportes.mostrarRecibidasMemo', ['recibidas' => $recibidas,'id_tipo_correspondencia' => $id_tipo_correspondencia])
+       //se configuran opciones cada funcion en PDF.php es a una opcion.
+       //tamaño de papel y orientacion vertical: portrait , horizontal: landscape
+       ->setPaper('letter','portrait');
+       return $pdf->stream('recibida');
+         
+       } else {
+         $pdf = \PDF::loadView('reportes.mostrarRecibidasCircular', ['recibidas' => $recibidas,'id_tipo_correspondencia' => $id_tipo_correspondencia])
+       //se configuran opciones cada funcion en PDF.php es a una opcion.
+       //tamaño de papel y orientacion vertical: portrait , horizontal: landscape
+        ->setPaper('letter','portrait');
+        return $pdf->stream('recibida');
+
+       }
+
+
+    }
+
+     public function mostrarEnviadas($id){
+
+       $enviadas = Correspondencia::mostrarCorrespondencia($id);
+
+        foreach ($enviadas as $enviada) {
+                    $id_tipo_correspondencia = $enviada->id_tipo_correspondencia;
+                   
+                }
+      
+       if ($id_tipo_correspondencia ==10){ // SI el tipo de correspondencia es Oficio--
+       $pdf = \PDF::loadView('reportes.mostrarEnviadas', ['enviadas' => $enviadas,'id_tipo_correspondencia' => $id_tipo_correspondencia])
+       //se configuran opciones cada funcion en PDF.php es a una opcion.
+       //tamaño de papel y orientacion vertical: portrait , horizontal: landscape
+       ->setPaper('letter','portrait');
+       return $pdf->stream('enviada');
+
+       } else if($id_tipo_correspondencia ==20){ // SI el tipo de correspondencia es Memo--
+        $pdf = \PDF::loadView('reportes.mostrarEnviadasMemo', ['enviadas' => $enviadas,'id_tipo_correspondencia' => $id_tipo_correspondencia])
+       //se configuran opciones cada funcion en PDF.php es a una opcion.
+       //tamaño de papel y orientacion vertical: portrait , horizontal: landscape
+       ->setPaper('letter','portrait');
+       return $pdf->stream('enviada');
+         
+       } else {
+         $pdf = \PDF::loadView('reportes.mostrarEnviadasCircular', ['enviadas' => $enviadas,'id_tipo_correspondencia' => $id_tipo_correspondencia])
+       //se configuran opciones cada funcion en PDF.php es a una opcion.
+       //tamaño de papel y orientacion vertical: portrait , horizontal: landscape
+        ->setPaper('letter','portrait');
+        return $pdf->stream('enviada');
+
+       }
+
 
     }
 

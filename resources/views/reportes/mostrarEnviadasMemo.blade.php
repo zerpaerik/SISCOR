@@ -13,34 +13,30 @@
   <div class="row">
     <div id="paginacion">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-       @foreach($recibidas as $correspondencia)
+       @foreach($enviadas as $correspondencia)
         <div class="panel ">
           <img style="width: 100%; height: 70px"
                src="http://23.253.41.33/wp-content/uploads/10.208.149.45/uploads/2014/02/luzazul.jpeg"> 
           <div class="panel-heading">
            
-            <div class="row"><!--un row es una fila-->
-                <div class="pull-right"><b>San Juan de los Morros,</b> &nbsp;</div>
-            </div> <br></br>
-           
-            <div class="row">
-                <div class="pull-right">{{date("d-m-Y g:i A",strtotime($correspondencia->fecha_emision))}}  &nbsp;</div> <br></br> <br></br>
-            </div> <br></br> <br></br>
+           <div class="row">
+                <center><div><b>MEMORÁNDUM INTERNO</b></div></center>
+           </div> <br></br> <br></br>
 
             <div class="row">
-                <div>&nbsp;<b>OFICIO:</b> {{$correspondencia->id_correspondencia}}</div>
+                <div>&nbsp;<b>PARA:</b> {{$correspondencia->id_correspondencia}}</div>
             </div>
             <div class="row">
-                <div>&nbsp;<b>CIUDADANO:</b></div>
+                <div>&nbsp;<b>DE:</b></div>
             </div>
             <div class="row">
                 <div>&nbsp; {{$correspondencia->descripcion}}</div>
             </div>
             <div class="row">
-                <div>&nbsp;<b>DEPENDENCIA:</b> {{$correspondencia->descripcion}}</div>
+                <div>&nbsp;<b>ASUNTO:</b> {{$correspondencia->descripcion}}</div>
             </div>
             <div class="row">
-                <div >&nbsp;<b>SU DESPACHO.-</b></div>
+                <div >&nbsp;<b>FECHA:</b> {{date("d-m-Y g:i A",strtotime($correspondencia->fecha_emision))}}</div>
             </div>
           </div> <br></br> 
          
@@ -68,11 +64,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-<!-- Recursos javascript-ajax -->
-<!-- <script src="{{asset('assets/js/recursos.js')}}"></script> -->

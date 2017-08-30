@@ -297,7 +297,7 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 
   ///REPORTES  correspondencias ///
   Route::get('mostrarRecibidas/{id}','PdfController@mostrarRecibidas');
-
+  Route::get('mostrarEnviadas/{id}','PdfController@mostrarEnviadas');
 
 
 

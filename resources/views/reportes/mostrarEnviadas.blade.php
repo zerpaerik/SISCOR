@@ -1,68 +1,70 @@
-<h1> Correspondencia Enviada </h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
 
-<table>
-	
-	<thead>
-
-		<tr>
-			 <th>ID </th>
-			 <th>ID</th>
-			 <th>ID</th>
-			  <th>ID</th>
-			   <th>ID</th>
-		</tr>
-		
+  <style>
+    <?php include(public_path().'/assets/css/bootstrap.css');?>
+  </style>
 
 
-	</thead>
-
-	<tbody>	
-
-
-       @foreach( $data as $correspondencia )
-        
-        <div class="panel panel-success">
-            
+</head>
+<body>
+  <div class="row">
+    <div id="paginacion">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+       @foreach($enviadas as $correspondencia)
+        <div class="panel ">
+          <img style="width: 100%; height: 70px"
+               src="http://23.253.41.33/wp-content/uploads/10.208.149.45/uploads/2014/02/luzazul.jpeg"> 
           <div class="panel-heading">
+           
+            <div class="row"><!--un row es una fila-->
+                <div class="pull-right"><b>San Juan de los Morros,</b> &nbsp;</div>
+            </div> <br></br>
+           
             <div class="row">
-                <div class="pull-right"><b>Correspondencia N°:</b> {{$correspondencia->id_correspondencia}}  &nbsp;</div>
+                <div class="pull-right">{{date("d-m-Y g:i A",strtotime($correspondencia->fecha_emision))}}  &nbsp;</div> <br></br> <br></br>
+            </div> <br></br> <br></br>
+
+            <div class="row">
+                <div>&nbsp;<b>OFICIO:</b> {{$correspondencia->id_correspondencia}}</div>
             </div>
             <div class="row">
-                <div class="pull-right"><b>Fecha:</b> {{date("d-m-Y g:i A",strtotime($correspondencia->fecha_emision))}}  &nbsp;</div>
+                <div>&nbsp;<b>CIUDADANO:</b></div>
             </div>
             <div class="row">
-                <div>&nbsp;<b>Asunto:</b> {{$correspondencia->asunto}}</div>
+                <div>&nbsp; {{$correspondencia->descripcion}}</div>
             </div>
             <div class="row">
-                <div>&nbsp;<b>Organismo:</b> {{$correspondencia->descripcion}}</div>
+                <div>&nbsp;<b>DEPENDENCIA:</b> {{$correspondencia->descripcion}}</div>
             </div>
             <div class="row">
-                <div>&nbsp;<b>Dependencia:</b> {{$correspondencia->descripcion}}</div>
+                <div >&nbsp;<b>SU DESPACHO.-</b></div>
             </div>
-            <div class="row">
-                <div >&nbsp;<b>Contenido:</b></div>
-            </div>
-          </div>
+          </div> <br></br> 
+         
           <div class="panel-body" id="contenido">
              {{$correspondencia->contenido}}
-          </div>
-          <div class="panel-footer">
-            <div class="row">
-                <div class="pull-right">
-                
-              
-                </div>
+          </div> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> <br></br> 
+          <div class="row">
+                <center><div>&nbsp;<b></b> {{$correspondencia->nombres}} {{$correspondencia->apellidos}}</div></center>
             </div>
-
-      <div class="row">
-      
-      </div>
+             <div class="row">
+                <center><div>&nbsp; {{$correspondencia->cargo}}</div></center>
+            </div> <br></br> <br></br> 
+          <div class="row">
+                <div>&nbsp; {{$correspondencia->iniciales}}<b>/</b></div>
+            </div>
+          <div class="" >
+              <img style="width: 100%; height: 70px"
+               src="http://23.253.41.33/wp-content/uploads/10.208.149.45/uploads/2014/02/luzazul.jpeg"> 
           </div>
         </div>
-      @endforeach
+       @endforeach
+      </div>
+    </div>
+  </div>
 
-
-	</tbody>
-
-
-</table>
+</body>
+</html>

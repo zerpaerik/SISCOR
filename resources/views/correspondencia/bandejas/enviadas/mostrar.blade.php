@@ -36,8 +36,8 @@
           <div class="panel-footer">
             <div class="row">
                 <div class="pull-right">
-                  <button href="{{asset('correspondencia/aprobarCorrespondencia')}}/{{$correspondencia->id}}" 
-                  id="aprobar" class="waves-effect waves-light btn">Imprimir</button>
+
+                <a href="{{asset('mostrarEnviadas')}}/{{$correspondencia->id_correspondencia}}" class=" waves-effect waves-light btn" target="_blank">Imprimir</a>
          
                   &nbsp;
                 </div>
@@ -52,7 +52,7 @@
 </div>
 
 <!-- Recursos javascript-ajax -->
-<script src="{{asset('assets/js/recursos.js')}}"></script> 
+<!-- <script src="{{asset('assets/js/recursos.js')}}"></script> -->
 
 <script type="text/javascript">
     $('#aprobar').on('click',function(event){
