@@ -4,17 +4,17 @@
 			<div class="card">
 				<div class="card-action">
 				<div class="col s6">
-					<b>Correspondencias Recibidas</b>
+					<b>Correspondencias Enviadas</b>
 				</div>			
 				<div class="input-field col s6">
-                  @include('correspondencia.bandejas.recibidas.search')
+                  @include('correspondencia.bandejas.enviadas.search')
 				</div>
 				</div>
 				<table class="table">
 					<thead>
 						<th>Número</th>
 						<th>Asunto</th>
-						<th>Emisor</th>
+						<th>Receptor</th>
 						<th>Fecha</th>
 						
 
@@ -25,12 +25,12 @@
 							<td>{{$correspondencia->id_correspondencia}}</td>
 							<td>{{$correspondencia->asunto}}</td>
 							<td>{{$correspondencia->descripcion}}</td>
-							<td>{{$correspondencia->fecha_recepcion}}</td>
+							<td>{{$correspondencia->fecha_emision}}</td>
 							
 							<td>
 								<input type="button" 
 							           class=" waves-effect waves-light btn actualizar" 
-							           href="{{asset('correspondencia/bandejas/recibidas/recibidas-modal')}}/{{$correspondencia->id_correspondencia}}"  
+							           href="{{asset('correspondencia/bandejas/enviadas/enviadas-modal')}}/{{$correspondencia->id_correspondencia}}"  
 							           value="Ver"/>
 							</td>
 

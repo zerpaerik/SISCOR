@@ -226,7 +226,7 @@
                             <li>
                                 <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Recibidas</a>
                                 <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Por Aprobar</a>
-                                <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Enviadas</a>
+                                <a class="redireccion" href="{{asset('/correspondencia/bandejas/enviadas/ListEnviadas')}}">Enviadas</a>
                                 <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Asignadas</a>
                                 <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Borrador</a>
                                 <a class="redireccion" href="{{asset('/correspondencia/bandejas/recibidas/ListRecibidas')}}">Archivadas</a>

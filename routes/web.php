@@ -191,11 +191,20 @@ Route::group(['middleware' => ['Outside','HistoryBack']], function () {
 //*************Rutas para Bandeja de Recibidas de Correspondencia********************
 
 Route::group(['middleware' => ['Outside','HistoryBack']], function () {
-    //Rutas externas módulo de usuarios regulares
-	
-	Route::get('/correspondencia/bandejas/recibidas/ListRecibidas','correspondenciaController@index');
+  
+	Route::get('/correspondencia/bandejas/recibidas/ListRecibidas','correspondenciaController@recibidas');
 	Route::get('/correspondencia/bandejas/recibidas/recibidas-modal/{id}','correspondenciaController@recibidasModal');
 });
+
+//*************Rutas para Bandeja de Enviadas de Correspondencia********************
+
+Route::group(['middleware' => ['Outside','HistoryBack']], function () {
+  
+	Route::get('/correspondencia/bandejas/enviadas/ListEnviadas','correspondenciaController@enviadas');
+	Route::get('/correspondencia/bandejas/enviadas/enviadas-modal/{id}','correspondenciaController@enviadasModal');
+});
+
+
 
 
 //*************Rutas para Bandeja de Por Aprobar Correspondencia********************

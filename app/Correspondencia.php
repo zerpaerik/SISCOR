@@ -76,11 +76,17 @@ class Correspondencia extends Model
 
             $emision = new Emision;
             $emision->id_correspondencia  =$correspondencia->id_correspondencia;
-            $emision->id_org_emisor     =$data['id_org']; 
-            $emision->id_dep_emisor     =$data['id_dep']; 
+           // $emision->id_org_emisor     =$data['id_org']; 
+            //$emision->id_dep_emisor     =$data['id_dep']; 
+            $emision->id_org_emisor     =$usuarioOrg; 
+            $emision->id_dep_emisor     =$usuarioDep; 
             $emision->id_tipo_correspondencia    =$data['id_tipo_correspondencia']; 
             $emision->id_usuario_emisor = $id_usuario;
             $emision->id_usuario_aprobador = $id_usuario;
+            $emision->ubic =$data['ubic'];
+            $emision->confidencialidad =$data['confidencialidad'];
+            $emision->asunto =$data['asunto'];
+            $emision->contenido =$data['contenido'];
             $emision->id_estatus_emision='6';
             $emision->save();
             Correspondencia::HistorialCorrespondencia($id_usuario,$correspondencia->id_correspondencia,$emision->id_estatus_emision);
@@ -130,10 +136,8 @@ class Correspondencia extends Model
 
      }
 
-
     public static function esAprobador(){
 
-        
         $searchUsuarioAprobador = DB::table('tblusuariosaprob')
                     ->select('*')
                     ->where('id_usuario','=',Session::get('id'))
@@ -168,6 +172,119 @@ class Correspondencia extends Model
           $historial->id_estatus_correspondencia=$id_estatus_correspondencia;
           $historial->save();
          
+    }
+
+     //// Metodo para consultar correspondencias en la bandeja de recibidas //////
+    public static function bandejaRecibidas(){
+        
+        ///// Primero verifico el id_org y el id_dep del usuario logueado ///////
+        $id_usuario=Session::get('id');
+       
+        $searchUsuarioID = DB::table('users')
+                    ->select('*')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_usuario)
+                    ->get();
+
+                foreach ($searchUsuarioID as $usuario) {
+                    $usuarioOrg = $usuario->id_org;
+                    $usuarioDep = $usuario->id_dep;
+                }
+        
+        If (Correspondencia::esAprobador()){  ///// si el usuario es aprobador consulta las corresp recibidas, estatus 1 en la tabla tblrecepcion
+         
+
+         $recibidas = DB::table('tblrecepcion as a')
+            ->select('a.id_correspondencia','a.id_org_receptor','a.id_dep_receptor','a.fecha_recepcion','b.asunto','c.descripcion','b.id_dep_emisor')
+            ->join('tblemision as b','a.id_correspondencia','b.id_correspondencia')
+            ->join('tbldependencia as c','b.id_dep_emisor','c.id')
+            ->where('id_org_receptor','=',$usuarioOrg)
+            ->where('id_dep_receptor','=',$usuarioDep)
+            ->where('id_estatus_recepcion','=','1')
+            ->orderby('id_correspondencia')
+            ->paginate(5);
+        
+        
+        if(!is_null($recibidas)){
+            return $recibidas;
+         }else{
+            return false;
+         }
+     } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
+
+         $recibidas = DB::table('tblrecepcion as a')
+            ->select('a.id_correspondencia','a.id_org_receptor','a.id_dep_receptor','b.asunto')
+            ->join('tblemision as b','a.id_correspondencia','b.id_correspondencia')
+            ->where('id_org_receptor','=',$usuarioOrg)
+            ->where('id_dep_receptor','=',$usuarioDep)
+            ->where('id_estatus_recepcion','=','3')
+            ->orderby('id_correspondencia')
+            ->paginate(5);
+        
+        
+        if(!is_null($recibidas)){
+            return $recibidas;
+         }else{
+            return false;
+         }
+     }
+    }
+
+    public static function bandejaEnviadas(){
+
+         $id_usuario=Session::get('id');
+       
+        $searchUsuarioID = DB::table('users')
+                    ->select('*')
+                    ->where('estatus','=','1')
+                    ->where('id','=', $id_usuario)
+                    ->get();
+
+                foreach ($searchUsuarioID as $usuario) {
+                    $usuarioOrg = $usuario->id_org;
+                    $usuarioDep = $usuario->id_dep;
+                }
+
+
+                  If (Correspondencia::esAprobador()){  ///// si el usuario es aprobador consulta las corresp enviadas, estatus 6 en la tabla tblrecepcion
+         
+
+         $enviadas = DB::table('tblemision as a')
+            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
+            ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
+            ->join('tbldependencia as c','b.id_dep_receptor','c.id')
+            ->where('id_org_emisor','=',$usuarioOrg)
+            ->where('id_dep_emisor','=',$usuarioDep)
+            ->where('id_estatus_emision','=','6')
+            ->orderby('id_correspondencia')
+            ->paginate(5);
+        
+        
+        if(!is_null($enviadas)){
+            return $enviadas;
+         }else{
+            return false;
+         }
+     } else { //// sino es aprobador consulta las que están asignadas o pendientes por aprobar, estatus 3 en la tabla tblrecepcion
+
+         $enviadas = DB::table('tblemision as a')
+            ->select('a.id_correspondencia','b.id_org_receptor','b.id_dep_receptor','a.fecha_emision','a.asunto','c.descripcion','b.id_dep_receptor')
+            ->join('tblrecepcion as b','a.id_correspondencia','b.id_correspondencia')
+            ->join('tbldependencia as c','b.id_dep_emisor','c.id')
+            ->where('id_org_emisor','=',$usuarioOrg)
+            ->where('id_dep_emisor','=',$usuarioDep)
+            ->where('id_estatus_recepcion','=','6')
+            ->orderby('id_correspondencia')
+            ->paginate(5);
+        
+        
+        if(!is_null($enviadas)){
+            return $recibidas;
+         }else{
+            return false;
+         }
+     }
+
     }
   
     public static function generarId($id_org,$id_dep,$id_tipo_correspondencia){

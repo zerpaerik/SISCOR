@@ -32,6 +32,35 @@ class correspondenciaController extends Controller
     }
 
 
+    public function recibidas()
+    {
+      $searchText = Input::get('searchText');
+      $usuarioOrg = Input::get('id_org');
+      $usuarioDep = Input::get('id_dep');
+      $data= Correspondencia::bandejaRecibidas();
+      if ($data){
+        return view("correspondencia.bandejas.recibidas.listRecibidas",["data"=>$data,"searchText"=>$searchText]);
+      } else{
+        return view("layouts.nodata");
+      }
+    }
+
+
+    public function enviadas()
+    {
+      $searchText = Input::get('searchText');
+      $usuarioOrg = Input::get('id_org');
+      $usuarioDep = Input::get('id_dep');
+      $data= Correspondencia::bandejaEnviadas();
+      if ($data){
+        return view("correspondencia.bandejas.enviadas.listEnviadas",["data"=>$data,"searchText"=>$searchText]);
+      } else{
+        return view("layouts.nodata");
+      }
+    }
+
+
+
 
 	public function create()
     {
@@ -42,16 +71,10 @@ class correspondenciaController extends Controller
     }
 
 
-   
-/*
     public function prueba(){
-    echo  Correspondencia::guardarAdjunto('M-DGI-0001-07-2017','adjunto prueba');
+    echo  Correspondencia::bandejaEnviadas();
     
-}*/
-
-
-
-
+}
 
     public function store ()
     {
@@ -63,7 +86,8 @@ class correspondenciaController extends Controller
                   'id_dep'=>Input::get('id_dep'),
                   'id_dir'=>Input::get('id_dir'),
                   'id_div'=>Input::get('id_div'),
-                  'enatencion'=>Input::get('enatencion'),
+                  'ubic'=>Input::get('ubic'),
+                  'confidencialidad'=>Input::get('confidencialidad'),
                   'asunto'=>Input::get('asunto'),
                   'contenido'=>Input::get('contenido')
                 );
@@ -92,7 +116,11 @@ class correspondenciaController extends Controller
       return view("correspondencia.usrbyorg",['destinatario'=>$destinatario]);
     }
 
-    public function prueba(){
-     echo  Correspondencia::generarId(1,1,1);
+
+   public function recibidasModal($id)
+    {
+      $recibidas=Correspondencia::findOrFail($id);
+      return view("correspondencia.bandejas.recibidas.recibidas-modal",['recibidas'=>$recibidas]);
     }
+
 }

@@ -1,4 +1,4 @@
-<form action="{{asset('correspondencia/bandejas/recibidas/listRecibidas')}}" method="GET" autocomplete="off" role="search" id="Buscar">
+<form action="{{asset('correspondencia/bandejas/enviadas/listEnviadas')}}" method="GET" autocomplete="off" role="search" id="Buscar">
 <div class="form-group">
 	<div class="input-group">
 		<input type="text" class="form-control" name="" placeholder="Buscar..." value="{{$searchText}}">
@@ -8,4 +8,3 @@
 	</div>
 </div>
 </form>
-

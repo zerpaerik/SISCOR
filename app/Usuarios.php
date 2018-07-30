@@ -163,7 +163,8 @@ class Usuarios extends Model
      public static function usrbyorg($id){
              $usuario = DB::table('users as a')
                      ->where('a.estatus','=','1')
-                     ->where('a.id_org','=', $id)
+                     ->where('a.id_org','=', $id_org)
+                     ->where('a.id_dep','=', $id_dep)
                      //->where('a.id_dep','=','14')
                      ->where('a.perfil','=','10')
                      ->get();

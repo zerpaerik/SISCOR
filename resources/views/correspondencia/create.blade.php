@@ -71,7 +71,7 @@
                 <div class="form-group">
                   <label for="asunto">Asunto</label>
                   <input type="text" class="form-control" id="asunto" name="asunto"
-                    placeholder="Introduzca las siglas de la dependencia" required autocomplete="off">
+                    placeholder="Introduzca el asunto de la correspondencia" required autocomplete="off">
                 </div>
                 <div class="form-group">
                   <div class="file-field input-field">
@@ -87,15 +87,16 @@
 
 
                 <div class="form-group">
-                  <label for="asunto">Asunto</label>
+                  <label for="asunto">Contenido</label>
                     <textarea id="contenido" name="contenido">
-                      Prueba
+                    Ante todo reciba un caluroso saludo Bolivariano, Chavista y Antiimperialista, 
                     </textarea>
                 </div>
                
                 <button type="submit" class="waves-effect waves-light btn">Enviar</button>
                 <input type="reset" class="btn btn-info" value="Limpiar">
                 <button type="submit" class="waves-effect waves-light btn">Vista Previa</button>
+                <button type="submit" class="waves-effect waves-light btn">Borrador</button>
     
             </form>
           <!-- Aqui es donde va el form-->
@@ -107,7 +108,7 @@
     <script type="text/javascript">
             //Envio por ajax de formulario por id fijarse atributo id de form
             $('#create').submit(function (event) {
-        /*        var formData = {
+                var formData = {
                      //campo para controlador    //tipo de campo[name=namecampo]
                     'ubic'                         : $('select[name=ubic]').val(),
                     'id_tipo_correspondencia'      : $('select[name=id_tipo_correspondencia]').val(),
@@ -116,25 +117,20 @@
                     'id_dep'                       : $('select[name=id_dep]').val(),
                     'id_dir'                       : $('select[name=id_dir]').val(),
                     'id_div'                       : $('select[name=id_div]').val(),
-                    'enatencion'                   : $('select[name=enatencion]').val(),
                     'asunto'                       : $('input[name=descripcion]').val(),
                     'contenido'                    : $('input[name=contenido]').val(),
                     'adjunto'                      : $('#adjunto').prop('files')[0],
-                };*/
+                };
 
                 //validaciones
                 var valido=1;
                 var mensaje="";
                 //si no se ha seleccionado un organismo select tiene valor 00
-              /* if(formData['id_org']=="00"){
+              /* if (formData['asunto'].length <= 5 || formData['asunto'].length >=51){
                   valido   = 0;
-                  mensaje = "Debe seleccionar organismo";
+                  mensaje = "Verifique la longitud del asunto";
                   alert(mensaje);  
                 //si la longitud de la descripcion tiene menos de 7 o mas de 50 caracteres
-                }else if (formData['id_dep']=="00"){
-                  valido   = 0;
-                  mensaje = "Debe seleccionar dependencia";
-                  alert(mensaje);   
                 }*/
                 //si pasa todas las validaciones valido sigue siendo 1, se ejecuta form
                 if (valido == 1) {
